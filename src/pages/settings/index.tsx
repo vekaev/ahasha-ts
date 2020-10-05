@@ -9,11 +9,11 @@ export interface testDataProps extends RouteChildrenProps {
 }
 
 const Page = (props:testDataProps) => {
-    console.log(props);
+
     return (
-        <h1>User</h1>
+        <h1>Settings</h1>
     )
 
 }
 
-export const User = observer(Page);
+export const Settings = observer(Page);
