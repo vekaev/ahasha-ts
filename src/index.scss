@@ -1,14 +1,19 @@
 @import './normalize';
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font: 16px/1 'Roboto';
 }
 
 body, #root {
   height: 100vh;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .Scroll {
@@ -48,4 +53,14 @@ body, #root {
 }
 .ant-table-empty .ant-table-tbody .ant-table-cell{
   border-bottom: none;
+}
+
+a, button {
+  cursor: pointer;
+}
+
+.container {
+  min-width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
 }
