@@ -1,0 +1,6 @@
+.post-feed-preview {
+  display: grid;
+  grid-template-columns: repeat(2, calc(50% - 5px));
+  grid-gap: 10px;
+  grid-auto-rows: calc(50vw - 30px);
+}

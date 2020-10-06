@@ -3,7 +3,7 @@ import { IUserData } from "../Interfaces";
 import List, { EditProfileListItem } from "../List/List";
 import Modal, { BirthDayModal, FullNameModal } from "../Modal/Modal";
 import SexModal from "../SexModal/SexModal";
-import UserPhoto from "../UserAvatar/UserPhoto";
+import UserPhoto from "../../../components/UserPhoto/UserPhoto";
 import styles from "./EditProfile.module.scss";
 
 const EditProfile = () => {

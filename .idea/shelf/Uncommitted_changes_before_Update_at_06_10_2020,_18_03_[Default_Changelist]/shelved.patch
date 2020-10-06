@@ -1,0 +1,538 @@
+Index: src/App.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\nimport { observer } from 'mobx-react';\nimport { Switch, Route, NavLink } from 'react-router-dom';\nimport { User } from \"./pages/user\";\nimport { Settings } from \"./pages/settings\";\n// import { NavBar } from './containers/NavBar';\nimport AddPhoto from \"./pages/AddPhoto\";\n\nfunction App() {\n  // u (route) - user\n  return (\n    <>\n      <NavLink exact to='/u'>User</NavLink>\n      <NavLink to='/settings'>Settings</NavLink>\n      <Switch>\n        <Route path='/u' component={User} />\n        <Route path='/settings' component={Settings} />\n        <Route path='/add-photo' component={AddPhoto} />\n        <Route exact path='/settings' component={Settings} />\n        {/* <Redirect to='/' /> */}\n      </Switch>\n      {/* <NavBar /> */}\n    </>\n  )\n}\n\nexport default observer(App);\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/App.tsx	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ src/App.tsx	(date 1601989893344)
+@@ -1,23 +1,22 @@
+ import React from 'react';
+ import { observer } from 'mobx-react';
+-import { Switch, Route, NavLink } from 'react-router-dom';
++import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+ import { User } from "./pages/user";
+ import { Settings } from "./pages/settings";
+ // import { NavBar } from './containers/NavBar';
+-import AddPhoto from "./pages/AddPhoto";
++import AddPhoto from "./pages/addPhoto/AddPhoto";
+ 
+ function App() {
+   // u (route) - user
+   return (
+     <>
+-      <NavLink exact to='/u'>User</NavLink>
+-      <NavLink to='/settings'>Settings</NavLink>
++
+       <Switch>
+         <Route path='/u' component={User} />
+         <Route path='/settings' component={Settings} />
+-        <Route path='/add-photo' component={AddPhoto} />
++        <Route exact path='/add-photo' component={AddPhoto} />
+         <Route exact path='/settings' component={Settings} />
+-        {/* <Redirect to='/' /> */}
++        <Redirect to='/u/username' />
+       </Switch>
+       {/* <NavBar /> */}
+     </>
+Index: src/_variable.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>$primary-color: #FF441B;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/_variable.scss	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ src/_variable.scss	(date 1601988162866)
+@@ -1,1 +1,2 @@
+-$primary-color: #FF441B;
+\ No newline at end of file
++$primary-color: #FF441B;
++$color-border-grey: #EFF2F5;
+\ No newline at end of file
+Index: src/index.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@import './normalize';\n@import './variable';\n\n* {\n  box-sizing: border-box;\n}\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  font: 16px/1 'Roboto';\n}\n\nbody, #root {\n  height: 100vh;\n  width: 100%;\n  overflow-x: hidden;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\n.Scroll {\n  overflow-y: auto;\n  // padding: 0 24px;\n  height: 100%;\n}\n\n.FormSubtitle {\n  text-align: center;\n  font-size: 18px;\n  margin-bottom: 20px;\n  color: #777;\n}\n\n.Link {\n  color: #999;\n  cursor: pointer;\n  transition: color 0.2s;\n\n  &:hover {\n    text-decoration: underline;\n    color: #222;\n  }\n}\n\n.ant-table-title {\n  border-bottom: 1px solid #f0f0f0;\n  padding: 12px !important;\n}\n\n.ant-table-row{\n  cursor: pointer;\n}\n.ant-table-selection-column{\n  //pointer-events: none!important;\n}\n.ant-table-empty .ant-table-tbody .ant-table-cell{\n  border-bottom: none;\n}\n\na, button {\n  cursor: pointer;\n}\n\n.container {\n  min-width: 100%;\n  padding: 0 20px;\n  margin: 0 auto;\n}\n\n.tab-link {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  \n  span {\n    font-weight: normal;\n    font-size: 14px;\n    line-height: 16px;\n    text-align: center;\n    letter-spacing: 0.5px;\n    color: #000000;\n\n    &::after {\n      display: block;\n      margin: 9px auto 0;\n      content: '';\n      width: 26px;\n      border: 2px solid #EFF2F5;\n      border-radius: 8px;\n    }\n  }\n\n  &.active {\n    span {\n      color: $primary-color;\n\n      &::after {\n        border: 2px solid $primary-color;\n      }\n    }\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/index.scss	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ src/index.scss	(date 1601992918618)
+@@ -8,8 +8,19 @@
+ body {
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+-  font: 16px/1 'Roboto';
++  font: 16px/1 'Roboto'!important;
++
+ }
++#root{
++  max-height: 100vh;
++  display: grid;
++  grid-template-columns: 1fr;
++  grid-template-rows: min-content auto min-content;
++  main{
++    overflow-y:auto
++  }
++}
++
+ 
+ body, #root {
+   height: 100vh;
+Index: src/components/Navbar/NavBar.module.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.navigation{\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: white;\n  height: 54px;\n  &__list{\n    padding: 10px;\n    width: 100%;\n    height: 100%;\n    margin: 0;\n    padding: 0;\n    display: flex;\n    justify-content: space-between;\n    &-item{\n      list-style: none;\n      width: 20%;\n      a{\n        display:flex;\n        height: 100%;\n        width: 100%;\n        justify-content: center;\n        align-items: center;\n        svg{\n          transition: fill .2s ease;\n        }\n      }\n\n    }\n\n    .active{\n      svg {\n        transition: fill .2s ease;\n        fill: black;\n        path{\n        stroke: black;\n        }\n      }\n    }\n\n    .disabled{\n      pointer-events: none;\n      opacity: .4;\n    }\n  }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Navbar/NavBar.module.scss	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ src/components/Navbar/NavBar.module.scss	(date 1601995874679)
+@@ -1,11 +1,11 @@
+-.navigation{
+-  position: fixed;
+-  left: 0;
+-  right: 0;
+-  bottom: 0;
++.navigation {
++  border-top: 1px solid #F2F2F2;
+   background-color: white;
+-  height: 54px;
+-  &__list{
++  max-height: 54px;
++  height: 100%;
++  min-height: 54px;
++
++  &__list {
+     padding: 10px;
+     width: 100%;
+     height: 100%;
+@@ -13,33 +13,37 @@
+     padding: 0;
+     display: flex;
+     justify-content: space-between;
+-    &-item{
++
++    &-item {
+       list-style: none;
+       width: 20%;
+-      a{
+-        display:flex;
++
++      a {
++        display: flex;
+         height: 100%;
+         width: 100%;
+         justify-content: center;
+         align-items: center;
+-        svg{
++
++        svg {
+           transition: fill .2s ease;
+         }
+       }
+ 
+     }
+ 
+-    .active{
++    .active {
+       svg {
+         transition: fill .2s ease;
+         fill: black;
+-        path{
+-        stroke: black;
++
++        path {
++          stroke: black;
+         }
+       }
+     }
+ 
+-    .disabled{
++    .disabled {
+       pointer-events: none;
+       opacity: .4;
+     }
+Index: src/pages/AddPhoto.tsx
+===================================================================
+--- src/pages/AddPhoto.tsx	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ src/pages/AddPhoto.tsx	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
+@@ -1,19 +0,0 @@
+-import React from 'react';
+-import {withRouter} from "react-router-dom";
+-
+-function AddPhoto (props:any) {
+-
+-    if(props.location?.state?.img === undefined){
+-        props.history.push('/')
+-    }
+-    console.log(props.location?.state?.img);
+-
+-
+-    return (
+-        <div>
+-            <img src={props.location?.state?.img} alt="Red dot" style={{width: "100%"}}/>
+-        </div>
+-    )
+-
+-}
+-export default  withRouter(AddPhoto)
+\ No newline at end of file
+Index: src/components/Navbar/NavBar.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { ReactChild, useEffect, useState } from 'react';\nimport { NavLink, withRouter, RouteComponentProps } from \"react-router-dom\";\nimport { Chat, Home, Saved, User, Add } from '../NavIcons';\nimport styles from './NavBar.module.scss'\n\ninterface LinkProps {\n    link: string;\n    disabled?: boolean;\n    exact?: boolean;\n    children: ReactChild\n}\n\nconst LinkComponent = ({ link, disabled, children, exact }: LinkProps) => {\n    return (\n        <li className={`${styles[`navigation__list-item`]} ${disabled && styles['disabled']}`}>\n            <NavLink exact={exact} to={link} activeClassName={styles['active']}>\n                {children}\n            </NavLink>\n        </li>\n    )\n}\n\nconst UploadPhoto = ({ history }: RouteComponentProps) => {\n\n    const [img, setImg] = useState<string | ArrayBuffer | null>()\n\n    useEffect(() => {\n        if (img) {\n            history.push({\n                pathname: '/add-photo',\n                state: { img }\n            })\n        }\n    }, [img])\n\n    const onSelectFile = (e: any) => {\n        if (e.target.files && e.target.files.length > 0) {\n            const reader = new FileReader();\n            reader.addEventListener(\"load\", () => setImg(reader.result));\n            reader.readAsDataURL(e.target.files[0]);\n        }\n    }\n\n\n    return (\n        <>\n            <li className={styles[`navigation__list-item`]}>\n                <label style={\n                    {\n                        display: \"flex\",\n                        justifyContent: \"center\",\n                        alignItems: \"center\",\n                        height: \"100%\",\n                        cursor: \"pointer\"\n                    }\n                } htmlFor=\"upload__image\">\n                    <Add />\n                </label>\n                <input hidden accept=\"image/*\" id='upload__image' onChange={onSelectFile} type='file' />\n            </li>\n        </>\n    )\n}\n\nconst Upload = withRouter(UploadPhoto);\n\n\nexport const NavBar = () => {\n    return (\n        <nav className={styles['navigation']}>\n            <ul className={styles['navigation__list']}>\n                <LinkComponent exact link='/'><Home /></LinkComponent>\n                <LinkComponent link='/chat'><Chat /></LinkComponent>\n                <Upload />\n                <LinkComponent link='/saved'><Saved /></LinkComponent>\n                <LinkComponent link='/u/username'><User /></LinkComponent>\n            </ul>\n        </nav>\n    )\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Navbar/NavBar.tsx	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ src/components/Navbar/NavBar.tsx	(date 1601985627053)
+@@ -41,7 +41,6 @@
+         }
+     }
+ 
+-
+     return (
+         <>
+             <li className={styles[`navigation__list-item`]}>
+@@ -69,10 +68,10 @@
+     return (
+         <nav className={styles['navigation']}>
+             <ul className={styles['navigation__list']}>
+-                <LinkComponent exact link='/'><Home /></LinkComponent>
+-                <LinkComponent link='/chat'><Chat /></LinkComponent>
++                <LinkComponent disabled exact link='/'><Home /></LinkComponent>
++                <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
+                 <Upload />
+-                <LinkComponent link='/saved'><Saved /></LinkComponent>
++                <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
+                 <LinkComponent link='/u/username'><User /></LinkComponent>
+             </ul>
+         </nav>
+Index: src/containers/Layout/Layout.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { ReactNode } from 'react';\nimport Header, { IHeaderProps } from '../../components/Header/Header';\nimport { NavBar } from '../../components/Navbar/NavBar';\n\ninterface ILayoutProps {\n  header: IHeaderProps;\n  children: ReactNode;\n}\n\nconst Layout: React.FC<ILayoutProps> = ({ header, children }) => {\n  return (\n    <>\n      <Header\n        left={header.left}\n        onClickLeft={header.onClickLeft}\n        middle={header.middle}\n        onClickMiddle={header.onClickMiddle}\n        right={header.right}\n        onClickRight={header.onClickRight}\n      />\n      <main>{children}</main>\n      <NavBar />\n    </>\n  );\n}\n\nexport default Layout;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/containers/Layout/Layout.tsx	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ src/containers/Layout/Layout.tsx	(date 1601988480333)
+@@ -1,13 +1,14 @@
+-import React, { ReactNode } from 'react';
+-import Header, { IHeaderProps } from '../../components/Header/Header';
+-import { NavBar } from '../../components/Navbar/NavBar';
++import React, {ReactNode} from 'react';
++import Header, {IHeaderProps} from '../../components/Header/Header';
++import {NavBar} from '../../components/Navbar/NavBar';
+ 
+ interface ILayoutProps {
+   header: IHeaderProps;
+   children: ReactNode;
++  NavBarDisabled?: boolean;
+ }
+ 
+-const Layout: React.FC<ILayoutProps> = ({ header, children }) => {
++const Layout: React.FC<ILayoutProps> = ({header, children, NavBarDisabled}) => {
+   return (
+     <>
+       <Header
+@@ -19,7 +20,7 @@
+         onClickRight={header.onClickRight}
+       />
+       <main>{children}</main>
+-      <NavBar />
++      {!NavBarDisabled && <NavBar/>}
+     </>
+   );
+ }
+Index: src/pages/addPhoto/AddPhoto.module.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/pages/addPhoto/AddPhoto.module.scss	(date 1601994690891)
++++ src/pages/addPhoto/AddPhoto.module.scss	(date 1601994690891)
+@@ -0,0 +1,29 @@
++@import "../../variable.scss";
++.add-photo__page{
++  display: flex;
++  justify-content: space-between;
++  flex-direction: column;
++  height: 100%;
++  .user-image{
++    max-width: 100%;
++
++    padding: 20px;
++    border-radius: 8px;
++    border-bottom: 1px solid $color-border-grey;
++
++    img{
++      max-height: 40vh;
++      width: 100%;
++      height: 100%;
++      border-radius: 8px;
++      overflow: hidden;
++      object-fit: contain;
++    }
++  }
++  .content{
++    display: flex;
++    flex-direction: column;
++    height: 100%;
++    padding: 20px;
++  }
++}
+Index: .idea/codeStyles/codeStyleConfig.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/codeStyles/codeStyleConfig.xml	(date 1601988477374)
++++ .idea/codeStyles/codeStyleConfig.xml	(date 1601988477374)
+@@ -0,0 +1,5 @@
++<component name="ProjectCodeStyleConfiguration">
++  <state>
++    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default" />
++  </state>
++</component>
+\ No newline at end of file
+Index: src/pages/user/profile/myProfile/myProfile.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nimport React, { ReactChild } from 'react';\nimport './myProfile.scss';\nimport UserPhoto from '../../../../components/UserAvatar/UserPhoto';\nimport PreviewPost from '../../../../components/PreviewPost/PreviewPost';\nimport PostFeedPreview from '../../../../components/PostFeedPreview/PostFeedPreview';\nimport { Link, Route, Switch } from 'react-router-dom';\nimport Layout from '../../../../containers/Layout/Layout';\nimport MoreIcon from '../../../../components/Icons/MoreIcon';\n\ninterface IMyProfileProps {\n\n}\n\nconst MyProfile: React.FC<IMyProfileProps> = () => {\n  const posts: any[] = [\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n    {\n      img: 'https://images.unsplash.com/photo-1579101098056-6bf296535b8e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n    },\n  ]\n\n  const header = {\n    middle: 'Username',\n    onClickLeft: () => {\n      console.log('middle')\n    },\n    right: <MoreIcon />,\n    onClickRight: () => {\n      console.log('right')\n    }\n  }\n\n  return (\n    <Layout\n      header={header}\n    >\n      <div className='profile'>\n        <div className=\"container\">\n          <div className=\"profile-user\">\n            <div className=\"profile-user-photo\">\n              <UserPhoto\n                src='https://images.unsplash.com/photo-1591473696086-11d2478006f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'\n              />\n            </div>\n            <div className=\"profile-user-full-name\">Anna Hanney</div>\n            <div className=\"profile-user-info\">22 years, S-M</div>\n          </div>\n\n          <Switch>\n            <Route exact path=\"/u/username\">\n              <div className=\"profile-posts\">\n                <div className=\"profile-tabs\">\n                  <div className=\"profile-tabs-links-post tab-link active\">\n                    <Link to='/u/username'>\n                      <span>137 post</span>\n                    </Link>\n                  </div>\n                  <div className=\"profile-tabs-links-rank tab-link\">\n                    <Link to='/u/username/r'>\n                      <span>322 rank</span>\n                    </Link>\n                  </div>\n                </div>\n                <PostFeedPreview>\n                  {posts.map((post: { img: string, url: string }, index: number): ReactChild => {\n                    return (\n                      <PreviewPost\n                        key={index}\n                        id={index + 1}\n                        src={post.img}\n                        url={`/u/username/p/${index + 1}`}\n                      />\n                    )\n                  })}\n                </PostFeedPreview>\n              </div>\n            </Route>\n            <Route path=\"/u/username/r\">\n              <div className=\"profile-tabs\">\n                <div className=\"profile-tabs-links-post tab-link\">\n                  <Link to='/u/username'>\n                    <span>137 post</span>\n                  </Link>\n                </div>\n                <div className=\"profile-tabs-links-rank tab-link active\">\n                  <Link to='/u/username/r'>\n                    <span>322 rank</span>\n                  </Link>\n                </div>\n              </div>\n              <span>RANK</span>\n            </Route>\n          </Switch>\n        </div>\n      </div>\n    </Layout>\n  );\n}\n\nexport default MyProfile;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/pages/user/profile/myProfile/myProfile.tsx	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ src/pages/user/profile/myProfile/myProfile.tsx	(date 1601984924965)
+@@ -1,4 +1,3 @@
+-
+ import React, { ReactChild } from 'react';
+ import './myProfile.scss';
+ import UserPhoto from '../../../../components/UserAvatar/UserPhoto';
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"BranchesTreeState\">\n    <expand>\n      <path>\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n      </path>\n    </expand>\n    <select />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"7980ba78-7b8f-4c38-bb41-02f8e820e6dd\" name=\"Default Changelist\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/src/components/NavIcons.tsx\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/containers/NavBar.module.scss\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/containers/NavBar.tsx\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/pages/AddPhoto.tsx\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/package.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/package.json\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/App.tsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/App.tsx\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/pages/user/index.tsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/pages/user/index.tsx\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/yarn.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/yarn.lock\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ComposerSettings\">\n    <execution />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectId\" id=\"1iRkJEhCGvPaoEY5H5bImhroIcK\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\n    <property name=\"node.js.path.for.package.tslint\" value=\"project\" />\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\n    <property name=\"nodejs_package_manager_path\" value=\"yarn\" />\n    <property name=\"ts.external.directory.path\" value=\"$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external\" />\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/src/components\" />\n    </key>\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$\" />\n      <recent name=\"$PROJECT_DIR$/src\" />\n    </key>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"7980ba78-7b8f-4c38-bb41-02f8e820e6dd\" name=\"Default Changelist\" comment=\"\" />\n      <created>1601877717835</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1601877717835</updated>\n      <workItem from=\"1601877719057\" duration=\"3217000\" />\n      <workItem from=\"1601883292294\" duration=\"18144000\" />\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n  <component name=\"WindowStateProjectService\">\n    <state x=\"369\" y=\"112\" key=\"#com.intellij.execution.impl.EditConfigurationsDialog\" timestamp=\"1601977184946\">\n      <screen x=\"0\" y=\"0\" width=\"1440\" height=\"900\" />\n    </state>\n    <state x=\"369\" y=\"112\" key=\"#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900\" timestamp=\"1601977184946\" />\n    <state x=\"496\" y=\"190\" key=\"Vcs.Push.Dialog.v2\" timestamp=\"1601883171412\">\n      <screen x=\"0\" y=\"0\" width=\"1440\" height=\"900\" />\n    </state>\n    <state x=\"496\" y=\"190\" key=\"Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900\" timestamp=\"1601883171412\" />\n    <state x=\"783\" y=\"205\" width=\"604\" height=\"490\" key=\"find.popup\" timestamp=\"1601903840453\">\n      <screen x=\"0\" y=\"0\" width=\"1440\" height=\"900\" />\n    </state>\n    <state x=\"783\" y=\"205\" width=\"604\" height=\"490\" key=\"find.popup/0.0.1440.900@0.0.1440.900\" timestamp=\"1601903840453\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision cfdefb246fd8f4617cce168b15c4825f6919eea7)
++++ .idea/workspace.xml	(date 1601996322376)
+@@ -11,15 +11,20 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="7980ba78-7b8f-4c38-bb41-02f8e820e6dd" name="Default Changelist" comment="">
+-      <change afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/containers/NavBar.module.scss" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/containers/NavBar.tsx" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/pages/AddPhoto.tsx" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/components/Button.tsx" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/components/Components.module.scss" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/pages/addPhoto/AddPhoto.module.scss" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/pages/addPhoto/AddPhoto.tsx" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/pages/user/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/index.tsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/_variable.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_variable.scss" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavBar.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavBar.module.scss" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavBar.tsx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/containers/Layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Layout/Layout.tsx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/pages/AddPhoto.tsx" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/pages/user/profile/myProfile/myProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/profile/myProfile/myProfile.tsx" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -30,6 +35,11 @@
+     <execution />
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="master" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="ProjectId" id="1iRkJEhCGvPaoEY5H5bImhroIcK" />
+@@ -39,6 +49,7 @@
+   </component>
+   <component name="PropertiesComponent">
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
++    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+     <property name="node.js.detected.package.eslint" value="true" />
+@@ -53,6 +64,7 @@
+   </component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
++      <recent name="$PROJECT_DIR$/src/pages/addPhoto" />
+       <recent name="$PROJECT_DIR$/src/components" />
+     </key>
+     <key name="CopyFile.RECENT_KEYS">
+@@ -69,7 +81,7 @@
+       <option name="presentableId" value="Default" />
+       <updated>1601877717835</updated>
+       <workItem from="1601877719057" duration="3217000" />
+-      <workItem from="1601883292294" duration="18144000" />
++      <workItem from="1601883292294" duration="26413000" />
+     </task>
+     <servers />
+   </component>
+@@ -89,10 +101,14 @@
+     <option name="oldMeFiltersMigrated" value="true" />
+   </component>
+   <component name="WindowStateProjectService">
+-    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601977184946">
++    <state x="426" y="125" key="#TypeScript" timestamp="1601988477019">
+       <screen x="0" y="0" width="1440" height="900" />
+     </state>
+-    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1601977184946" />
++    <state x="426" y="125" key="#TypeScript/0.0.1440.900@0.0.1440.900" timestamp="1601988477019" />
++    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601996225096">
++      <screen x="0" y="0" width="1440" height="900" />
++    </state>
++    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1601996225096" />
+     <state x="496" y="190" key="Vcs.Push.Dialog.v2" timestamp="1601883171412">
+       <screen x="0" y="0" width="1440" height="900" />
+     </state>
+@@ -101,5 +117,9 @@
+       <screen x="0" y="0" width="1440" height="900" />
+     </state>
+     <state x="783" y="205" width="604" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1601903840453" />
++    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1601988142139">
++      <screen x="0" y="0" width="1440" height="900" />
++    </state>
++    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1601988142139" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/pages/addPhoto/AddPhoto.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/pages/addPhoto/AddPhoto.tsx	(date 1601995014366)
++++ src/pages/addPhoto/AddPhoto.tsx	(date 1601995014366)
+@@ -0,0 +1,41 @@
++import React, {useEffect, useRef} from 'react';
++import {withRouter} from "react-router-dom";
++import Layout from "../../containers/Layout/Layout";
++import styles from './AddPhoto.module.scss'
++import MoreIcon from "../../components/Icons/MoreIcon";
++import { Button } from '../../components/Button';
++
++function AddPhoto (props:any) {
++
++    if(props.location?.state?.img === undefined){
++        props.history.push('/')
++    }
++
++    const header = {
++        middle: 'New post',
++        right: <MoreIcon />,
++        onClickRight: () => {
++            console.log('right')
++        }
++    }
++
++
++
++    return (
++        <Layout NavBarDisabled={true} header={header}>
++            <div className={styles["add-photo__page"]}>
++              <div className={styles['user-image']}>
++                <img src={props.location?.state?.img} alt="Red dot" style={{width: "100%"}}/>
++              </div>
++              <div className={styles['content']} >
++                <div style={{marginTop:"auto"}}><Button title='Publish'></Button></div>
++
++              </div>
++            </div>
++
++
++        </Layout>
++    )
++
++}
++export default  withRouter(AddPhoto)
+\ No newline at end of file
+Index: src/components/Components.module.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Components.module.scss	(date 1601990083471)
++++ src/components/Components.module.scss	(date 1601990083471)
+@@ -0,0 +1,22 @@
++.Button{
++  display: flex;
++  justify-content: center;
++  align-items: center;
++  text-align: center;
++  max-height: 50px;
++  height: 100%;
++  min-height: 50px;
++  min-width: 50px;
++  width: 100%;
++  max-width: 100%;
++  border-radius: 8px;
++  font-weight: 500;
++  font-size: 14px;
++  line-height: 16px;
++  outline: none;
++  border: none;
++  transition: .2s ease;
++  &:active{
++    transform: scale(.95);
++  }
++}
+\ No newline at end of file
+Index: src/components/Button.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Button.tsx	(date 1601989951546)
++++ src/components/Button.tsx	(date 1601989951546)
+@@ -0,0 +1,32 @@
++import React from 'react';
++import {inspect} from "util";
++import styles from './Components.module.scss'
++
++
++interface ButtonInterface {
++  title: string
++  disabled?: boolean;
++  bcgColor?: string;
++  fontColor?: string;
++  onClick?: () => void;
++}
++
++export const Button: React.FC<ButtonInterface> = ({
++                                                    disabled,
++                                                    bcgColor,
++                                                    fontColor,
++                                                    onClick,
++                                                    title
++                                                  }) => {
++  return (
++    <button
++      className={styles['Button']}
++      disabled={disabled} onClick={onClick}
++      style={{
++        backgroundColor: bcgColor ? bcgColor : "black",
++        color: fontColor ? fontColor : "white"
++      }}>
++      {title}
++    </button>
++  );
++}

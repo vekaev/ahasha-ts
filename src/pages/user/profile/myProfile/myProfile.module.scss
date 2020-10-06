@@ -1,0 +1,73 @@
+@import '../../../../variable';
+
+.profile {
+  &-user {
+    margin-top: 16px;
+    margin-bottom: 20px;
+
+    &-photo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      margin-bottom: 12px;
+    }
+
+    &-full-name {
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 18px;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+
+    &-info {
+      font-size: 12px;
+      line-height: 14px;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #A2A9B2;
+    }
+  }
+
+  &-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 14px;
+  }
+}
+
+.tab-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  span {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #000000;
+
+    &::after {
+      display: block;
+      margin: 9px auto 0;
+      content: '';
+      width: 26px;
+      border: 2px solid #EFF2F5;
+      border-radius: 8px;
+    }
+  }
+
+  &.active {
+    span {
+      color: $primary-color;
+
+      &::after {
+        border: 2px solid $primary-color;
+      }
+    }
+  }
+}
