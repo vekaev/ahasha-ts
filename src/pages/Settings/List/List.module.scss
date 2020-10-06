@@ -1,0 +1,51 @@
+.list {
+  &-container {
+    margin-top: 20px;
+  }
+
+  &-items {
+    padding: 0px;
+    margin-bottom: 0px;
+    list-style: none;
+  }
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    color: #171d33;
+    padding: 20px;
+    border-bottom: 1px solid #eff2f5;
+
+    &-link {
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 0.5px;
+      color: #171d33;
+    }
+
+    &-btn {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      text-align: right;
+      letter-spacing: 0.5px;
+      color: #7d8793;
+      border: none;
+      background: transparent;
+      outline: none;
+
+      &:focus {
+        outline: none;
+      }
+
+      svg {
+        margin-left: 19px;
+      }
+    }
+  }
+}

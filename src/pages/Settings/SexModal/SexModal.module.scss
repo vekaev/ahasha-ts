@@ -1,0 +1,54 @@
+.sex-modal-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+.sex-modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 54px;
+
+  &-options {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+border-radius: 16px;
+
+button {
+  background: transparent;
+  border: none;
+  padding: 20px 0px;
+  border-bottom: 1px solid #EFF2F5;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+  }
+
+}
+
+.settings-btn {
+  background: transparent;
+  border: none;
+  padding: 20px 0px;
+  width: 100%;
+
+  &.sex-btn {
+    margin-top: 20px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #A2A9B2;
+  }
+}
