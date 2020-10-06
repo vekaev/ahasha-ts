@@ -8,8 +8,19 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font: 16px/1 'Roboto';
+  font: 16px/1 'Roboto'!important;
+
 }
+#root{
+  max-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content auto min-content;
+  main{
+    overflow-y:auto
+  }
+}
+
 
 body, #root {
   height: 100vh;

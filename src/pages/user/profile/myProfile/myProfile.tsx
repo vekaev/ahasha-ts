@@ -1,4 +1,3 @@
-
 import React, { ReactChild } from 'react';
 import styles from './myProfile.module.scss';
 import UserPhoto from '../../../../components/UserAvatar/UserPhoto';

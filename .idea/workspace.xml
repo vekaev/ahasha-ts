@@ -11,15 +11,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7980ba78-7b8f-4c38-bb41-02f8e820e6dd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/NavBar.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/NavBar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/AddPhoto.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Button.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Components.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/addPhoto/AddPhoto.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/addPhoto/AddPhoto.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/_variable.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/_variable.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavBar.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavBar.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/Layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/Layout/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AddPhoto.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/profile/myProfile/myProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/profile/myProfile/myProfile.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +35,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1iRkJEhCGvPaoEY5H5bImhroIcK" />
@@ -39,6 +49,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -53,6 +64,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/addPhoto" />
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -69,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601877717835</updated>
       <workItem from="1601877719057" duration="3217000" />
-      <workItem from="1601883292294" duration="18144000" />
+      <workItem from="1601883292294" duration="26818000" />
     </task>
     <servers />
   </component>
@@ -89,17 +101,37 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601977184946">
+    <state x="426" y="125" key="#TypeScript" timestamp="1601988477019">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1601977184946" />
+    <state x="426" y="125" key="#TypeScript/0.0.1440.900@0.0.1440.900" timestamp="1601988477019" />
+    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601996225096">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1601996225096" />
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1601996740550">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1601996740550" />
+    <state x="144" y="79" key="MergeDialog" timestamp="1601996652474">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="144" y="79" key="MergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1601996652474" />
     <state x="496" y="190" key="Vcs.Push.Dialog.v2" timestamp="1601883171412">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="496" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1601883171412" />
+    <state x="518" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601996610102">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="518" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1601996610102" />
     <state x="783" y="205" width="604" height="490" key="find.popup" timestamp="1601903840453">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="783" y="205" width="604" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1601903840453" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1601988142139">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1601988142139" />
   </component>
 </project>

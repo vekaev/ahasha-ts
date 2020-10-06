@@ -41,7 +41,6 @@ const UploadPhoto = ({ history }: RouteComponentProps) => {
         }
     }
 
-
     return (
         <>
             <li className={styles[`navigation__list-item`]}>
@@ -69,10 +68,10 @@ export const NavBar = () => {
     return (
         <nav className={styles['navigation']}>
             <ul className={styles['navigation__list']}>
-                <LinkComponent exact link='/'><Home /></LinkComponent>
-                <LinkComponent link='/chat'><Chat /></LinkComponent>
+                <LinkComponent disabled exact link='/'><Home /></LinkComponent>
+                <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
                 <Upload />
-                <LinkComponent link='/saved'><Saved /></LinkComponent>
+                <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
                 <LinkComponent link='/u/username'><User /></LinkComponent>
             </ul>
         </nav>

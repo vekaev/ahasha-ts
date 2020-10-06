@@ -1,9 +1,11 @@
-.navigation{
-  background-color: white;
-  height: 54px;
+.navigation {
   border-top: 1px solid #F2F2F2;
+  background-color: white;
+  max-height: 54px;
+  height: 100%;
+  min-height: 54px;
 
-  &__list{
+  &__list {
     padding: 10px;
     width: 100%;
     height: 100%;
@@ -11,33 +13,37 @@
     padding: 0;
     display: flex;
     justify-content: space-between;
-    &-item{
+
+    &-item {
       list-style: none;
       width: 20%;
-      a{
-        display:flex;
+
+      a {
+        display: flex;
         height: 100%;
         width: 100%;
         justify-content: center;
         align-items: center;
-        svg{
+
+        svg {
           transition: fill .2s ease;
         }
       }
 
     }
 
-    .active{
+    .active {
       svg {
         transition: fill .2s ease;
         fill: black;
-        path{
-        stroke: black;
+
+        path {
+          stroke: black;
         }
       }
     }
 
-    .disabled{
+    .disabled {
       pointer-events: none;
       opacity: .4;
     }

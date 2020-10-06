@@ -1,0 +1,22 @@
+.Button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-height: 50px;
+  height: 100%;
+  min-height: 50px;
+  min-width: 50px;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  outline: none;
+  border: none;
+  transition: .2s ease;
+  &:active{
+    transform: scale(.95);
+  }
+}

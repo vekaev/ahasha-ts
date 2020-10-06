@@ -1,13 +1,14 @@
-import React, { ReactNode } from 'react';
-import Header, { IHeaderProps } from '../../components/Header/Header';
-import { NavBar } from '../../components/Navbar/NavBar';
+import React, {ReactNode} from 'react';
+import Header, {IHeaderProps} from '../../components/Header/Header';
+import {NavBar} from '../../components/Navbar/NavBar';
 
 interface ILayoutProps {
   header: IHeaderProps;
   children: ReactNode;
+  NavBarDisabled?: boolean;
 }
 
-const Layout: React.FC<ILayoutProps> = ({ header, children }) => {
+const Layout: React.FC<ILayoutProps> = ({header, children, NavBarDisabled}) => {
   return (
     <>
       <Header
@@ -19,7 +20,7 @@ const Layout: React.FC<ILayoutProps> = ({ header, children }) => {
         onClickRight={header.onClickRight}
       />
       <main>{children}</main>
-      <NavBar />
+      {!NavBarDisabled && <NavBar/>}
     </>
   );
 }

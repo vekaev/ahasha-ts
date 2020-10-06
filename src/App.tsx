@@ -1,13 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Switch, Route, NavLink } from 'react-router-dom';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { User } from "./pages/user";
 import { Settings } from "./pages/settings";
-// import { NavBar } from './containers/NavBar';
-import AddPhoto from "./pages/AddPhoto";
+import AddPhoto from './pages/addPhoto/AddPhoto';
 
 function App() {
-  // u (route) - user
   return (
     <>
       <Switch>
@@ -15,9 +13,8 @@ function App() {
         <Route path='/settings' component={Settings} />
         <Route path='/add-photo' component={AddPhoto} />
         <Route exact path='/settings' component={Settings} />
-        {/* <Redirect to='/' /> */}
+        <Redirect to='/u/username'/>
       </Switch>
-      {/* <NavBar /> */}
     </>
   )
 }
