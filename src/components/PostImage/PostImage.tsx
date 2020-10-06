@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './PreviewPost.module.scss';
+import styles from './PostImage.module.scss';
 
 interface IPreviewPostProps {
   src: string;
@@ -8,7 +8,7 @@ interface IPreviewPostProps {
   id: string | number;
 }
 
-const PreviewPost: React.FC<IPreviewPostProps> = ({ src, url, id }) => {
+const PostImage: React.FC<IPreviewPostProps> = ({ src, url, id }) => {
   const image = (<img src={src} alt='preview post' />)
 
   return (
@@ -18,4 +18,4 @@ const PreviewPost: React.FC<IPreviewPostProps> = ({ src, url, id }) => {
   );
 }
 
-export default PreviewPost;
+export default PostImage;

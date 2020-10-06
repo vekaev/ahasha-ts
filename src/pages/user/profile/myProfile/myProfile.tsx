@@ -1,18 +1,19 @@
 
 import React, { ReactChild } from 'react';
-import './myProfile.scss';
+import styles from './myProfile.module.scss';
 import UserPhoto from '../../../../components/UserAvatar/UserPhoto';
-import PreviewPost from '../../../../components/PreviewPost/PreviewPost';
+import PostImage from '../../../../components/PostImage/PostImage';
 import PostFeedPreview from '../../../../components/PostFeedPreview/PostFeedPreview';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, RouteComponentProps, withRouter } from 'react-router-dom';
 import Layout from '../../../../containers/Layout/Layout';
 import MoreIcon from '../../../../components/Icons/MoreIcon';
+import joinClass from '../../../../utils/join';
 
-interface IMyProfileProps {
+// interface IMyProfileProps extends RouteComponentProps {
 
-}
+// }
 
-const MyProfile: React.FC<IMyProfileProps> = () => {
+const MyProfile: React.FC<any> = ({ history }: RouteComponentProps) => {
   const posts: any[] = [
     {
       img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'
@@ -90,12 +91,12 @@ const MyProfile: React.FC<IMyProfileProps> = () => {
 
   const header = {
     middle: 'Username',
-    onClickLeft: () => {
+    onClickMiddle: () => {
       console.log('middle')
     },
     right: <MoreIcon />,
     onClickRight: () => {
-      console.log('right')
+      history.push('/settings')
     }
   }
 
@@ -103,28 +104,28 @@ const MyProfile: React.FC<IMyProfileProps> = () => {
     <Layout
       header={header}
     >
-      <div className='profile'>
-        <div className="container">
-          <div className="profile-user">
-            <div className="profile-user-photo">
+      <div className={styles['profile']}>
+        <div className={'container'}>
+          <div className={styles['profile-user']}>
+            <div className={styles['profile-user-photo']}>
               <UserPhoto
                 src='https://images.unsplash.com/photo-1591473696086-11d2478006f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'
               />
             </div>
-            <div className="profile-user-full-name">Anna Hanney</div>
-            <div className="profile-user-info">22 years, S-M</div>
+            <div className={styles['profile-user-full-name']}>Anna Hanney</div>
+            <div className={styles['profile-user-info']}>22 years, S-M</div>
           </div>
 
           <Switch>
-            <Route exact path="/u/username">
-              <div className="profile-posts">
-                <div className="profile-tabs">
-                  <div className="profile-tabs-links-post tab-link active">
+            <Route exact path='/u/username'>
+              <div className={styles['profile-posts']}>
+                <div className={styles['profile-tabs']}>
+                  <div className={joinClass(styles['profile-tabs-links-post'], styles['tab-link'], styles['active'])}>
                     <Link to='/u/username'>
                       <span>137 post</span>
                     </Link>
                   </div>
-                  <div className="profile-tabs-links-rank tab-link">
+                  <div className={joinClass(styles['profile-tabs-links-rank'], styles['tab-link'])}>
                     <Link to='/u/username/r'>
                       <span>322 rank</span>
                     </Link>
@@ -133,7 +134,7 @@ const MyProfile: React.FC<IMyProfileProps> = () => {
                 <PostFeedPreview>
                   {posts.map((post: { img: string, url: string }, index: number): ReactChild => {
                     return (
-                      <PreviewPost
+                      <PostImage
                         key={index}
                         id={index + 1}
                         src={post.img}
@@ -144,14 +145,14 @@ const MyProfile: React.FC<IMyProfileProps> = () => {
                 </PostFeedPreview>
               </div>
             </Route>
-            <Route path="/u/username/r">
-              <div className="profile-tabs">
-                <div className="profile-tabs-links-post tab-link">
+            <Route path='/u/username/r'>
+              <div className={styles['profile-tabs']}>
+                <div className={joinClass(styles['profile-tabs-links-post'], styles['tab-link'])}>
                   <Link to='/u/username'>
                     <span>137 post</span>
                   </Link>
                 </div>
-                <div className="profile-tabs-links-rank tab-link active">
+                <div className={joinClass(styles['profile-tabs-links-rank'], styles['tab-link'], styles['active'])}>
                   <Link to='/u/username/r'>
                     <span>322 rank</span>
                   </Link>
@@ -166,4 +167,4 @@ const MyProfile: React.FC<IMyProfileProps> = () => {
   );
 }
 
-export default MyProfile;
+export default withRouter(MyProfile);

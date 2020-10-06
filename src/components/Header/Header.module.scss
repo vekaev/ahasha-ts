@@ -5,6 +5,15 @@
   width: 100%;
   height: 60px;
   border-bottom: 1px solid #EFF2F5;
+  background-color: #fff;
+  
+  &-left, &-middle, &-right {
+    cursor: pointer;
+  }
+
+  .empty {
+    cursor: initial;
+  }
 
   &-left {
     padding: 20px;

@@ -29,28 +29,34 @@ const Header: React.FC<IHeaderProps> = ({
 }) => {
   return (
     <div className={joinClass(styles.header, className || '')}>
-      <div className={joinClass(styles['header-left'], classNameLeft || '')}>
+      <div
+        className={joinClass(styles['header-left'], classNameLeft || '', (!left) ? styles['empty'] : '')}
+        onClick={onClickLeft}
+      >
         {<div
           className={styles['header-left-content']}
-          onClick={onClickLeft}
         >
           {left}
         </div>
         }
       </div>
-      <div className={joinClass(styles['header-middle'], classNameMiddle || '')}>
+      <div
+        className={joinClass(styles['header-middle'], classNameMiddle || '', (!middle) ? styles['empty'] : '')}
+        onClick={onClickMiddle}
+      >
         {<div
           className={styles['header-middle-content']}
-          onClick={onClickMiddle}
         >
           {middle}
         </div>
         }
       </div>
-      <div className={joinClass(styles['header-right'], classNameRight || '')}>
+      <div
+        className={joinClass(styles['header-right'], classNameRight || '', (!right) ? styles['empty'] : '')}
+        onClick={onClickRight}
+      >
         {<div
           className={styles['header-right-content']}
-          onClick={onClickRight}
         >
           {right}
         </div>

@@ -10,8 +10,6 @@ function App() {
   // u (route) - user
   return (
     <>
-      <NavLink exact to='/u'>User</NavLink>
-      <NavLink to='/settings'>Settings</NavLink>
       <Switch>
         <Route path='/u' component={User} />
         <Route path='/settings' component={Settings} />

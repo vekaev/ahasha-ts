@@ -1,10 +1,8 @@
 .navigation{
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-color: white;
   height: 54px;
+  border-top: 1px solid #F2F2F2;
+
   &__list{
     padding: 10px;
     width: 100%;

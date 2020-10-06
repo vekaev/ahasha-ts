@@ -4,8 +4,6 @@ import { testData } from "../../data";
 import { Route, RouteChildrenProps, Switch } from 'react-router-dom';
 import MyProfile from '../user/profile/myProfile/myProfile';
 import MyPost from './profile/myPost/myPost';
-
-
 export interface testDataProps extends RouteChildrenProps {
     test: testData;
 }
