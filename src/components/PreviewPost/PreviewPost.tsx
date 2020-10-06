@@ -5,14 +5,15 @@ import styles from './PreviewPost.module.scss';
 interface IPreviewPostProps {
   src: string;
   url?: string;
+  id: string | number;
 }
 
-const PreviewPost: React.FC<IPreviewPostProps> = ({ src, url }) => {
+const PreviewPost: React.FC<IPreviewPostProps> = ({ src, url, id }) => {
   const image = (<img src={src} alt='preview post' />)
 
   return (
-    <div className={styles['preview-post']}>
-      {(url) ? (<Link to={url}>image</Link>) : image}
+    <div data-post-id={id} className={styles['preview-post']}>
+      <Link to={`${url}`}>{image}</Link>
     </div>
   );
 }

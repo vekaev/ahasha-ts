@@ -1,8 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { testData } from "../../data";
-import { RouteChildrenProps } from 'react-router-dom';
+import { Route, RouteChildrenProps, Switch } from 'react-router-dom';
 import MyProfile from '../user/profile/myProfile/myProfile';
+import MyPost from './profile/myPost/myPost';
 
 
 export interface testDataProps extends RouteChildrenProps {
@@ -10,10 +11,17 @@ export interface testDataProps extends RouteChildrenProps {
 }
 
 const Page = (props: testDataProps) => {
-    console.log(props);
     return (
-        // <h1>User</h1>
-        <MyProfile />
+        <>
+            <Switch>
+                <Route path='/u/username/p/:id'>
+                    <MyPost />
+                </Route>
+                <Route path='/u/username'>
+                    <MyProfile />
+                </Route>
+            </Switch>
+        </>
     )
 
 }

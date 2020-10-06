@@ -11,10 +11,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7980ba78-7b8f-4c38-bb41-02f8e820e6dd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/settings/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/NavBar.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/NavBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/AddPhoto.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/user/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +52,9 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
@@ -61,7 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601877717835</updated>
       <workItem from="1601877719057" duration="3217000" />
-      <workItem from="1601883292294" duration="185000" />
+      <workItem from="1601883292294" duration="18144000" />
     </task>
     <servers />
   </component>
@@ -81,17 +89,17 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601878931055">
+    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601977184946">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1601878931055" />
+    <state x="369" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1601977184946" />
     <state x="496" y="190" key="Vcs.Push.Dialog.v2" timestamp="1601883171412">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="496" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1601883171412" />
-    <state x="783" y="205" width="604" height="490" key="find.popup" timestamp="1601877915442">
+    <state x="783" y="205" width="604" height="490" key="find.popup" timestamp="1601903840453">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="783" y="205" width="604" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1601877915442" />
+    <state x="783" y="205" width="604" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1601903840453" />
   </component>
 </project>

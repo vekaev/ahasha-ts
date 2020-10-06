@@ -1,25 +1,18 @@
 
 import React, { ReactChild } from 'react';
 import './myProfile.scss';
-import Header from '../../../../components/Header/Header';
-import MoreIcon from '../../../../components/Icons/MoreIcon';
 import UserPhoto from '../../../../components/UserAvatar/UserPhoto';
-import Tabs from '../../../../components/Tabs/Tabs';
 import PreviewPost from '../../../../components/PreviewPost/PreviewPost';
 import PostFeedPreview from '../../../../components/PostFeedPreview/PostFeedPreview';
+import { Link, Route, Switch } from 'react-router-dom';
+import Layout from '../../../../containers/Layout/Layout';
+import MoreIcon from '../../../../components/Icons/MoreIcon';
 
 interface IMyProfileProps {
 
 }
 
-{/* <UserPhoto
-            src='https://images.unsplash.com/photo-1588358641419-458f7616cbf2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'
-          /> */}
-
 const MyProfile: React.FC<IMyProfileProps> = () => {
-  // const tabList: any[] = [
-  //   { title: 'a', body: <MoreIcon /> }
-  // ];
   const posts: any[] = [
     {
       img: 'https://images.unsplash.com/photo-1525000277017-1acfe322f792?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60'
@@ -95,19 +88,22 @@ const MyProfile: React.FC<IMyProfileProps> = () => {
     },
   ]
 
+  const header = {
+    middle: 'Username',
+    onClickLeft: () => {
+      console.log('middle')
+    },
+    right: <MoreIcon />,
+    onClickRight: () => {
+      console.log('right')
+    }
+  }
+
   return (
-    <>
-      <Header
-        middle={'Username'}
-        onClickMiddle={() => {
-          console.log('middle')
-        }}
-        right={<MoreIcon />}
-        onClickRight={() => {
-          console.log('right')
-        }}
-      />
-      <main className='profile'>
+    <Layout
+      header={header}
+    >
+      <div className='profile'>
         <div className="container">
           <div className="profile-user">
             <div className="profile-user-photo">
@@ -118,23 +114,55 @@ const MyProfile: React.FC<IMyProfileProps> = () => {
             <div className="profile-user-full-name">Anna Hanney</div>
             <div className="profile-user-info">22 years, S-M</div>
           </div>
-          <div className="profile-tabs">
-            <PostFeedPreview>
-              {posts.map((post: { img: string, url: string }, index: number): ReactChild => {
-                // console.log(index)
-                return (
-                  <div key={index}>
-                    <PreviewPost
-                      src={post.img}
-                    />
+
+          <Switch>
+            <Route exact path="/u/username">
+              <div className="profile-posts">
+                <div className="profile-tabs">
+                  <div className="profile-tabs-links-post tab-link active">
+                    <Link to='/u/username'>
+                      <span>137 post</span>
+                    </Link>
                   </div>
-                )
-              })}
-            </PostFeedPreview>
-          </div>
+                  <div className="profile-tabs-links-rank tab-link">
+                    <Link to='/u/username/r'>
+                      <span>322 rank</span>
+                    </Link>
+                  </div>
+                </div>
+                <PostFeedPreview>
+                  {posts.map((post: { img: string, url: string }, index: number): ReactChild => {
+                    return (
+                      <PreviewPost
+                        key={index}
+                        id={index + 1}
+                        src={post.img}
+                        url={`/u/username/p/${index + 1}`}
+                      />
+                    )
+                  })}
+                </PostFeedPreview>
+              </div>
+            </Route>
+            <Route path="/u/username/r">
+              <div className="profile-tabs">
+                <div className="profile-tabs-links-post tab-link">
+                  <Link to='/u/username'>
+                    <span>137 post</span>
+                  </Link>
+                </div>
+                <div className="profile-tabs-links-rank tab-link active">
+                  <Link to='/u/username/r'>
+                    <span>322 rank</span>
+                  </Link>
+                </div>
+              </div>
+              <span>RANK</span>
+            </Route>
+          </Switch>
         </div>
-      </main>
-    </>
+      </div>
+    </Layout>
   );
 }
 

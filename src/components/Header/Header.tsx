@@ -2,7 +2,7 @@ import React, { ReactChild } from 'react';
 import styles from './Header.module.scss';
 import joinClass from '../../utils/join';
 
-interface IHeaderProps {
+export interface IHeaderProps {
   left?: ReactChild;
   right?: ReactChild;
   middle?: ReactChild;
