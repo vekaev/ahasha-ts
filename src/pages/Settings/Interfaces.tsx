@@ -6,7 +6,8 @@ export interface IUserData  {
   birthDay: {
     day: number,
     month: number,
-    year: number
+    year: number,
+    [index: string]: number
   },
-  sex: string
+  gender: string
 }

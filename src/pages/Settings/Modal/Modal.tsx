@@ -2,8 +2,8 @@ import React, {
   ChangeEvent,
   Dispatch,
   FormEvent,
-  SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { IUserData } from "../Interfaces";
@@ -12,13 +12,13 @@ import styles from "./Modal.module.scss";
 interface IFormModalProps {
   userData: IUserData;
   setUserData: Dispatch<IUserData>;
-  handleVisibilty: any
+  handleVisibilty: any;
 }
 
 export const FullNameModal: React.FC<IFormModalProps> = ({
   userData,
   setUserData,
-  handleVisibilty
+  handleVisibilty,
 }) => {
   const [data, setData] = useState({
     firstName: userData.firstName,
@@ -80,36 +80,138 @@ export const FullNameModal: React.FC<IFormModalProps> = ({
   );
 };
 
-export const BirthDayModal: React.FC<IFormModalProps> = ({
+export const UserNameModal: React.FC<IFormModalProps> = ({
   userData,
   setUserData,
-  handleVisibilty
+  handleVisibilty,
 }) => {
-  const [data, setData] = useState({
-    day: userData.birthDay.day,
-    month: userData.birthDay.month,
-    year: userData.birthDay.year,
-  });
+  const [userName, setUserName] = useState(userData.userName);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = event.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
+    const { value } = event.target;
+    setUserName(value);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    console.log("submit");
     setUserData({
       ...userData,
-      birthDay: {
-        ...data
-      }
+      userName: userName,
     });
 
     handleVisibilty(false);
   };
+
+  return (
+    <>
+      <form className={styles["modal-form"]} onSubmit={handleSubmit}>
+        <button
+          type="submit"
+          className={`${styles["modal-content-header-btn"]} ${styles["btn-save"]}`}
+        >
+          Save
+        </button>
+        <label className={styles["modal-form-label"]}>
+          UserName
+          <input
+            type="text"
+            name="userName"
+            className={styles["modal-form-input"]}
+            value={userName}
+            onChange={handleChange}
+          />
+        </label>
+      </form>
+    </>
+  );
+};
+
+type ITest = {
+  day: string | number,
+  month: string | number,
+  year: string | number,
+  [index: string] : string | number
+}
+
+export const BirthDayModal: React.FC<IFormModalProps> = ({
+  userData,
+  setUserData,
+  handleVisibilty,
+}) => {
+  const [data, setData] = useState<ITest>({
+    day: userData.birthDay.day,
+    month: userData.birthDay.month,
+    year: userData.birthDay.year,
+  });
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    index: number
+  ): void => {
+    const { name, value, maxLength } = event.target;
+    console.log(value)
+    if (Object.keys(data).length > index + 1) {
+      setData({
+        ...data,
+        [name]: value,
+      });
+      if (value.length >= maxLength) {
+        
+        refs[index + 1].focus();
+      }
+    } else {
+      setData({
+          ...data,
+          [name]: value,
+        });
+      if (value.length >= maxLength) {
+        // debugger
+        let test = value
+        setData(prev => ({
+          ...prev,
+          [name] : `${test}\r`
+        }))
+        refs[index].setSelectionRange(0, 0);
+        refs[index].blur()
+        
+      }
+    }
+  };
+
+  const handleFocus = (event:any) => {
+    const {name} = event.target;
+
+    setData(prev => ({
+      ...prev,
+      [name] : ""
+    }))
+
+  }
+
+  const handleBlur = (event:any) => {
+    const {name, value} : {name: string, value: string} = event.target; 
+
+    if(!value) {
+      setData(prev => ({
+        ...prev,
+        [name] : userData.birthDay[name]
+      }))
+    }
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    // setUserData({
+    //   ...userData,
+    //   birthDay: {
+    //     ...data,
+    //   },
+    // });
+
+    handleVisibilty(false);
+  };
+
+  const refs: any = {};
   return (
     <>
       <form className={styles["modal-form"]} onSubmit={handleSubmit}>
@@ -123,33 +225,45 @@ export const BirthDayModal: React.FC<IFormModalProps> = ({
           <label className={styles["modal-form-label"]}>
             Day
             <input
-              type="text"
+              type="tel"
               name="day"
               className={`${styles["modal-form-input"]} ${styles["w52"]}`}
               value={data.day}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, 0)}
+              maxLength={2}
+              ref={(ref) => (refs["0"] = ref)}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </label>
 
           <label className={styles["modal-form-label"]}>
             Month
             <input
-              type="text"
+              type="tel"
               name="month"
               className={`${styles["modal-form-input"]} ${styles["w52"]}`}
               value={data.month}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, 1)}
+              maxLength={2}
+              ref={(ref) => (refs["1"] = ref)}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </label>
 
           <label className={styles["modal-form-label"]}>
             Year
             <input
-              type="text"
+              type="tel"
               name="year"
               className={`${styles["modal-form-input"]} ${styles["w112"]}`}
               value={data.year}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, 2)}
+              maxLength={4}
+              ref={(ref) => (refs["2"] = ref)}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </label>
         </div>
@@ -159,41 +273,42 @@ export const BirthDayModal: React.FC<IFormModalProps> = ({
 };
 
 interface ModalProps {
-  visible: boolean;
   handleVisibilty?: any;
 }
 
-const Modal: React.FC<ModalProps> = ({
-  visible,
-  handleVisibilty,
-  children,
-}) => {
-  // useEffect(() => {
-  //   return () => {
-  //     handleVisibilty(false);
-  //   };
-  // });
+const Modal: React.FC<ModalProps> = ({ handleVisibilty, children }) => {
+  const popUp = useRef<any>(null);
+
+  useEffect(() => {
+    document.addEventListener("click", closeOutOfContent, false);
+
+    return () => {
+      document.removeEventListener("click", closeOutOfContent, false);
+    };
+  });
+
+  const closeOutOfContent = (event: any): void => {
+    if (!event.path.includes(popUp.current)) {
+      handleVisibilty(false);
+    }
+  };
 
   return (
-    <>
-      {visible ? (
-        <div className={styles["modal-wrapper"]}>
-          <div className={styles["modal"]}>
-            <div className={styles["modal-content"]}>
-              <div className={styles["modal-content-header"]}>
-                <button
-                  className={`${styles["modal-content-header-btn"]} ${styles["btn-cancel"]}`}
-                  onClick={() => handleVisibilty(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-              <div className={styles["modal-content-main"]}>{children}</div>
-            </div>
+    <div className={styles["modal-wrapper"]}>
+      <div className={styles["modal"]} ref={popUp}>
+        <div className={styles["modal-content"]}>
+          <div className={styles["modal-content-header"]}>
+            <button
+              className={`${styles["modal-content-header-btn"]} ${styles["btn-cancel"]}`}
+              onClick={() => handleVisibilty(false)}
+            >
+              Cancel
+            </button>
           </div>
+          <div className={styles["modal-content-main"]}>{children}</div>
         </div>
-      ) : null}
-    </>
+      </div>
+    </div>
   );
 };
 

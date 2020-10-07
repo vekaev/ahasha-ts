@@ -1,13 +1,23 @@
 import React, { ChangeEvent, useState } from "react";
 import { IUserData } from "../Interfaces";
 import List, { EditProfileListItem } from "../List/List";
-import Modal, { BirthDayModal, FullNameModal } from "../Modal/Modal";
+import Modal, {
+  BirthDayModal,
+  FullNameModal,
+  UserNameModal,
+} from "../Modal/Modal";
 import SexModal from "../SexModal/SexModal";
 import UserPhoto from "../../../components/UserPhoto/UserPhoto";
 import styles from "./EditProfile.module.scss";
+import Layout from "../../../containers/Layout/Layout";
+import BackIcon from "../../../components/Icons/BackIcon";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 
-const EditProfile = () => {
-  const [userData, setUserData] = useState({
+const EditProfile:React.FC = () => {
+
+  const history = useHistory();
+
+  const [userData, setUserData] = useState<IUserData>({
     avatar: "https://modnaya.org/uploads/posts/2013-08/1376555614_emo-stil.jpg",
     firstName: "Andrei",
     lastName: "Lukashenko",
@@ -17,11 +27,10 @@ const EditProfile = () => {
       month: 10,
       year: 1997,
     },
-    sex: "Male",
+    gender: "Male",
   });
 
-  
-  const [isOpenModal, setIsOpenModal] = useState({
+  const [OpenModal, setOpenModal] = useState({
     isVisible: false,
     modalName: "",
   });
@@ -31,40 +40,76 @@ const EditProfile = () => {
   const changeAvatar = (event: ChangeEvent<HTMLInputElement>) => {
     console.log("upload");
   };
-   
-const handleVisibilty = (command:any) => {
-  setIsOpenModal({...isOpenModal, isVisible: command})
-}
+
+  const handleVisibilty = (command: any) => {
+    setOpenModal({ ...OpenModal, isVisible: command });
+  };
+
+  const header = {
+    middle: "Edit Profile",
+    onClickMiddle: () => {
+      console.log("middle");
+    },
+    left: <BackIcon />,
+    onClickLeft: () => {
+      history.goBack();
+    },
+  };
 
   return (
-    <div>
-      <SexModal visible={isSexModalVisible} handleVisibilty={setIsSexModalVisible} userData={userData} 
-          setUserData={setUserData}/>
-      <Modal visible={isOpenModal.isVisible} handleVisibilty={handleVisibilty}>
-        {isOpenModal.modalName === "fullName" && (
-          <FullNameModal userData={userData} 
+    <Layout header={header}>
+      <div>
+        {isSexModalVisible && (<SexModal
+          handleVisibilty={setIsSexModalVisible}
+          userData={userData}
           setUserData={setUserData}
-          handleVisibilty={handleVisibilty}
+        />)}
+        
+        {OpenModal.isVisible && (
+          <Modal handleVisibilty={handleVisibilty}>
+            {OpenModal.modalName === "fullName" && (
+              <FullNameModal
+                userData={userData}
+                setUserData={setUserData}
+                handleVisibilty={handleVisibilty}
+              />
+            )}
+            {OpenModal.modalName === "birthDay" && (
+              <BirthDayModal
+                userData={userData}
+                setUserData={setUserData}
+                handleVisibilty={handleVisibilty}
+              />
+            )}
+            {OpenModal.modalName === "userName" && (
+              <UserNameModal
+                userData={userData}
+                setUserData={setUserData}
+                handleVisibilty={handleVisibilty}
+              />
+            )}
+          </Modal>
+        )}
+
+        <div className={styles["edit-profile"]}>
+          <div className={styles["edit-profile-avatar"]}>
+            <UserPhoto src={userData.avatar} />
+          </div>
+
+          <button className={styles["edit-profile-change-avatar"]}>
+            Change photo
+            <input type="file" accept="image/*" onChange={changeAvatar} />
+          </button>
+        </div>
+        <List>
+          <EditProfileListItem
+            userData={userData}
+            openModal={setOpenModal}
+            openSexModal={setIsSexModalVisible}
           />
-        )}
-        {isOpenModal.modalName === "birthDay" && (
-          <BirthDayModal userData={userData} setUserData={setUserData} handleVisibilty={handleVisibilty}/>
-        )}
-      </Modal>
-      <div className={styles["edit-profile"]}>
-        <UserPhoto src={userData.avatar} />
-
-        <button className={styles["edit-profile-change-avatar"]}>
-          Change photo
-          <input type="file" accept="image/*" onChange={changeAvatar} />
-        </button>
+        </List>
       </div>
-      <List>
-        <EditProfileListItem userData={userData} openModal={setIsOpenModal} openSexModal={setIsSexModalVisible}/>
-      </List>
-
-      
-    </div>
+    </Layout>
   );
 };
 

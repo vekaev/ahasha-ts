@@ -1,13 +1,16 @@
 import React, { Dispatch, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
-import ArrowNext from "../icons/ArrowNext";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import BackIcon from "../../../components/Icons/BackIcon";
+import Layout from "../../../containers/Layout/Layout";
+import ArrowNext from "../../../components/Icons/ArrowNext";
 import { IUserData } from "../Interfaces";
 import styles from "./List.module.scss";
 
 
 export const SettingsListItem = (props : any) => {
+
   const match = useRouteMatch();
-  const listData = [
+  const listData  = [
     { title: "Edit profile", link: `${match.path}/edit-profile` },
     { title: "Language", link: `${match.path}/edit-profile` },
     { title: "Parameters", link: `${match.path}/edit-profile` },
@@ -41,10 +44,12 @@ interface EditProfileListItemProps {
   openModal: any,
   openSexModal: any
 }
+
 export const EditProfileListItem : React.FC<EditProfileListItemProps> = ({userData, openModal, openSexModal}) => {
+  
   return (
-    <>
-      <li className={styles["list-item"]} onClick={() => openModal({isVisible: true, modalName: "fullName"})}>
+     <>
+       <li className={styles["list-item"]} onClick={() => openModal({isVisible: true, modalName: "fullName"})}>
           <label
             className={styles["list-item-link"]}
           >
@@ -58,7 +63,7 @@ export const EditProfileListItem : React.FC<EditProfileListItemProps> = ({userDa
             </button>
         </li>
 
-      <li className={styles["list-item"]}>
+      <li className={styles["list-item"]} onClick={() => openModal({isVisible: true, modalName: "userName"})}>
         <label
           className={styles["list-item-link"]}
         >
@@ -95,11 +100,11 @@ export const EditProfileListItem : React.FC<EditProfileListItemProps> = ({userDa
         <button
             className={styles["list-item-btn"]}
           >
-            {userData.sex}
+            {userData.gender}
             <ArrowNext />
           </button>
       </li>
-    </>
+     </>
   )
 };
 

@@ -7,11 +7,8 @@
   margin-bottom: 35px;
   
   &-avatar {
-    img {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-    }
+    width: 90px;
+    height: 90px;
   }
 
   &-change-avatar {
@@ -34,8 +31,4 @@
       width: 100%;
     }
   }
-}
-
-.sex-modal {
-  
 }

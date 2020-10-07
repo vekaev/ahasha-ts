@@ -1,28 +1,39 @@
 import React from "react";
 import './index.scss'
-import styles from "./Settings.module.scss";
 import List, { SettingsListItem } from "./List/List";
-import { Route, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Switch } from "react-router-dom";
 import EditProfile from "./EditProfile/EditProfile";
+import Layout from "../../containers/Layout/Layout";
+import BackIcon from "../../components/Icons/BackIcon";
 
-const Settings = () => {
-  
+const Settings = ({ history }: RouteComponentProps) => {
+
+  const header = {
+    middle: "Settings",
+    onClickMiddle: () => {
+      console.log("middle");
+    },
+    left: <BackIcon />,
+    onClickLeft: () => {
+      history.goBack();
+    },
+  };
 
   return (
     <>
-      <header className={styles["settings-header"]}>Settings</header>
-      <Switch>
-        <Route path="/settings/edit-profile">
-          <EditProfile />
-        </Route>
-        <Route exact path="/settings">
-          <List>
-            <SettingsListItem />
-          </List>
-        </Route>
-      </Switch>
-
-      <footer className={styles["settings-footer"]}>Footer</footer>
+        <Switch>
+          <Route exact path="/settings/edit-profile">
+            <EditProfile />
+          </Route>
+          <Route exact path="/settings">
+            <Layout header={header}>
+              <List>
+                <SettingsListItem />
+              </List>
+            </Layout>
+            
+          </Route>
+        </Switch>
     </>
   );
 };

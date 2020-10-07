@@ -35,7 +35,7 @@ const MyPost: React.FC<RouteComponentProps> = ({ history }) => {
     onClickMiddle: () => {
       console.log('middle')
     },
-    right: <MoreIcon />,
+    left: <MoreIcon />,
     onClickRight: () => {
       history.push('/settings')
     }
