@@ -1,17 +1,46 @@
 import React from 'react';
+import './index.scss'
 import { observer } from 'mobx-react';
 import {testData} from "../../data";
-import { RouteChildrenProps } from 'react-router-dom';
+import { Route, RouteChildrenProps, Switch, useHistory } from 'react-router-dom';
+import EditProfileContainer from './EditProfileContainer/EditProfileContainer';
+import Layout from '../../containers/Layout/Layout';
+import SettingsList from './List/SettingsList/SettingsList';
+import BackIcon from '../../components/Icons/BackIcon';
 
 
 export interface testDataProps extends RouteChildrenProps {
     test: testData;
 }
 
+
 const Page = (props:testDataProps) => {
 
+    const history = useHistory();
+
+    const header = {
+        middle: "Settings",
+        onClickMiddle: () => {
+          console.log("middle");
+        },
+        left: <BackIcon />,
+        onClickLeft: () => {
+          history.goBack();
+        },
+      };
+
     return (
-        <h1>Setting s</h1>
+        <Switch>
+          <Route exact path="/settings/edit-profile">
+            <EditProfileContainer />
+          </Route>
+          <Route exact path="/settings">
+            <Layout header={header}>
+              <SettingsList signOut={() => console.log("SIGN OUT")} />
+            </Layout>
+            
+          </Route>
+        </Switch>
     )
 
 }

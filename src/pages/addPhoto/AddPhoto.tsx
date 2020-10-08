@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React  from 'react';
 import {withRouter} from "react-router-dom";
 import Layout from "../../containers/Layout/Layout";
 import styles from './AddPhoto.module.scss'

@@ -1,9 +1,15 @@
+@import '../../media.scss';
+
 .navigation {
   border-top: 1px solid #F2F2F2;
   background-color: white;
   max-height: 54px;
   height: 100%;
   min-height: 54px;
+
+  @include  for-tablet-landscape-up {
+    display: none;
+  }
 
   &__list {
     padding: 10px;

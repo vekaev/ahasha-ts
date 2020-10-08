@@ -11,3 +11,9 @@ export interface IUserData  {
   },
   gender: string
 }
+
+export interface IModalDataProps {
+  userData:IUserData;
+  setUserData : React.Dispatch<React.SetStateAction<IUserData>>;
+  showModal(command : string):void;
+}
