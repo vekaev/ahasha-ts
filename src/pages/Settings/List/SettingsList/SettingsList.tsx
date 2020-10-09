@@ -11,56 +11,44 @@ const SettingsList: React.FC<SettingsListProps> = ({ signOut }) => {
 
   return (
     <div className={styles["list-container"]}>
-      <ul className={styles["list-items"]}>
-        <li className={styles["list-item"]}>
+      <div className={styles["list-items"]}>
           <Link
-            className={styles["list-item-link"]}
+            className={styles["list-item"]}
             to={`${match.path}/edit-profile`}
           >
             Edit profile
           </Link>
-        </li>
-        <li className={styles["list-item"]}>
           <Link
-            className={styles["list-item-link"]}
+            className={styles["list-item"]}
             to={`${match.path}/edit-profile`}
           >
             Language
           </Link>
-        </li>
-        <li className={styles["list-item"]}>
           <Link
-            className={styles["list-item-link"]}
+            className={styles["list-item"]}
             to={`${match.path}/edit-profile`}
           >
             Parameters
           </Link>
-        </li>
-        <li className={styles["list-item"]}>
           <Link
-            className={styles["list-item-link"]}
+            className={styles["list-item"]}
             to={`${match.path}/edit-profile`}
           >
             Help
           </Link>
-        </li>
-        <li className={styles["list-item"]}>
           <Link
-            className={styles["list-item-link"]}
+            className={styles["list-item"]}
             to={`${match.path}/edit-profile`}
           >
             Information
           </Link>
-        </li>
-        <li className={styles["list-item"]} onClick={signOut}>
           <Link
-            className={styles["list-item-link"]}
+            className={`${styles["list-item"]} ${styles['list-item-signout']}`}
             to={`${match.path}/edit-profile`}
           >
             Sign out
           </Link>
-        </li>
-      </ul>
+      </div>
     </div>
   );
 };

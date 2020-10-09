@@ -5,7 +5,12 @@
   align-items: center;
   padding-top: 20px;
   padding-bottom: 35px;
-  border-bottom: 1px solid #EFF2F5;;
+  border-bottom: 1px solid #EFF2F5;
+
+  @media (min-width: 950px) {
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
   
   &-avatar {
     width: 100px;

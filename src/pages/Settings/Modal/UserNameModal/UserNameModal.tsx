@@ -35,7 +35,7 @@ const UserNameModal: React.FC<IModalDataProps> = ({
           Save
         </button>
         <label className={styles["modal-form-label"]}>
-          UserName
+          Username
           <input
             type="text"
             name="userName"

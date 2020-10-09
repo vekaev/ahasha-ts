@@ -1,0 +1,48 @@
+{
+  "addPhoto": {
+    "headerTitle": "New post"
+  },
+  "settings": {
+    "headerTitle": "Settings",
+    "settingsList": {
+      "editProfile": "Edit profile",
+      "language": "Language",
+      "parameters": "Parameters",
+      "help": "Help",
+      "information": "Information",
+      "signOut": "Sign out"
+    }
+  },
+  "editProfile": {
+    "headerTitle": "Edit Profile",
+    "changePhoto": "fChange photo",
+    "editProfileList": {
+      "fullName": "Full name",
+      "userName": "Username",
+      "birthDay": "Birthday",
+      "gender": "Gender"
+    },
+    "modalWindow": {
+      "buttonCancel": "Cancel",
+      "buttonSave": "Save"
+    },
+    "formFullName": {
+      "firstName": "First Name",
+      "lastName": "Last Name"
+    },
+    "formUserName": {
+      "userName": "Username"
+    },
+    "formBirthDay": {
+      "day": "Day",
+      "month": "Month",
+      "year": "Year"
+    },
+    "formGender": {
+      "male": "Male",
+      "female": "Female",
+      "third": "Third",
+      "buttonCancel": "Cancel"
+    }
+  }
+}

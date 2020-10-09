@@ -1,17 +1,16 @@
-import React, { ChangeEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { BackIcon } from '../../../components/Icons/Icons';
-import Layout from '../../../containers/Layout/Layout';
-import EditProfile from '../EditProfile/EditProfile';
-import { IUserData } from '../Interfaces';
-import BirthDayModal from '../Modal/BirthDayModal/BirthDayModal';
-import FullNameModal from '../Modal/FullNameModal/FullNameModal';
-import GenderModal from '../Modal/GenderModal/GenderModal';
-import withModal from '../Modal/Modal';
-import UserNameModal from '../Modal/UserNameModal/UserNameModal';
+import React, { ChangeEvent, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { BackIcon } from "../../../components/Icons/Icons";
+import Layout from "../../../containers/Layout/Layout";
+import EditProfile from "../EditProfile/EditProfile";
+import { IUserData } from "../Interfaces";
+import BirthDayModal from "../Modal/BirthDayModal/BirthDayModal";
+import FullNameModal from "../Modal/FullNameModal/FullNameModal";
+import GenderModal from "../Modal/GenderModal/GenderModal";
+import withModal from "../Modal/Modal";
+import UserNameModal from "../Modal/UserNameModal/UserNameModal";
 
-
-const EditProfileContainer: React.FC = (props: any) => {
+const EditProfileContainer: React.FC<any> = (props) => {
   const history = useHistory();
 
   const [userData, setUserData] = useState<IUserData>({
@@ -28,19 +27,25 @@ const EditProfileContainer: React.FC = (props: any) => {
   });
 
   const changeAvatar = (event: ChangeEvent<HTMLInputElement>): void => {
-    console.log("upload");
+    if (event.target.files && event.target.files.length > 0) {
+      setUserData({
+        ...userData,
+        avatar: URL.createObjectURL(event.target.files[0]),
+      });
+    }
   };
 
-  const [isOpenModal, setIsOpenModal] = useState<{ flag: boolean, component: React.FC<any> }>({
+  const [isOpenModal, setIsOpenModal] = useState<{
+    flag: boolean;
+    component: React.FC<any>;
+  }>({
     flag: false,
-    component: () => null
+    component: () => null,
   });
 
-  let ModalWindow: any = isOpenModal.component;
-
+  let ModalWindow: React.FC<any> = isOpenModal.component;
 
   const showModal = (command: string) => {
-
     let component: React.FC<any> = () => null;
 
     switch (command) {
@@ -59,21 +64,22 @@ const EditProfileContainer: React.FC = (props: any) => {
       case "close":
         setIsOpenModal({
           flag: false,
-          component: () => null
-        })
+          component: () => null,
+        });
         return;
       default:
         setIsOpenModal({
           flag: false,
-          component: () => null
+          component: () => null,
         });
+        return;
     }
 
     setIsOpenModal({
       flag: true,
-      component: component
-    })
-  }
+      component: component,
+    });
+  };
 
   const header = {
     middle: "Edit Profile",
@@ -88,11 +94,20 @@ const EditProfileContainer: React.FC = (props: any) => {
 
   return (
     <Layout header={header}>
-      {isOpenModal.flag && <ModalWindow showModal={showModal} userData={userData} setUserData={setUserData} />}
-      <EditProfile userData={userData} changeAvatar={changeAvatar} showModal={showModal} />
+      {isOpenModal.flag && (
+        <ModalWindow
+          showModal={showModal}
+          userData={userData}
+          setUserData={setUserData}
+        />
+      )}
+      <EditProfile
+        userData={userData}
+        changeAvatar={changeAvatar}
+        showModal={showModal}
+      />
     </Layout>
-
-  )
-}
+  );
+};
 
 export default EditProfileContainer;

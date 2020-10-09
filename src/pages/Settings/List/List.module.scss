@@ -17,12 +17,10 @@
     padding: 20px;
     border-bottom: 1px solid #eff2f5;
 
-    &-link {
-      font-weight: bold;
-      font-size: 14px;
-      line-height: 16px;
-      letter-spacing: 0.5px;
-      color: #171d33;
+    &-signout {
+      color: #A2A9B2;
+      border-bottom: none;
+      padding: 40px 20px 20px;
     }
 
     &-btn {

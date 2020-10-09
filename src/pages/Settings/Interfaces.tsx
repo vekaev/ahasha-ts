@@ -1,5 +1,5 @@
 export interface IUserData {
-  avatar: string,
+  avatar: string
   firstName: string,
   lastName: string,
   userName: string,

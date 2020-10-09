@@ -7,14 +7,16 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
   setUserData,
   showModal,
 }) => {
-
   const [data, setData] = useState({
     day: userData.birthDay.day,
     month: userData.birthDay.month,
     year: userData.birthDay.year,
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, index: number): void => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ): void => {
     const { name, value, maxLength } = event.target;
 
     if (Object.keys(data).length > index + 1) {
@@ -23,47 +25,44 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
         [name]: value,
       });
       if (value.length >= maxLength) {
-        
         refs[index + 1].focus();
       }
     } else {
       setData({
-          ...data,
-          [name]: value,
-        });
+        ...data,
+        [name]: value,
+      });
       if (value.length >= maxLength) {
-        let test = value
-        setData(prev => ({
+        let test = value;
+        setData((prev) => ({
           ...prev,
-          [name] : `${test}\r`
-        }))
+          [name]: `${test}\r`,
+        }));
         refs[index].setSelectionRange(0, 0);
-        refs[index].blur()
-        
+        refs[index].blur();
       }
     }
   };
 
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) : void => {
-    const {name} = event.target;
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
+    const { name } = event.target;
 
-    setData(prev => ({
+    setData((prev) => ({
       ...prev,
-      [name] : ""
-    }))
+      [name]: "",
+    }));
+  };
 
-  }
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
+    const { name, value }: { name: string; value: string } = event.target;
 
-  const handleBlur = (event : React.FocusEvent<HTMLInputElement>) : void => {
-    const {name, value} : {name: string, value: string} = event.target; 
-
-    if(!value) {
-      setData(prev => ({
+    if (!value) {
+      setData((prev) => ({
         ...prev,
-        [name] : userData.birthDay[name]
-      }))
+        [name]: userData.birthDay[name],
+      }));
     }
-  }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();

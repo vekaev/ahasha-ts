@@ -9,7 +9,7 @@ const GenderModal: React.FC<IModalDataProps> = ({
 }) => {
   const popUp = useRef<any>(null);
 
-  const handleClick = (event: any) => {
+  const handleClick = (event: any): void => {
     const value = event.target.innerHTML;
     setUserData({
       ...userData,
@@ -34,11 +34,11 @@ const GenderModal: React.FC<IModalDataProps> = ({
   };
   return (
     <div className={styles["sex-modal-wrapper"]}>
-      <div className={`${styles["sex-modal"]}`}>
+      <div className={`${styles["sex-modal"]}`} ref={popUp}>
         <div className={styles["sex-modal-options"]}>
           <button onClick={handleClick}>Male</button>
           <button onClick={handleClick}>Female</button>
-          <button onClick={handleClick}>Undetermined</button>
+          <button onClick={handleClick}>Third</button>
         </div>
 
         <div className={styles["test"]}>
