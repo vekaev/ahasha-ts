@@ -12,7 +12,7 @@ function App() {
         <Route path='/u' component={User} />
         <Route path='/settings' component={Settings} />
         <Route path='/add-photo' component={AddPhoto} />
-        <Redirect to='/u/username'/>
+        <Redirect to='/' />
       </Switch>
     </>
   )

@@ -1,4 +1,4 @@
-export interface IUserData  {
+export interface IUserData {
   avatar: string,
   firstName: string,
   lastName: string,
@@ -13,7 +13,20 @@ export interface IUserData  {
 }
 
 export interface IModalDataProps {
-  userData:IUserData;
-  setUserData : React.Dispatch<React.SetStateAction<IUserData>>;
-  showModal(command : string):void;
+  userData: IUserData;
+  setUserData: React.Dispatch<React.SetStateAction<IUserData>>;
+  showModal(command: string): void;
+}
+
+export interface IUser {
+  mainPhoto: string;
+  quantityPosts: number;
+  rank?: number;
+  firstName: string;
+  lastName: string;
+  username: string;
+  age: number | string;
+  size: string;
+  readonly fullName: string;
+  readonly info: string;
 }

@@ -1,0 +1,42 @@
+@import '../../variable';
+
+.like {
+  display: inline-block;
+  cursor: pointer;
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+  }
+
+  &-icon {
+    margin-right: 5px;
+
+    svg {
+      path {
+        transition: stroke 0.2s ease, fill 0.2s ease;
+        fill: rgba(0,0,0,0);
+        stroke: #000;
+      }
+    }
+  
+    &.active {
+      svg {
+        path {
+          transition: stroke 0.2s ease, fill 0.2s ease;
+          fill: $primary-color;
+          stroke: $primary-color;
+        }
+      }
+    }
+  }
+
+  &-counter {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #000000;
+  }
+}

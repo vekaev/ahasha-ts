@@ -1,9 +1,19 @@
-@import '../../../../variable';
+@import '../../../variable';
 
 .profile {
+  height: 100%;
+
+  &-user-wrapper {
+    height: 100%;
+  }
+
   &-user {
-    margin-top: 16px;
+    padding-top: 16px;
     margin-bottom: 20px;
+
+    @media (min-width: 950px) {
+      padding-top: 30px;
+    }
 
     &-photo {
       width: 100px;
@@ -20,6 +30,10 @@
       letter-spacing: 0.5px;
       color: #000000;
       margin-bottom: 2px;
+
+      @media (min-width: 950px) {
+        margin-bottom: 6px;
+      }
     }
 
     &-info {
@@ -35,6 +49,41 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 14px;
+
+    @media (min-width: 950px) {
+      max-width: 200px;
+      justify-content: space-between;
+      margin: 0 auto 24px;
+    }
+  }
+
+  &-posts {
+    &-empty {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10%;
+
+      p {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 14px;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #A2A9B2;
+      }
+
+      svg {
+        rect {
+          fill: $primary-color;
+        }
+
+        g {
+          stroke: #fff;
+        }
+      }
+    }
   }
 }
 
@@ -50,6 +99,7 @@
     text-align: center;
     letter-spacing: 0.5px;
     color: #000000;
+    user-select: none;
 
     &::after {
       display: block;
@@ -57,6 +107,7 @@
       content: '';
       width: 26px;
       border: 2px solid #EFF2F5;
+      background-color: #EFF2F5;
       border-radius: 8px;
     }
   }
@@ -67,6 +118,7 @@
 
       &::after {
         border: 2px solid $primary-color;
+        background-color: $primary-color;
       }
     }
   }

@@ -1,0 +1,59 @@
+@import '../../../variable';
+@import '../myProfile/myProfile.module.scss';
+
+.profile {
+  &-user {
+    display: flex;
+    justify-content: center;
+
+    &-follow-btn, &-chat-btn {
+      margin-top: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background-color: #FFEEF0;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &.disabled {
+        background-color: #EFF2F5;
+        cursor: initial;
+
+        svg {
+          fill: #A2A9B2;
+        }
+        g {
+          stroke: #A2A9B2;
+        }
+      }
+    }
+
+    &-follow-btn {
+      margin-right: 34px;
+    } 
+
+    &-chat-btn {
+      margin-left: 34px;
+    }
+  }
+
+  &-posts {
+    
+    &-empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        font-weight: normal;
+      font-size: 14px;
+      line-height: 14px;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #A2A9B2;
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@
   height: 100%;
   min-height: 54px;
 
-  @include  for-tablet-landscape-up {
+  @media  (min-width: 950px) {
     display: none;
   }
 

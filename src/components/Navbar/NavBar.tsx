@@ -1,6 +1,7 @@
 import React, { ReactChild, useEffect, useState } from 'react';
 import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
-import { Chat, Home, Saved, User, Add } from '../NavIcons';
+import { IUser } from '../../pages/Settings/Interfaces';
+import { Chat, Home, Saved, User, Add } from '../Icons/Icons';
 import styles from './NavBar.module.scss'
 
 interface LinkProps {
@@ -20,7 +21,7 @@ const LinkComponent = ({ link, disabled, children, exact }: LinkProps) => {
     )
 }
 
-const UploadPhoto = ({ history }: RouteComponentProps) => {
+const UploadPhoto: React.FC<any> = ({ history, children, className }) => {
 
     const [img, setImg] = useState<string | ArrayBuffer | null>()
 
@@ -43,7 +44,7 @@ const UploadPhoto = ({ history }: RouteComponentProps) => {
 
     return (
         <>
-            <li className={styles[`navigation__list-item`]}>
+            <li className={className ? className : styles[`navigation__list-item`]}>
                 <label style={
                     {
                         display: "flex",
@@ -53,7 +54,7 @@ const UploadPhoto = ({ history }: RouteComponentProps) => {
                         cursor: "pointer"
                     }
                 } htmlFor="upload__image">
-                    <Add />
+                    {children ? children : <Add />}
                 </label>
                 <input hidden accept="image/*" id='upload__image' onChange={onSelectFile} type='file' />
             </li>
@@ -61,10 +62,18 @@ const UploadPhoto = ({ history }: RouteComponentProps) => {
     )
 }
 
-const Upload = withRouter(UploadPhoto);
+export const Upload = withRouter(UploadPhoto);
 
+interface INavBarProps {
+    user?: IUser;
+    myUsername?: string;
+}
 
-export const NavBar = () => {
+export const NavBar: React.FC<INavBarProps> = ({ user, myUsername }) => {
+    if (!user) {
+        return null;
+    }
+
     return (
         <nav className={styles['navigation']}>
             <ul className={styles['navigation__list']}>
@@ -72,7 +81,7 @@ export const NavBar = () => {
                 <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
                 <Upload />
                 <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
-                <LinkComponent link='/u/username'><User /></LinkComponent>
+                <LinkComponent exact link={(myUsername) ? `/u/${myUsername}` : `/u/${user.username}`}><User /></LinkComponent>
             </ul>
         </nav>
     )
