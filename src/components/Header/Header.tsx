@@ -1,4 +1,4 @@
-import React, { ReactChild, useState } from 'react';
+import React, { ReactChild, useContext, useState } from 'react';
 import styles from './Header.module.scss';
 import joinClass from '../../utils/join';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { Logotype } from '../SvgImages/SvgImages';
 import { Upload } from '../../components/Navbar/NavBar';
 import UserPhoto from '../UserPhoto/UserPhoto';
 import { IUser } from '../../pages/Settings/Interfaces';
+import { UserDataContext } from '../UserDataContext/UserDataContext';
 
 export interface IHeaderProps {
   left?: ReactChild;
@@ -19,8 +20,6 @@ export interface IHeaderProps {
   onClickLeft?: () => void;
   onClickRight?: () => void;
   onClickMiddle?: () => void;
-  user?: IUser;
-  myUsername?: string;
 }
 
 const Header: React.FC<IHeaderProps> = ({
@@ -34,9 +33,9 @@ const Header: React.FC<IHeaderProps> = ({
   onClickLeft,
   onClickRight,
   onClickMiddle,
-  user,
-  myUsername,
 }) => {
+  const user: IUser = useContext(UserDataContext);
+
   return (
     <>
       <div className={joinClass(styles.header, className || '')}>
@@ -90,9 +89,11 @@ const Header: React.FC<IHeaderProps> = ({
               </li>
             </ul>
             <div className={styles['header-desktop-left-new-post']}>
-              <Upload className={styles['header-desktop-left-new-post-button']}>
-                <span>+ New Post</span>
-              </Upload>
+              {user ? (
+                <Upload className={styles['header-desktop-left-new-post-button']}>
+                  <span>+ New Post</span>
+                </Upload>
+              ) : (null)}
             </div>
           </div>
           <div className={styles['header-desktop-logo']}>
@@ -115,17 +116,20 @@ const Header: React.FC<IHeaderProps> = ({
                 {/* </Link> */}
               </div>
             </div>
-            <div className={styles['header-desktop-right-profile']}>
-              {user ? (<Link to={`/u/${myUsername}`}>
-                <UserPhoto
-                  src={user?.mainPhoto}
-                />
-              </Link>) : (
-                  <a href='https://ahasha.com/sign-in'>
-                    Sign-in
+            {user ? (
+              <div className={styles['header-desktop-right-profile']}>
+                <Link to={`/u/${user?.username}`}>
+                  <UserPhoto
+                    src={user?.mainPhoto}
+                  />
+                </Link>
+              </div>) : (
+                <div className={styles['header-desktop-right-profile-none']}>
+                  <a href='https://www.ahasha.com/sign-in'>
+                    Sign In
                   </a>
-                )}
-            </div>
+                </div>
+              )}
           </div>
         </div>
       </div>

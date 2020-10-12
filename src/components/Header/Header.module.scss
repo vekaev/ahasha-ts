@@ -183,6 +183,15 @@
       width: 40px;
       min-height: 40px;
       height: 40px;
+
+      &-none {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 18px;
+        display: flex;
+        align-items: center;
+        color: $primary-color;
+      }
     }
   }
 }

@@ -11,23 +11,6 @@ export interface testDataProps extends RouteChildrenProps {
 }
 
 const Page = (props: testDataProps) => {
-    const user: IUser = {
-        mainPhoto: 'https://images.unsplash.com/photo-1591473696086-11d2478006f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60',
-        quantityPosts: 16,
-        firstName: 'Anna',
-        lastName: 'Hanney',
-        username: 'anna_hanney',
-        age: '25',
-        size: 'S-M',
-        get fullName() {
-            return `${this.firstName} ${this.lastName}`;
-        },
-        get info() {
-            return `${this.age} years, ${this.size}`;
-        },
-    }
-
-
     return (
         <>
             <Switch>
@@ -35,7 +18,7 @@ const Page = (props: testDataProps) => {
                     <PostContainer />
                 </Route>
                 <Route path={`/u/`}>
-                    <ProfileContainer user={user} />
+                    <ProfileContainer />
                 </Route>
             </Switch>
         </>

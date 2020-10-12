@@ -35,11 +35,9 @@ const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, user
         onClickMiddle={header.onClickMiddle}
         right={header.right}
         onClickRight={header.onClickRight}
-        user={user}
-        myUsername={myUsername}
       />
       <main>{children}</main>
-      {!NavBarDisabled && <NavBar user={user} myUsername={myUsername} />}
+      {!NavBarDisabled && <NavBar />}
     </>
   );
 }

@@ -20,63 +20,59 @@ const MyPost: React.FC<any> = ({ history, user, post, myUsername }) => {
     // counter: post?.likes,
   });
 
-  const header = {
-    left: <BackIcon />,
-    onClickLeft: () => {
-      history.goBack();
-    },
-    middle: 'Publication',
-    right: <span style={{ opacity: .4, lineHeight: 0, marginTop: -2 }}><MoreIcon /></span>,
-    // onClickRight: () => {
-    //   history.push('/settings')
-    // }
+  if (!post) {
+    return (
+      <div className="container">
+        <p
+          style={{
+            display: 'block',
+            textAlign: 'center',
+            marginTop: '150px',
+          }}
+        >Post not found</p>
+      </div>
+    );
   }
 
   return (
-    <Layout
-      header={header}
-      user={user}
-      myUsername={myUsername}
-    >
-      <div className={styles['post']}>
-        <div className='container'>
-          <div className={styles['post-user']}>
-            <div className={styles['post-user-photo']}>
+    <div className={styles['post']}>
+      <div className='container'>
+        <div className={styles['post-user']}>
+          <div className={styles['post-user-photo']}>
+            <Link to={`/u/${user?.username}`}>
+              <UserPhoto
+                src={user?.mainPhoto}
+              />
+            </Link>
+          </div>
+          <div className={styles['post-user-info']}>
+            <div className={styles['post-user-info-full-name']}>
               <Link to={`/u/${user?.username}`}>
-                <UserPhoto
-                  src={user?.mainPhoto}
-                />
+                {user?.fullName}
               </Link>
             </div>
-            <div className={styles['post-user-info']}>
-              <div className={styles['post-user-info-full-name']}>
-                <Link to={`/u/${user?.username}`}>
-                  {user?.fullName}
-                </Link>
-              </div>
-              <div className={styles['post-user-info-descripiton']}>
-                {user?.info}
-              </div>
-            </div>
-          </div>
-          <div className={styles['post-image']}>
-            <img src={post?.img} alt="" />
-          </div>
-          <div className={styles['post-actions']}>
-            <div className={styles['post-actions-like']}>
-              <Like
-                icon={like.icon}
-                // counter={like.counter}
-                setLike={setLike}
-              />
-            </div>
-            <div className={styles['post-actions-saved']}>
-              <Saved />
+            <div className={styles['post-user-info-descripiton']}>
+              {user?.info}
             </div>
           </div>
         </div>
+        <div className={styles['post-image']}>
+          <img src={post?.img} alt="" />
+        </div>
+        <div className={styles['post-actions']}>
+          <div className={styles['post-actions-like']}>
+            <Like
+              icon={like.icon}
+              // counter={like.counter}
+              setLike={setLike}
+            />
+          </div>
+          <div className={styles['post-actions-saved']}>
+            <Saved />
+          </div>
+        </div>
       </div>
-    </Layout>
+    </div>
   );
 }
 

@@ -1,4 +1,13 @@
 .list {
+
+  &-container {
+    @media (min-width: 950px) {
+      padding-top: 80px;
+      max-width: 375px;
+      margin: 0 auto;
+    }
+  }
+
   &-items {
     padding: 0px;
     margin-top: 0px;

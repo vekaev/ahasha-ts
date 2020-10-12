@@ -1,4 +1,4 @@
-import React, { ReactChild } from 'react';
+import React, { ReactChild, useContext } from 'react';
 import styles from './Profile.module.scss';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import PostImage from '../../../components/PostImage/PostImage';
@@ -7,10 +7,12 @@ import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import Layout from '../../../containers/Layout/Layout';
 import { Add, BackIcon, Chat, MoreIcon } from '../../../components/Icons/Icons';
 import joinClass from '../../../utils/join';
+import { IUser } from '../../Settings/Interfaces';
+import { UserDataContext } from '../../../components/UserDataContext/UserDataContext';
 
 // interface IMyProfileProps {
 //   history: RouteComponentProps;
-//   user: {}
+//   anotherUser: {}
 //   posts: [
 //     {
 //       id: number,
@@ -21,13 +23,19 @@ import joinClass from '../../../utils/join';
 //   ];
 // }
 
-const Profile: React.FC<any> = ({ history, user, posts, myUsername }) => {
+const Profile: React.FC<any> = ({
+  history,
+  anotherUser,
+  posts,
+}) => {
+  const user: IUser = useContext(UserDataContext);
+
   const header = {
     left: <BackIcon />,
     onClickLeft: () => {
       history.goBack();
     },
-    middle: user?.username || 'profile',
+    middle: anotherUser?.username || 'profile',
     right: <span style={{ opacity: .4, lineHeight: 0, marginTop: -2 }}><MoreIcon /></span>,
     // onClickRight: () => {
     //   history.push('/settings')
@@ -45,7 +53,6 @@ const Profile: React.FC<any> = ({ history, user, posts, myUsername }) => {
     <Layout
       header={header}
       user={user}
-      myUsername={myUsername}
     >
       <div className={styles['profile']}>
         <div className={joinClass(styles['profile-user-wrapper'], 'container')} >
@@ -59,11 +66,11 @@ const Profile: React.FC<any> = ({ history, user, posts, myUsername }) => {
             <div>
               <div className={styles['profile-user-photo']}>
                 <UserPhoto
-                  src={user.mainPhoto}
+                  src={anotherUser.mainPhoto}
                 />
               </div>
-              <div className={styles['profile-user-full-name']}>{user?.fullName}</div>
-              <div className={styles['profile-user-info']}>{user?.info}</div>
+              <div className={styles['profile-user-full-name']}>{anotherUser?.fullName}</div>
+              <div className={styles['profile-user-info']}>{anotherUser?.info}</div>
             </div>
             <div
               className={joinClass(styles['profile-user-chat-btn'], styles['disabled'])}
@@ -74,17 +81,17 @@ const Profile: React.FC<any> = ({ history, user, posts, myUsername }) => {
           </div>
 
           <Switch>
-            <Route exact path={`/u/${user.username}`}>
+            <Route exact path={`/u/${anotherUser.username}`}>
               <div className={styles['profile-posts']}>
                 <div className={styles['profile-tabs']}>
                   <div className={joinClass(styles['profile-tabs-links-post'], styles['tab-link'], styles['active'])}>
-                    <Link to={`/u/${user.username}`}>
-                      <span>{user?.quantityPosts} post</span>
+                    <Link to={`/u/${anotherUser.username}`}>
+                      <span>{anotherUser?.quantityPosts} post</span>
                     </Link>
                   </div>
                   <div className={joinClass(styles['profile-tabs-links-rank'], styles['tab-link'])}>
-                    {/* <Link to={`/u/${user.username}/r`}> */}
-                    <span style={{ color: '#CACFD4' }}>{user?.rank || ''} rank</span>
+                    {/* <Link to={`/u/${anotherUser.username}/r`}> */}
+                    <span style={{ color: '#CACFD4' }}>{anotherUser?.rank || ''} rank</span>
                     {/* </Link> */}
                   </div>
                 </div>
@@ -94,11 +101,10 @@ const Profile: React.FC<any> = ({ history, user, posts, myUsername }) => {
                       <Link
                         key={index}
                         to={{
-                          pathname: `/u/${user.username}/p/${(post.id)}`,
+                          pathname: `/u/${anotherUser.username}/p/${(post.id)}`,
                           state: {
-                            user,
+                            user: anotherUser,
                             post,
-                            myUsername,
                           }
                         }}>
                         <PostImage
@@ -115,16 +121,16 @@ const Profile: React.FC<any> = ({ history, user, posts, myUsername }) => {
                   )}
               </div>
             </Route>
-            <Route path={`/u/${user.username}/r`}>
+            <Route path={`/u/${anotherUser.username}/r`}>
               <div className={styles['profile-tabs']}>
                 <div className={joinClass(styles['profile-tabs-links-post'], styles['tab-link'])}>
-                  <Link to={`/u/${user.username}`}>
+                  <Link to={`/u/${anotherUser.username}`}>
                     <span>{posts?.length || 0} post</span>
                   </Link>
                 </div>
                 <div className={joinClass(styles['profile-tabs-links-rank'], styles['tab-link'], styles['active'])}>
-                  <Link to={`/u/${user.username}/r`}>
-                    <span>{user?.rank} rank</span>
+                  <Link to={`/u/${anotherUser.username}/r`}>
+                    <span>{anotherUser?.rank} rank</span>
                   </Link>
                 </div>
               </div>
