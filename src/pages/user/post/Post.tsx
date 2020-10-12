@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useParams, withRouter, RouteComponentProps, Link } from 'react-router-dom';
-import { BackIcon, MoreIcon, Saved } from '../../../components/Icons/Icons';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
+import { Saved } from '../../../components/Icons/Icons';
 import Like from '../../../components/Like/Like';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
-import Layout from '../../../containers/Layout/Layout';
 import styles from './Post.module.scss';
 import { Location } from 'history';
 import { StaticContext } from 'react-router';
@@ -57,7 +56,7 @@ const MyPost: React.FC<any> = ({ history, user, post, myUsername }) => {
           </div>
         </div>
         <div className={styles['post-image']}>
-          <img src={post?.img} alt="" />
+          <img src={post?.img} alt="ahasha models" />
         </div>
         <div className={styles['post-actions']}>
           <div className={styles['post-actions-like']}>

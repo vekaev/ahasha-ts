@@ -1,8 +1,7 @@
-import React, { ReactChild, useContext, useEffect, useState } from 'react';
-import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
+import React, { ReactChild, useEffect, useState } from 'react';
+import { NavLink, withRouter } from "react-router-dom";
 import { IUser } from '../../pages/Settings/Interfaces';
 import { Chat, Home, Saved, User, Add } from '../Icons/Icons';
-import { UserDataContext } from '../UserDataContext/UserDataContext';
 import styles from './NavBar.module.scss'
 
 interface LinkProps {
@@ -65,8 +64,11 @@ const UploadPhoto: React.FC<any> = ({ history, children, className }) => {
 
 export const Upload = withRouter(UploadPhoto);
 
-export const NavBar: React.FC = () => {
-    const user: IUser = useContext(UserDataContext);
+interface INavBarProps {
+    user: IUser;
+}
+
+export const NavBar: React.FC<INavBarProps> = ({ user }) => {
     const [profileVisible, setProfileVisible] = useState(true);
 
     useEffect(() => {

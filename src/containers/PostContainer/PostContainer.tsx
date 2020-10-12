@@ -1,8 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
 import Post from '../../pages/user/post/Post';
 import Layout from '../Layout/Layout';
+
+// TODO: universal hoc
+// const userContainer = (Component) => (props) => {
+//   const user: IUser = useContext(UserDataContext);
+//   return <Component {...props} user={user} />;
+// }
+
+// userContainer(
+//   profileContainer(
+//     Profile,
+//   )
+// );
 
 const PostContainer: React.FC<any> = ({ history, location }) => {
   const [post, setPost] = useState(location?.state?.post);

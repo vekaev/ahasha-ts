@@ -1,8 +1,8 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { useContext } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { UserDataContext } from '../../components/UserDataContext/UserDataContext';
 import { IUser } from '../../pages/Settings/Interfaces';
-import MyProfile from '../../pages/user/myProfile/MyProfile';
+import MyProfile from '../../pages/user/my-profile/MyProfile';
 import Profile from '../../pages/user/profile/Profile';
 
 const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
@@ -15,10 +15,6 @@ const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
   // MYPROFILE
   // 
   if (user?.username === pathUsername) {
-    // useEffect(() => {
-    //   // server request
-    // })
-
     posts = [
       {
         id: 1,
@@ -126,6 +122,10 @@ const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
     },
   }
 
+  if (!pathUsername !== anotherUser.username) {
+    history.push('/');
+  }
+
   posts = [
     {
       id: 1,
@@ -217,6 +217,7 @@ const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
     <Profile
       posts={posts}
       anotherUser={anotherUser}
+      user={user}
     />
   );
 }

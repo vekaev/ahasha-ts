@@ -27,8 +27,8 @@ const Profile: React.FC<any> = ({
   history,
   anotherUser,
   posts,
+  user,
 }) => {
-  const user: IUser = useContext(UserDataContext);
 
   const header = {
     left: <BackIcon />,
@@ -46,9 +46,9 @@ const Profile: React.FC<any> = ({
     console.log('following');
   }
 
-  const chatClickHandler = (): void => {
-    console.log('chat');
-  }
+  // const chatClickHandler = (): void => {
+  //   console.log('chat');
+  // }
   return (
     <Layout
       header={header}

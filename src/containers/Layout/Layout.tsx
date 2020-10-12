@@ -1,7 +1,8 @@
 import React, { ReactNode, useEffect } from 'react';
-import Header, { IHeaderProps } from '../../components/Header/Header';
-import { NavBar } from '../../components/Navbar/NavBar';
+import { IHeaderProps } from '../../components/Header/Header';
 import { IUser } from '../../pages/Settings/Interfaces';
+import HeaderContainer from '../HeaderContainer/HeaderContainer';
+import NavbarContainer from '../NavbarContainer/NavbarContainer';
 
 interface ILayoutProps {
   header: IHeaderProps;
@@ -28,7 +29,7 @@ const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, user
 
   return (
     <>
-      <Header
+      <HeaderContainer
         left={header.left}
         onClickLeft={header.onClickLeft}
         middle={header.middle}
@@ -37,7 +38,7 @@ const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, user
         onClickRight={header.onClickRight}
       />
       <main>{children}</main>
-      {!NavBarDisabled && <NavBar />}
+      {!NavBarDisabled && <NavbarContainer />}
     </>
   );
 }

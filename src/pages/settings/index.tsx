@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss'
 import { observer } from 'mobx-react';
-import { testData } from "../../data";
+import { TestData } from "../../data";
 import { Route, RouteChildrenProps, Switch, useHistory } from 'react-router-dom';
 import EditProfileContainer from './EditProfileContainer/EditProfileContainer';
 import Layout from '../../containers/Layout/Layout';
@@ -10,7 +10,7 @@ import { BackIcon } from '../../components/Icons/Icons';
 
 
 export interface testDataProps extends RouteChildrenProps {
-  test: testData;
+  test: TestData;
 }
 
 

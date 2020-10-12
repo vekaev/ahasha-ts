@@ -1,5 +1,5 @@
 import React from 'react';
-import {inspect} from "util";
+// import { inspect } from "util";
 import styles from './Components.module.scss'
 
 
@@ -12,12 +12,12 @@ interface ButtonInterface {
 }
 
 export const Button: React.FC<ButtonInterface> = ({
-                                                    disabled,
-                                                    bcgColor,
-                                                    fontColor,
-                                                    onClick,
-                                                    title
-                                                  }) => {
+  disabled,
+  bcgColor,
+  fontColor,
+  onClick,
+  title
+}) => {
   return (
     <button
       className={styles['Button']}

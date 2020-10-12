@@ -1,5 +1,5 @@
-import React, { createContext, ProviderProps, ReactChild, ReactNode } from 'react'; import { Context } from 'vm';
-import { testData } from '../../data/testData';
+import React, { createContext } from 'react';
+import { TestData } from '../../data';
 import { IUser } from '../../pages/Settings/Interfaces';
 
 interface UserDataContextProps {
@@ -9,7 +9,7 @@ interface UserDataContextProps {
 export const UserDataContext = createContext<any>({});
 
 export const UserDataProvider: React.FC<any> = ({ children }) => {
-  const user = new testData().user;
+  const user = new TestData().user;
   // const user = null;
 
   return (

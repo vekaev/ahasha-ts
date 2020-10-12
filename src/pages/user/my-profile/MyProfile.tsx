@@ -1,14 +1,14 @@
-import React, { ReactChild, useState } from 'react';
+import React, { ReactChild } from 'react';
 import styles from './MyProfile.module.scss';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import PostImage from '../../../components/PostImage/PostImage';
 import PostFeedPreview from '../../../components/PostFeedPreview/PostFeedPreview';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import Layout from '../../../containers/Layout/Layout';
-import { Add, MoreIcon } from '../../../components/Icons/Icons';
+import { MoreIcon } from '../../../components/Icons/Icons';
 import joinClass from '../../../utils/join';
-import AddPhoto from '../../addPhoto/AddPhoto';
 import { Upload } from '../../../components/Navbar/NavBar';
+import { clone } from 'lodash';
 
 // interface IMyProfileProps {
 //   history: RouteComponentProps;
@@ -66,15 +66,16 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
                 </div>
                 {(posts) ? (<PostFeedPreview>
                   {posts?.map((post: { id: number, img: string, url: string | number }, index: number): ReactChild => {
+                    console.log('HWR', { user, post });
                     return (
                       <Link
                         key={index}
                         to={{
                           pathname: `/u/${user.username}/p/${(post.id)}`,
                           state: {
-                            user,
-                            post,
-                          }
+                            user: clone(user),
+                            post: clone(post),
+                          },
                         }}>
                         <PostImage
                           id={post.id}
