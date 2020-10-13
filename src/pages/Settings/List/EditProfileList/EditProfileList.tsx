@@ -13,7 +13,7 @@ const EditProfileList: React.FC<EditProfileListProps> = ({
   showModal,
 }) => {
   return (
-    <div className={styles["list-container"]}>
+    <div>
       <ul className={styles["list-items"]}>
         <li
           className={styles["list-item"]}

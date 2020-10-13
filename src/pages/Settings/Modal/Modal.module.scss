@@ -1,4 +1,4 @@
-@import '../../../media.scss';
+@import "../../../media.scss";
 
 .modal-wrapper {
   position: absolute;
@@ -32,6 +32,7 @@
   @include for-tablet-portrait-up {
     bottom: 50%;
     transform: translate(-50%, 50%);
+    border-radius: 16px;
   }
 
   &-content {

@@ -1,9 +1,10 @@
-@import '../../media.scss';
+@import "../../media.scss";
 
 button {
   background: transparent;
   border: none;
   outline: none;
+  padding: 0px;
 
   &:focus {
     outline: none;

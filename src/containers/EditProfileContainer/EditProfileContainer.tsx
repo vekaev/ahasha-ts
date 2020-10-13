@@ -1,14 +1,14 @@
 import React, { ChangeEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { BackIcon } from "../../../components/Icons/Icons";
-import Layout from "../../../containers/Layout/Layout";
-import EditProfile from "../EditProfile/EditProfile";
-import { IUserData } from "../Interfaces";
-import BirthDayModal from "../Modal/BirthDayModal/BirthDayModal";
-import FullNameModal from "../Modal/FullNameModal/FullNameModal";
-import GenderModal from "../Modal/GenderModal/GenderModal";
-import withModal from "../Modal/Modal";
-import UserNameModal from "../Modal/UserNameModal/UserNameModal";
+import { BackIcon } from "../../components/Icons/Icons";
+import EditProfile from "../../pages/Settings/EditProfile/EditProfile";
+import { IUserData } from "../../pages/Settings/Interfaces";
+import BirthDayModal from "../../pages/Settings/Modal/BirthDayModal/BirthDayModal";
+import FullNameModal from "../../pages/Settings/Modal/FullNameModal/FullNameModal";
+import GenderModal from "../../pages/Settings/Modal/GenderModal/GenderModal";
+import withModal from "../../pages/Settings/Modal/Modal";
+import UserNameModal from "../../pages/Settings/Modal/UserNameModal/UserNameModal";
+import Layout from "../Layout/Layout";
 
 const EditProfileContainer: React.FC<any> = (props) => {
   const history = useHistory();
@@ -26,7 +26,7 @@ const EditProfileContainer: React.FC<any> = (props) => {
     gender: "Male",
   });
 
-  const changeAvatar = (event: ChangeEvent<HTMLInputElement>): void => {
+  const changeAvatar = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files.length > 0) {
       setUserData({
         ...userData,

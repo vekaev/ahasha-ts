@@ -12,42 +12,27 @@ const SettingsList: React.FC<SettingsListProps> = ({ signOut }) => {
   return (
     <div className={styles["list-container"]}>
       <div className={styles["list-items"]}>
-          <Link
-            className={styles["list-item"]}
-            to={`${match.path}/edit-profile`}
-          >
-            Edit profile
-          </Link>
-          <Link
-            className={styles["list-item"]}
-            to={`${match.path}/edit-profile`}
-          >
-            Language
-          </Link>
-          <Link
-            className={styles["list-item"]}
-            to={`${match.path}/edit-profile`}
-          >
-            Parameters
-          </Link>
-          <Link
-            className={styles["list-item"]}
-            to={`${match.path}/edit-profile`}
-          >
-            Help
-          </Link>
-          <Link
-            className={styles["list-item"]}
-            to={`${match.path}/edit-profile`}
-          >
-            Information
-          </Link>
-          <Link
-            className={`${styles["list-item"]} ${styles['list-item-signout']}`}
-            to={`${match.path}/edit-profile`}
-          >
-            Sign out
-          </Link>
+        <Link className={styles["list-item"]} to={`${match.path}/profile`}>
+          Edit profile
+        </Link>
+        <Link className={styles["list-item"]} to={`${match.path}/profile`}>
+          Language
+        </Link>
+        <Link className={styles["list-item"]} to={`${match.path}/profile`}>
+          Parameters
+        </Link>
+        <Link className={styles["list-item"]} to={`${match.path}/profile`}>
+          Help
+        </Link>
+        <Link className={styles["list-item"]} to={`${match.path}/profile`}>
+          Information
+        </Link>
+        <Link
+          className={`${styles["list-item"]} ${styles["list-item-signout"]}`}
+          to={`${match.path}/edit-profile`}
+        >
+          Sign out
+        </Link>
       </div>
     </div>
   );

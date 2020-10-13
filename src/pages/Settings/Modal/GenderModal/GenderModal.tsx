@@ -28,17 +28,31 @@ const GenderModal: React.FC<IModalDataProps> = ({
   });
 
   const closeOutOfContent = (event: any): void => {
-    if (!event.path.includes(popUp.current)) {
+    let path = event.path || (event.composedPath && event.composedPath());
+
+    if (!path.includes(popUp.current)) {
       showModal("close");
     }
   };
+
+  const options = ["Male", "Female", "Third"];
   return (
     <div className={styles["sex-modal-wrapper"]}>
       <div className={`${styles["sex-modal"]}`} ref={popUp}>
         <div className={styles["sex-modal-options"]}>
-          <button onClick={handleClick}>Male</button>
-          <button onClick={handleClick}>Female</button>
-          <button onClick={handleClick}>Third</button>
+          {options.map((gender, index) => {
+            return (
+              <button
+                key={index}
+                onClick={handleClick}
+                className={`${
+                  userData.gender === gender ? styles["active"] : ""
+                }`}
+              >
+                {gender}
+              </button>
+            );
+          })}
         </div>
 
         <div className={styles["test"]}>

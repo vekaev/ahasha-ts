@@ -22,7 +22,6 @@ const FullNameModal: React.FC<IModalDataProps> = ({
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    console.log(data);
     setUserData({
       ...userData,
       ...data,
@@ -33,13 +32,11 @@ const FullNameModal: React.FC<IModalDataProps> = ({
 
   return (
     <>
-      <form className={styles["modal-form"]} onSubmit={handleSubmit}>
-        <button
-          type="submit"
-          className={`${styles["modal-content-header-btn"]} ${styles["btn-save"]}`}
-        >
-          Save
-        </button>
+      <form
+        id="modal-form"
+        className={styles["modal-form"]}
+        onSubmit={handleSubmit}
+      >
         <label className={styles["modal-form-label"]}>
           First Name
           <input

@@ -1,10 +1,18 @@
 {
-  "addPhoto": {
-    "headerTitle": "New post"
+  "header": {
+    "main": "Main",
+    "moonBoard": "Moon board",
+    "newPost": "New Post",
+    "search": "Search",
+    "SignIn": "Sign In"
   },
-  "settings": {
+  "addPhoto": {
+    "headerTitle": "New post",
+    "buttonTitle": "Publish"
+  },
+  "acoount": {
     "headerTitle": "Settings",
-    "settingsList": {
+    "acoountList": {
       "editProfile": "Edit profile",
       "language": "Language",
       "parameters": "Parameters",
@@ -43,6 +51,19 @@
       "female": "Female",
       "third": "Third",
       "buttonCancel": "Cancel"
+    }
+  },
+  "user": {
+    "profile": {
+      "header": "profile",
+      "post": "post",
+      "rank": "rank",
+      "noPhoto": "This profile has no photo yet.",
+      "share": "Share the first photo with people!",
+      "rankProcess": "Rank is under construction"
+    },
+    "post": {
+      "notFound": "Post not found"
     }
   }
 }

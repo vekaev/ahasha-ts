@@ -79,13 +79,11 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
   const refs: any = {};
   return (
     <>
-      <form className={styles["modal-form"]} onSubmit={handleSubmit}>
-        <button
-          type="submit"
-          className={`${styles["modal-content-header-btn"]} ${styles["btn-save"]}`}
-        >
-          Save
-        </button>
+      <form
+        id="modal-form"
+        className={styles["modal-form"]}
+        onSubmit={handleSubmit}
+      >
         <div className={styles["modal-form-input-wrapper"]}>
           <label className={styles["modal-form-label"]}>
             Day
