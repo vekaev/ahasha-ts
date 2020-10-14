@@ -1,6 +1,7 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
 import { IModalDataProps } from "../../Interfaces";
-import styles from "../Modal.module.scss";
+import styles from "../ModalForm.module.scss";
+import { LangContext } from "../../../../components/LangContext/LangContext";
 
 const FullNameModal: React.FC<IModalDataProps> = ({
   userData,
@@ -30,6 +31,9 @@ const FullNameModal: React.FC<IModalDataProps> = ({
     showModal("close");
   };
 
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale()["modalWindow"]["formFullName"];
+
   return (
     <>
       <form
@@ -38,7 +42,7 @@ const FullNameModal: React.FC<IModalDataProps> = ({
         onSubmit={handleSubmit}
       >
         <label className={styles["modal-form-label"]}>
-          First Name
+          {text["firstName"]}
           <input
             type="text"
             name="firstName"
@@ -49,7 +53,7 @@ const FullNameModal: React.FC<IModalDataProps> = ({
         </label>
 
         <label className={styles["modal-form-label"]}>
-          Last Name
+          {text["lastName"]}
           <input
             type="text"
             name="lastName"

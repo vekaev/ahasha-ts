@@ -1,14 +1,15 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { BackIcon } from "../../components/Icons/Icons";
 import EditProfile from "../../pages/Settings/EditProfile/EditProfile";
 import { IUserData } from "../../pages/Settings/Interfaces";
-import BirthDayModal from "../../pages/Settings/Modal/BirthDayModal/BirthDayModal";
-import FullNameModal from "../../pages/Settings/Modal/FullNameModal/FullNameModal";
-import GenderModal from "../../pages/Settings/Modal/GenderModal/GenderModal";
-import withModal from "../../pages/Settings/Modal/Modal";
-import UserNameModal from "../../pages/Settings/Modal/UserNameModal/UserNameModal";
+import BirthDayModal from "../../pages/Settings/ModalForm/BirthDayModal/BirthDayModal";
+import FullNameModal from "../../pages/Settings/ModalForm/FullNameModal/FullNameModal";
+import GenderModal from "../../pages/Settings/ModalForm/GenderModal/GenderModal";
+import withModal from "../../components/Modal/Modal";
+import UserNameModal from "../../pages/Settings/ModalForm/UserNameModal/UserNameModal";
 import Layout from "../Layout/Layout";
+import { LangContext } from "./../../components/LangContext/LangContext";
 
 const EditProfileContainer: React.FC<any> = (props) => {
   const history = useHistory();
@@ -81,8 +82,11 @@ const EditProfileContainer: React.FC<any> = (props) => {
     });
   };
 
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale()["editProfile"];
+
   const header = {
-    middle: "Edit Profile",
+    middle: text["headerTitle"],
     onClickMiddle: () => {
       console.log("middle");
     },

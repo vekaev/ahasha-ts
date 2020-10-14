@@ -3,9 +3,9 @@ import * as I18NEn from "../../i18n/en.json";
 import * as I18NRu from "../../i18n/ru.json";
 // import axios from "axios";
 
-export const LangContext = createContext<any>();
+export const LangContext = createContext<any>({});
 
-export const LangProvider = ({ children }) => {
+export const LangProvider = ({ children } : any) => {
   const defaultLang = localStorage.getItem("lang") || "en";
   const [lang, onChangeLang] = useState(defaultLang);
 

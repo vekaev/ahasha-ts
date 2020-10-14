@@ -4,13 +4,13 @@
     "moonBoard": "Moon board",
     "newPost": "New Post",
     "search": "Search",
-    "SignIn": "Sign In"
+    "signIn": "Sign In"
   },
   "addPhoto": {
     "headerTitle": "New post",
     "buttonTitle": "Publish"
   },
-  "acoount": {
+  "account": {
     "headerTitle": "Settings",
     "acoountList": {
       "editProfile": "Edit profile",
@@ -23,17 +23,17 @@
   },
   "editProfile": {
     "headerTitle": "Edit Profile",
-    "changePhoto": "fChange photo",
+    "changePhoto": "Change photo",
     "editProfileList": {
       "fullName": "Full name",
       "userName": "Username",
       "birthDay": "Birthday",
       "gender": "Gender"
-    },
-    "modalWindow": {
-      "buttonCancel": "Cancel",
-      "buttonSave": "Save"
-    },
+    }
+  },
+  "modalWindow": {
+    "buttonCancel": "Cancel",
+    "buttonSave": "Save",
     "formFullName": {
       "firstName": "First Name",
       "lastName": "Last Name"
@@ -60,7 +60,7 @@
       "rank": "rank",
       "noPhoto": "This profile has no photo yet.",
       "share": "Share the first photo with people!",
-      "rankProcess": "Rank is under construction"
+      "rankProcess": "Rank in process"
     },
     "post": {
       "notFound": "Post not found"

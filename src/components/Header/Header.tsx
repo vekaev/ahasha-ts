@@ -1,4 +1,4 @@
-import React, { ReactChild } from 'react';
+import React, { ReactChild, useContext } from 'react';
 import styles from './Header.module.scss';
 import joinClass from '../../utils/join';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { Logotype } from '../SvgImages/SvgImages';
 import { Upload } from '../../components/Navbar/NavBar';
 import UserPhoto from '../UserPhoto/UserPhoto';
 import { IUser } from '../../pages/Settings/Interfaces';
+import { LangContext } from './../LangContext/LangContext';
 
 export interface IHeaderProps {
   left?: ReactChild;
@@ -35,6 +36,10 @@ const Header: React.FC<IHeaderProps> = ({
   onClickMiddle,
   user,
 }) => {
+
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale()['header'];
+
   return (
     <>
       <div className={joinClass(styles.header, className || '')}>
@@ -78,19 +83,19 @@ const Header: React.FC<IHeaderProps> = ({
             <ul className={styles['header-desktop-left-nav']}>
               <li className={joinClass(styles['header-desktop-left-nav-link'], styles['disabled'])}>
                 {/* <Link to='/'> */}
-                <span className={styles['header-desktop-left-nav-link-item']}>Main</span>
+                <span className={styles['header-desktop-left-nav-link-item']}>{text['main']}</span>
                 {/* </Link> */}
               </li>
               <li className={joinClass(styles['header-desktop-left-nav-link'], styles['disabled'])}>
                 {/* <Link to='/'> */}
-                <span className={styles['header-desktop-left-nav-link-item']}>Mood board</span>
+                <span className={styles['header-desktop-left-nav-link-item']}>{text['moonBoard']}</span>
                 {/* </Link> */}
               </li>
             </ul>
             <div className={styles['header-desktop-left-new-post']}>
               {user ? (
                 <Upload className={styles['header-desktop-left-new-post-button']}>
-                  <span>+ New Post</span>
+                  <span>+ {text['newPost']}</span>
                 </Upload>
               ) : (null)}
             </div>
@@ -100,7 +105,7 @@ const Header: React.FC<IHeaderProps> = ({
           </div>
           <div className={styles['header-desktop-right']}>
             <div className={styles['header-desktop-right-search']}>
-              <span className={styles['header-desktop-right-search-text']}>Search</span>
+              <span className={styles['header-desktop-right-search-text']}>{text['search']}</span>
               <span className={styles['header-desktop-right-search-icon']}><FiltersIcon /></span>
             </div>
             <div className={styles['header-desktop-right-button']}>
@@ -125,7 +130,7 @@ const Header: React.FC<IHeaderProps> = ({
               </div>) : (
                 <div className={styles['header-desktop-right-profile-none']}>
                   <a href='https://www.ahasha.com/sign-in'>
-                    Sign In
+                    {text['signIn']}
                   </a>
                 </div>
               )}

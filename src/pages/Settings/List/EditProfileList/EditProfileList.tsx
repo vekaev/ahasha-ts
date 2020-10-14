@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import { ArrowNext } from "../../../../components/Icons/Icons";
 import { IUserData } from "../../Interfaces";
 import styles from "../List.module.scss";
+import { LangContext } from './../../../../components/LangContext/LangContext';
 
 interface EditProfileListProps {
   userData: IUserData;
@@ -12,6 +13,9 @@ const EditProfileList: React.FC<EditProfileListProps> = ({
   userData,
   showModal,
 }) => {
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale()['editProfile']['editProfileList'];
+
   return (
     <div>
       <ul className={styles["list-items"]}>
@@ -19,7 +23,7 @@ const EditProfileList: React.FC<EditProfileListProps> = ({
           className={styles["list-item"]}
           onClick={() => showModal("fullName")}
         >
-          <label className={styles["list-item-link"]}>Full name</label>
+          <label className={styles["list-item-link"]}>{text['fullName']}</label>
           <button className={styles["list-item-btn"]}>
             {`${userData.firstName} ${userData.lastName}`}
             <ArrowNext />
@@ -30,7 +34,7 @@ const EditProfileList: React.FC<EditProfileListProps> = ({
           className={styles["list-item"]}
           onClick={() => showModal("userName")}
         >
-          <label className={styles["list-item-link"]}>Username</label>
+          <label className={styles["list-item-link"]}>{text['userName']}</label>
           <button className={styles["list-item-btn"]}>
             {userData.userName}
             <ArrowNext />
@@ -41,7 +45,7 @@ const EditProfileList: React.FC<EditProfileListProps> = ({
           className={styles["list-item"]}
           onClick={() => showModal("birthDay")}
         >
-          <label className={styles["list-item-link"]}>Birthday</label>
+          <label className={styles["list-item-link"]}>{text['birthDay']}</label>
           <button className={styles["list-item-btn"]}>
             {`${userData.birthDay.day} ${userData.birthDay.month} ${userData.birthDay.year}`}
             <ArrowNext />
@@ -49,7 +53,7 @@ const EditProfileList: React.FC<EditProfileListProps> = ({
         </li>
 
         <li className={styles["list-item"]} onClick={() => showModal("gender")}>
-          <label className={styles["list-item-link"]}>Gender</label>
+          <label className={styles["list-item-link"]}>{text['gender']}</label>
           <button className={styles["list-item-btn"]}>
             {userData.gender}
             <ArrowNext />

@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import styles from "./Modal.module.scss";
+import { LangContext } from "../LangContext/LangContext";
 
 const withModal = (Component: any) => (props: any) => {
   const popUp = useRef<any>(null);
@@ -20,6 +21,9 @@ const withModal = (Component: any) => (props: any) => {
     }
   };
 
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale()["modalWindow"];
+
   return (
     <div className={styles["modal-wrapper"]}>
       <div className={`${styles["modal"]}`} ref={popUp}>
@@ -29,14 +33,14 @@ const withModal = (Component: any) => (props: any) => {
               className={`${styles["modal-content-header-btn"]} ${styles["btn-cancel"]}`}
               onClick={() => props.showModal("close")}
             >
-              Cancel
+              {text["buttonCancel"]}
             </button>
             <button
               form="modal-form"
               type="submit"
               className={`${styles["modal-content-header-btn"]} ${styles["btn-save"]}`}
             >
-              Save
+              {text["buttonSave"]}
             </button>
           </div>
           <div className={styles["modal-content-main"]}>

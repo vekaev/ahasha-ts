@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { withRouter } from "react-router-dom";
 import Layout from "../../containers/Layout/Layout";
 import styles from './AddPhoto.module.scss'
 import { BackIcon, MoreIcon } from "../../components/Icons/Icons";
 import { Button } from '../../components/Button';
 import { IUser } from '../Settings/Interfaces';
+import { LangContext } from './../../components/LangContext/LangContext';
 
 function AddPhoto(props: any) {
   const user: IUser = {
@@ -28,12 +29,15 @@ function AddPhoto(props: any) {
     props.history.push('/')
   }
 
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale()['addPhoto'];
+
   const header = {
     left: <BackIcon />,
     onClickLeft: () => {
       props.history.goBack();
     },
-    middle: 'New post',
+    middle: text['headerTitle'],
     right: <span style={{ opacity: .4, lineHeight: 0, marginTop: -2 }}><MoreIcon /></span>,
     // onClickRight: () => {
     //   history.push('/settings')
@@ -52,7 +56,7 @@ function AddPhoto(props: any) {
           <img src={props.location?.state?.img} alt="Red dot" style={{ width: "100%" }} />
         </div>
         <div className={styles['content']} >
-          <div style={{ marginTop: "auto" }}><Button title='Publish'></Button></div>
+          <div style={{ marginTop: "auto" }}><Button title={text['buttonTitle']}></Button></div>
 
         </div>
       </div>

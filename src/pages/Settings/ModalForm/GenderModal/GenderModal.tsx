@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { IModalDataProps } from "../../Interfaces";
 import styles from "./GenderModal.module.scss";
+import { LangContext } from "../../../../components/LangContext/LangContext";
 
 const GenderModal: React.FC<IModalDataProps> = ({
   userData,
@@ -35,7 +36,10 @@ const GenderModal: React.FC<IModalDataProps> = ({
     }
   };
 
-  const options = ["Male", "Female", "Third"];
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale()["modalWindow"]["formGender"];
+
+  const options = [text["male"], text["female"], text["third"]];
   return (
     <div className={styles["sex-modal-wrapper"]}>
       <div className={`${styles["sex-modal"]}`} ref={popUp}>
@@ -60,7 +64,7 @@ const GenderModal: React.FC<IModalDataProps> = ({
             className={`${styles["settings-btn"]} ${styles["sex-btn"]}`}
             onClick={() => showModal("close")}
           >
-            Cancel
+            {text["buttonCancel"]}
           </button>
         </div>
       </div>

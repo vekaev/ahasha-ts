@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { IModalDataProps } from "../../Interfaces";
-import styles from "../Modal.module.scss";
+import styles from "../ModalForm.module.scss";
+import { LangContext } from "../../../../components/LangContext/LangContext";
 
 const BirthDayModal: React.FC<IModalDataProps> = ({
   userData,
@@ -77,6 +78,9 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
   };
 
   const refs: any = {};
+
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale()["modalWindow"]["formBirthDay"];
   return (
     <>
       <form
@@ -86,7 +90,7 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
       >
         <div className={styles["modal-form-input-wrapper"]}>
           <label className={styles["modal-form-label"]}>
-            Day
+            {text["day"]}
             <input
               type="tel"
               name="day"
@@ -101,7 +105,7 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
           </label>
 
           <label className={styles["modal-form-label"]}>
-            Month
+            {text["month"]}
             <input
               type="tel"
               name="month"
@@ -116,7 +120,7 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
           </label>
 
           <label className={styles["modal-form-label"]}>
-            Year
+            {text["year"]}
             <input
               type="tel"
               name="year"

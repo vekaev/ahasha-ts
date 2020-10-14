@@ -1,8 +1,9 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { IUserData } from "../Interfaces";
 import UserPhoto from "../../../components/UserPhoto/UserPhoto";
 import styles from "./EditProfile.module.scss";
 import EditProfileList from "../List/EditProfileList/EditProfileList";
+import { LangContext } from './../../../components/LangContext/LangContext';
 
 interface IEditProfileProps {
   userData: IUserData;
@@ -15,6 +16,11 @@ const EditProfile: React.FC<IEditProfileProps> = ({
   changeAvatar,
   showModal,
 }) => {
+
+  
+  const langContext = useContext(LangContext);
+  let text = langContext?.useLocale();
+
   return (
     <div className={"settings-container"}>
       <div className={styles["edit-profile"]}>
@@ -23,7 +29,7 @@ const EditProfile: React.FC<IEditProfileProps> = ({
         </div>
 
         <button className={styles["edit-profile-change-avatar"]}>
-          Change photo
+          {text['editProfile']['changePhoto']}
           <input type="file" accept="image/*" onChange={changeAvatar} />
         </button>
       </div>
