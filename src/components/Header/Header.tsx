@@ -6,7 +6,7 @@ import { Chat, FiltersIcon, BasketIcon } from '../Icons/Icons';
 import { Logotype } from '../SvgImages/SvgImages';
 import { Upload } from '../../components/Navbar/NavBar';
 import UserPhoto from '../UserPhoto/UserPhoto';
-import { IUser } from '../../pages/Settings/Interfaces';
+import { IUser } from '../../pages/settings/Interfaces';
 import { LangContext } from './../LangContext/LangContext';
 
 export interface IHeaderProps {

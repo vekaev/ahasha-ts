@@ -3,6 +3,7 @@ import { observable } from 'mobx';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { IUser } from '../pages/settings/Interfaces';
+import { IUserProfile } from './dto';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
@@ -13,25 +14,21 @@ firebase.initializeApp({
 export class Session {
 
   private readonly auth: firebase.auth.Auth;
-  private readonly api = 'http://192.168.0.104:5000/app/auth';
-  // private readonly api = 'https://api.ahasha.com/app/auth';
+  private readonly api = 'http://192.168.0.104:5000/app';
+  // private readonly api = 'https://api.ahasha.com/app';
+  private request: AxiosInstance;
 
-
-  // @observable loading: boolean = true;
-  // @observable authLoading: boolean = false;
   @observable user: firebase.User | null = null;
-  // @observable roles: string | null = null;
-  // @observable decodedToken: firebase.auth.IdTokenResult | null = null;
-  // @observable request: AxiosInstance;
 
   constructor() {
     this.auth = firebase.auth();
+    this.request = this.guest();
   }
 
   // TODO: remove
   async sendSignInLink(form: any): Promise<void> {
     try {
-      await this.guest().post('/sign-in', {
+      await this.guest().post('/auth/sign-in', {
         email: form.email,
       });
       localStorage.setItem('emailForSignIn', form.email);
@@ -66,6 +63,7 @@ export class Session {
 
     try {
       await this.auth.signInWithEmailLink(storedEmail, window.location.href);
+      this.request = await this.authorized();
     } catch (exception) {
       console.error(exception);
     } finally {
@@ -80,6 +78,10 @@ export class Session {
 
   signOut(): Promise<void> {
     return this.auth.signOut();
+  }
+
+  updateProfile(form: IUserProfile) {
+    return this.request.post('/user/profile', form);
   }
 }
 

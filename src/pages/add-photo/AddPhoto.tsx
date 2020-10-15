@@ -4,7 +4,7 @@ import Layout from "../../containers/Layout/Layout";
 import styles from './AddPhoto.module.scss'
 import { BackIcon, MoreIcon } from "../../components/Icons/Icons";
 import { Button } from '../../components/Button';
-import { IUser } from '../Settings/Interfaces';
+import { IUser } from '../settings/Interfaces';
 import { LangContext } from './../../components/LangContext/LangContext';
 
 function AddPhoto(props: any) {

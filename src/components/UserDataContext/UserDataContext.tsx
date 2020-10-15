@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { TestData } from '../../data';
-import { IUser } from '../../pages/Settings/Interfaces';
+import { IUser } from '../../pages/settings/Interfaces';
 
 interface UserDataContextProps {
   user: IUser;

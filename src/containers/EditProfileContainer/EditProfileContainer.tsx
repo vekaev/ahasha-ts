@@ -1,30 +1,30 @@
-import React, { ChangeEvent, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { BackIcon } from "../../components/Icons/Icons";
-import EditProfile from "../../pages/Settings/EditProfile/EditProfile";
-import { IUserData } from "../../pages/Settings/Interfaces";
-import BirthDayModal from "../../pages/Settings/ModalForm/BirthDayModal/BirthDayModal";
-import FullNameModal from "../../pages/Settings/ModalForm/FullNameModal/FullNameModal";
-import GenderModal from "../../pages/Settings/ModalForm/GenderModal/GenderModal";
-import withModal from "../../components/Modal/Modal";
-import UserNameModal from "../../pages/Settings/ModalForm/UserNameModal/UserNameModal";
-import Layout from "../Layout/Layout";
-import { LangContext } from "./../../components/LangContext/LangContext";
+import React, { ChangeEvent, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { BackIcon } from '../../components/Icons/Icons';
+import EditProfile from '../../pages/settings/EditProfile/EditProfile';
+import { IUserData } from '../../pages/settings/Interfaces';
+import BirthDayModal from '../../pages/settings/ModalForm/BirthDayModal/BirthDayModal';
+import FullNameModal from '../../pages/settings/ModalForm/FullNameModal/FullNameModal';
+import GenderModal from '../../pages/settings/ModalForm/GenderModal/GenderModal';
+import withModal from '../../components/Modal/Modal';
+import UserNameModal from '../../pages/settings/ModalForm/UserNameModal/UserNameModal';
+import Layout from '../Layout/Layout';
+import { LangContext } from './../../components/LangContext/LangContext';
 
 const EditProfileContainer: React.FC<any> = (props) => {
   const history = useHistory();
 
   const [userData, setUserData] = useState<IUserData>({
-    avatar: "https://modnaya.org/uploads/posts/2013-08/1376555614_emo-stil.jpg",
-    firstName: "Andrei",
-    lastName: "Lukashenko",
-    userName: "AndreiLukashenko",
+    avatar: 'https://modnaya.org/uploads/posts/2013-08/1376555614_emo-stil.jpg',
+    firstName: 'Andrei',
+    lastName: 'Lukashenko',
+    userName: 'AndreiLukashenko',
     birthDay: {
       day: 18,
       month: 10,
       year: 1997,
     },
-    gender: "Male",
+    gender: 'Male',
   });
 
   const changeAvatar = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -50,19 +50,19 @@ const EditProfileContainer: React.FC<any> = (props) => {
     let component: React.FC<any> = () => null;
 
     switch (command) {
-      case "fullName":
+      case 'fullName':
         component = withModal(FullNameModal);
         break;
-      case "userName":
+      case 'userName':
         component = withModal(UserNameModal);
         break;
-      case "birthDay":
+      case 'birthDay':
         component = withModal(BirthDayModal);
         break;
-      case "gender":
+      case 'gender':
         component = GenderModal;
         break;
-      case "close":
+      case 'close':
         setIsOpenModal({
           flag: false,
           component: () => null,
@@ -83,12 +83,12 @@ const EditProfileContainer: React.FC<any> = (props) => {
   };
 
   const langContext = useContext(LangContext);
-  let text = langContext?.useLocale()["editProfile"];
+  let text = langContext?.useLocale()['editProfile'];
 
   const header = {
-    middle: text["headerTitle"],
+    middle: text['headerTitle'],
     onClickMiddle: () => {
-      console.log("middle");
+      console.log('middle');
     },
     left: <BackIcon />,
     onClickLeft: () => {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { UserDataContext } from '../../components/UserDataContext/UserDataContext';
-import { IUser } from '../../pages/Settings/Interfaces';
+import { IUser } from '../../pages/settings/Interfaces';
 import MyProfile from '../../pages/user/my-profile/MyProfile';
 import Profile from '../../pages/user/profile/Profile';
 

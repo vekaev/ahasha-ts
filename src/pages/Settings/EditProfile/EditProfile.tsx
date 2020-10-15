@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useContext } from "react";
-import { IUserData } from "../Interfaces";
-import UserPhoto from "../../../components/UserPhoto/UserPhoto";
-import styles from "./EditProfile.module.scss";
-import EditProfileList from "../List/EditProfileList/EditProfileList";
+import React, { ChangeEvent, useContext } from 'react';
+import { IUserData } from '../Interfaces';
+import UserPhoto from '../../../components/UserPhoto/UserPhoto';
+import styles from './EditProfile.module.scss';
+import { EditProfileList } from '../List/EditProfileList/EditProfileList';
 import { LangContext } from './../../../components/LangContext/LangContext';
 
 interface IEditProfileProps {
@@ -22,15 +22,15 @@ const EditProfile: React.FC<IEditProfileProps> = ({
   let text = langContext?.useLocale();
 
   return (
-    <div className={"settings-container"}>
-      <div className={styles["edit-profile"]}>
-        <div className={styles["edit-profile-avatar"]}>
+    <div className={'settings-container'}>
+      <div className={styles['edit-profile']}>
+        <div className={styles['edit-profile-avatar']}>
           <UserPhoto src={userData.avatar} />
         </div>
 
-        <button className={styles["edit-profile-change-avatar"]}>
+        <button className={styles['edit-profile-change-avatar']}>
           {text['editProfile']['changePhoto']}
-          <input type="file" accept="image/*" onChange={changeAvatar} />
+          <input type='file' accept='image/*' onChange={changeAvatar} />
         </button>
       </div>
       <EditProfileList userData={userData} showModal={showModal} />

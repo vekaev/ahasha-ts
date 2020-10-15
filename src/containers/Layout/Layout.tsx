@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { IHeaderProps } from '../../components/Header/Header';
-import { IUser } from '../../pages/Settings/Interfaces';
+import { IUser } from '../../pages/settings/Interfaces';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import NavbarContainer from '../NavbarContainer/NavbarContainer';
 

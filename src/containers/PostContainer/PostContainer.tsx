@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
 import { UserDataContext } from '../../components/UserDataContext/UserDataContext';
-import { IUser } from '../../pages/Settings/Interfaces';
+import { IUser } from '../../pages/settings/Interfaces';
 import Post from '../../pages/user/post/Post';
 import Layout from '../Layout/Layout';
 

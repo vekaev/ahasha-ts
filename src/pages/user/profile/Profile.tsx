@@ -7,7 +7,7 @@ import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import Layout from '../../../containers/Layout/Layout';
 import { Add, BackIcon, Chat, MoreIcon } from '../../../components/Icons/Icons';
 import joinClass from '../../../utils/join';
-import { IUser } from '../../Settings/Interfaces';
+import { IUser } from '../../settings/Interfaces';
 import { UserDataContext } from '../../../components/UserDataContext/UserDataContext';
 import { LangContext } from './../../../components/LangContext/LangContext';
 

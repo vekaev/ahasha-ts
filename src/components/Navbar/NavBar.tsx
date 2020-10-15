@@ -1,6 +1,6 @@
 import React, { ReactChild, useEffect, useState } from 'react';
 import { NavLink, withRouter } from "react-router-dom";
-import { IUser } from '../../pages/Settings/Interfaces';
+import { IUser } from '../../pages/settings/Interfaces';
 import { Chat, Home, Saved, User, Add } from '../Icons/Icons';
 import styles from './NavBar.module.scss'
 

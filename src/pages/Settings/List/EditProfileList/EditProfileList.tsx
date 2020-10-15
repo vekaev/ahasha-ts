@@ -9,7 +9,7 @@ interface EditProfileListProps {
   showModal(command: string): void;
 }
 
-const EditProfileList: React.FC<EditProfileListProps> = ({
+export const EditProfileList: React.FC<EditProfileListProps> = ({
   userData,
   showModal,
 }) => {
@@ -63,5 +63,3 @@ const EditProfileList: React.FC<EditProfileListProps> = ({
     </div>
   );
 };
-
-export default EditProfileList;
