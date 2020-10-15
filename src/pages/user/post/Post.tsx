@@ -8,11 +8,10 @@ import { Location } from "history";
 import { StaticContext } from "react-router";
 import { LangContext } from "./../../../components/LangContext/LangContext";
 
-interface IMyPostProps
-  extends RouteComponentProps<{}, StaticContext, Location> {
-  // history: RouteComponentProps;
-  // location: Location;
-}
+// interface IMyPostProps extends RouteComponentProps<{}, StaticContext, Location> {
+//   // history: RouteComponentProps;
+//   // location: Location;
+// }
 
 const MyPost: React.FC<any> = ({ history, user, post }) => {
   const [like, setLike] = useState({

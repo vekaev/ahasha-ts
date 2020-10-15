@@ -13,16 +13,16 @@ import { LangContext } from './../../../components/LangContext/LangContext';
 
 // interface IMyProfileProps {
 //   history: RouteComponentProps;
-//   anotherUser: {}
+//   anotherUser: {};
 //   posts: [
 //     {
-//       id: number,
-//       likes: number,
-//       myLike: boolean,
-//       img: string,
+//       id: number;
+//       likes: number;
+//       myLike: boolean;
+//       img: string;
 //     }
 //   ];
-// }
+// };
 
 const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
   const langContext = useContext(LangContext);

@@ -2,7 +2,7 @@ import React, { ReactChildren } from 'react';
 import styles from './PostFeedPreview.module.scss';
 
 interface IPostFeedPreview {
-  children: ReactChildren
+  children: ReactChildren;
 }
 
 const PostFeedPreview: React.FC = ({ children }) => {

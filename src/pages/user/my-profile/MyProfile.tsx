@@ -13,13 +13,13 @@ import { LangContext } from "./../../../components/LangContext/LangContext";
 
 // interface IMyProfileProps {
 //   history: RouteComponentProps;
-//   user: {}
+//   user: {};
 //   posts: [
 //     {
-//       id: number,
-//       likes: number,
-//       myLike: boolean,
-//       img: string,
+//       id: number;
+//       likes: number;
+//       myLike: boolean;
+//       img: string;
 //     }
 //   ];
 // }

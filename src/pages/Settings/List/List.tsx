@@ -38,9 +38,9 @@ export const SettingsListItem = (props: any) => {
 };
 
 interface EditProfileListItemProps {
-  userData: IUserData,
-  openModal: any,
-  openSexModal: any
+  userData: IUserData;
+  openModal: any;
+  openSexModal: any;
 }
 
 export const EditProfileListItem: React.FC<EditProfileListItemProps> = ({ userData, openModal, openSexModal }) => {

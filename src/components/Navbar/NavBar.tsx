@@ -8,7 +8,7 @@ interface LinkProps {
   link: string;
   disabled?: boolean;
   exact?: boolean;
-  children: ReactChild
+  children: ReactChild;
 }
 
 const LinkComponent = ({ link, disabled, children, exact }: LinkProps) => {

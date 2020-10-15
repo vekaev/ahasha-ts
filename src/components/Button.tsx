@@ -4,7 +4,7 @@ import styles from './Components.module.scss'
 
 
 interface ButtonInterface {
-  title: string
+  title: string;
   disabled?: boolean;
   bcgColor?: string;
   fontColor?: string;
