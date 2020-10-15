@@ -6,10 +6,13 @@ import MyProfile from '../../pages/user/my-profile/MyProfile';
 import Profile from '../../pages/user/profile/Profile';
 
 const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
-  const pathUsername: string = history.location.pathname.substr(3);
+  const pathUsername: string = history.location.pathname.substr(1);
   const user: IUser = useContext(UserDataContext);
 
   let posts: any[];
+
+  // TODO: /username/r dont get username
+  console.log(user.username);
 
   // 
   // MYPROFILE
@@ -122,9 +125,9 @@ const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
     },
   }
 
-  if (!pathUsername !== anotherUser.username) {
-    history.push('/');
-  }
+  // if (pathUsername !== anotherUser.username) {
+  //   history.push('/');
+  // }
 
   posts = [
     {

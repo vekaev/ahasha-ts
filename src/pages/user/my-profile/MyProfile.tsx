@@ -28,6 +28,8 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale()["user"]["profile"];
 
+  console.log(user);
+
   const header = {
     middle: user?.username || text["header"],
     right: <MoreIcon />,
@@ -51,7 +53,7 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
           </div>
 
           <Switch>
-            <Route exact path={`/u/${user.username}`}>
+            <Route exact path={`/${user.username}`}>
               <div className={styles["profile-posts"]}>
                 <div className={styles["profile-tabs"]}>
                   <div
@@ -61,7 +63,7 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
                       styles["active"]
                     )}
                   >
-                    <Link to={`/u/${user.username}`}>
+                    <Link to={`/${user.username}`}>
                       <span>
                         {posts?.length || 0} {text["post"]}
                       </span>
@@ -73,7 +75,7 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
                       styles["tab-link"]
                     )}
                   >
-                    {/* <Link to={`/u/${user.username}/r`}> */}
+                    {/* <Link to={`/${user.username}/r`}> */}
                     <span style={{ color: "#CACFD4" }}>
                       {user?.rank || ""} {text["rank"]}
                     </span>
@@ -92,7 +94,7 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
                           <Link
                             key={index}
                             to={{
-                              pathname: `/u/${user.username}/p/${post.id}`,
+                              pathname: `/${user.username}/p/${post.id}`,
                               state: {
                                 user: clone(user),
                                 post: clone(post),
@@ -106,14 +108,14 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
                     )}
                   </PostFeedPreview>
                 ) : (
-                  <div className={styles["profile-posts-empty"]}>
-                    <p>{text["share"]}</p>
-                    <Upload />
-                  </div>
-                )}
+                    <div className={styles["profile-posts-empty"]}>
+                      <p>{text["share"]}</p>
+                      <Upload />
+                    </div>
+                  )}
               </div>
             </Route>
-            <Route path={`/u/${user.username}/r`}>
+            <Route path={`/${user.username}/r`}>
               <div className={styles["profile-tabs"]}>
                 <div
                   className={joinClass(
@@ -121,7 +123,7 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
                     styles["tab-link"]
                   )}
                 >
-                  <Link to={`/u/${user.username}`}>
+                  <Link to={`/${user.username}`}>
                     <span>
                       {user?.quantityPosts} {text["post"]}
                     </span>
@@ -134,7 +136,7 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
                     styles["active"]
                   )}
                 >
-                  <Link to={`/u/${user.username}/r`}>
+                  <Link to={`/${user.username}/r`}>
                     <span>
                       {user?.rank} {text["rank"]}
                     </span>

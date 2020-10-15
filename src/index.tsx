@@ -4,12 +4,13 @@ import './index.scss';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import { Session } from './data';
 
 ReactDOM.render(
   // <React.StrictMode>
-    <Router>
-        <App />
-    </Router>,
+  <Router>
+    <App session={new Session} />
+  </Router>,
   // </React.StrictMode>,
   document.getElementById('root')
 );

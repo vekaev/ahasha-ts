@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
+import { UserDataContext } from '../../components/UserDataContext/UserDataContext';
+import { IUser } from '../../pages/Settings/Interfaces';
 import Post from '../../pages/user/post/Post';
 import Layout from '../Layout/Layout';
 
@@ -18,6 +20,8 @@ import Layout from '../Layout/Layout';
 
 const PostContainer: React.FC<any> = ({ history, location }) => {
   const [post, setPost] = useState(location?.state?.post);
+  let user: IUser = location?.state?.user;
+  const myUsername = location?.state?.myUsername;
 
   if (!post) {
     console.log('!post')
@@ -27,8 +31,14 @@ const PostContainer: React.FC<any> = ({ history, location }) => {
     // }, []);
   }
 
-  const user = location?.state?.user;
-  const myUsername = location?.state?.myUsername;
+  if (!user) {
+    const pathUsername: string = history.location.pathname.substr(1);
+
+    console.log('!user');
+    // useEffect(() => { 
+    //   setPost();
+    // }, []);
+  }
 
   const header = {
     left: <BackIcon />,
@@ -51,7 +61,6 @@ const PostContainer: React.FC<any> = ({ history, location }) => {
       <Post
         post={post}
         user={user}
-        myUsername={myUsername}
       />
     </Layout>
   );

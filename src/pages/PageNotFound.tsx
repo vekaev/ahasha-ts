@@ -11,11 +11,11 @@ export const PageNotFound: React.FC = () => {
     middle: "Ooops!",
   };
 
-  const link = user ? (
-    <Link to={`/u/${user.username}`}>Go to profile</Link>
+  const link = (user) ? (
+    <Link to={`/${user.username}`}>Go to profile</Link>
   ) : (
-    <a href="https://www.ahasha.com/">Go to home</a>
-  );
+      <a href="https://www.ahasha.com/">Go to home</a>
+    );
 
   return (
     <Layout header={header}>

@@ -1,2 +1,1 @@
-
-export { TestData } from "./testData";
+export { TestData, Session } from './TestData';

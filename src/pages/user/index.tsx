@@ -12,10 +12,10 @@ const Page = (props: testDataProps) => {
     return (
         <>
             <Switch>
-                <Route exact path={`/u/:id/p/:id`}>
+                <Route exact path={`/:id/p/:id`}>
                     <PostContainer />
                 </Route>
-                <Route path={`/u/`}>
+                <Route path={`/:id`}>
                     <ProfileContainer />
                 </Route>
             </Switch>

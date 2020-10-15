@@ -122,7 +122,7 @@ const Header: React.FC<IHeaderProps> = ({
             </div>
             {user ? (
               <div className={styles['header-desktop-right-profile']}>
-                <Link to={`/u/${user?.username}`}>
+                <Link to={`/${user?.username}`}>
                   <UserPhoto
                     src={user?.mainPhoto}
                   />
