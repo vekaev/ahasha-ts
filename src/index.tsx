@@ -9,7 +9,7 @@ import { Session } from './data';
 ReactDOM.render(
   // <React.StrictMode>
   <Router>
-    <App session={new Session} />
+    <App session={new Session()} />
   </Router>,
   // </React.StrictMode>,
   document.getElementById('root')

@@ -23,22 +23,20 @@ const LinkComponent = ({ link, disabled, children, exact }: LinkProps) => {
 
 const UploadPhoto: React.FC<any> = ({ history, children, className }) => {
 
-  const [img, setImg] = useState<string | ArrayBuffer | null>()
+  const [files, setFiles] = useState()
 
   useEffect(() => {
-    if (img) {
+    if (files) {
       history.push({
         pathname: '/add-photo',
-        state: { img }
+        state: { files }
       })
     }
-  }, [img])
+  }, [files])
 
   const onSelectFile = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setImg(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
+      setFiles(e.target.files);
     }
   }
 

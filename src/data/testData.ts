@@ -1,14 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { observable } from 'mobx';
 import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import { IUser } from '../pages/settings/Interfaces';
-
-firebase.initializeApp({
-  apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
-  authDomain: 'umbrella01-dev.firebaseapp.com',
-  projectId: 'umbrella01-dev',
-});
 
 export class Session {
 
@@ -36,6 +29,7 @@ export class Session {
       });
       localStorage.setItem('emailForSignIn', form.email);
     } catch (exception) {
+      console.log('login', exception);
       throw new Error(
         JSON.stringify({ field: 'email', code: 'email-not-found' }),
       );

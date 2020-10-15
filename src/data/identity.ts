@@ -3,7 +3,8 @@ import { observable } from 'mobx';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { IUser } from '../pages/settings/Interfaces';
-import { IUserProfile } from './dto';
+import { IUserProfile, SessionUser } from './dto';
+import { CONFIG } from '../constants';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
@@ -11,22 +12,28 @@ firebase.initializeApp({
   projectId: 'umbrella01-dev',
 });
 
+
 export class Session {
 
-  private readonly auth: firebase.auth.Auth;
-  private readonly api = 'http://192.168.0.104:5000/app';
-  // private readonly api = 'https://api.ahasha.com/app';
+  readonly auth: firebase.auth.Auth;
   private request: AxiosInstance;
 
-  @observable user: firebase.User | null = null;
+  @observable user: SessionUser = null;
 
   constructor() {
     this.auth = firebase.auth();
     this.request = this.guest();
+    
+    if (this.auth.currentUser) {
+      this
+        .authorized()
+        .then((instance) => this.request = instance)
+        .catch(console.error);
+    }
   }
 
   // TODO: remove
-  async sendSignInLink(form: any): Promise<void> {
+  async sendSignInLink(form: { email: string }): Promise<void> {
     try {
       await this.guest().post('/auth/sign-in', {
         email: form.email,
@@ -41,13 +48,13 @@ export class Session {
 
   guest(): AxiosInstance {
     return axios.create({
-      baseURL: this.api,
+      baseURL: CONFIG.API_APP_URL,
     });
   }
 
   async authorized(): Promise<AxiosInstance> {
     return axios.create({
-      baseURL: this.api,
+      baseURL: CONFIG.API_APP_URL,
       headers: {
         authorization: `Bearer ${await this.auth.currentUser?.getIdToken()}`,
       },
@@ -72,16 +79,30 @@ export class Session {
     }
   }
 
-  subscribe(callback: firebase.Observer<any> | ((a: firebase.User | null) => any)) {
-    this.auth.onAuthStateChanged(callback);
+  subscribe(callback: (identity: firebase.User | null) => void): firebase.Unsubscribe {
+    return this.auth.onAuthStateChanged(async (identity: firebase.User | null) => {
+      if (identity) {
+        this.request = await this.authorized();
+      }
+
+      callback(identity);
+    });
   }
 
   signOut(): Promise<void> {
     return this.auth.signOut();
   }
 
-  updateProfile(form: IUserProfile) {
+  profile() {
+    return this.request.get('/user/profile');
+  }
+
+  profileUpdate(form: IUserProfile) {
     return this.request.post('/user/profile', form);
+  }
+
+  getInstance() {
+    return this.request;
   }
 }
 
