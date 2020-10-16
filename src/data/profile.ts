@@ -16,7 +16,7 @@ export class Profile {
 
   async get(username: string) {
     this.loading.get = true;
-    
+
     try {
       this.current = (await this.request.get(`/user/profile/${username}`)).data;
     } catch (exception) {

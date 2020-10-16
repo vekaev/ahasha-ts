@@ -9,10 +9,11 @@ import { Add, BackIcon, Chat, MoreIcon } from '../../../components/Icons/Icons';
 import joinClass from '../../../utils/join';
 import { LangContext } from './../../../components/LangContext/LangContext';
 import { Loading } from '../../../components/Loading/Loading';
+import { IPostResource } from '../../../data/dto';
 
 // interface IMyProfileProps {
 //   history: RouteComponentProps;
-//   anotherUser: {};
+//   profile: {};
 //   posts: [
 //     {
 //       id: number;
@@ -23,7 +24,7 @@ import { Loading } from '../../../components/Loading/Loading';
 //   ];
 // };
 
-const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
+const Profile: React.FC<any> = ({ history, profile, posts, data, abbr }) => {
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale()['user']['profile'];
 
@@ -32,7 +33,7 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
     onClickLeft: () => {
       history.goBack();
     },
-    middle: anotherUser?.username || text['header'],
+    middle: profile?.username || text['header'],
     right: (
       <span style={{ opacity: 0.4, lineHeight: 0, marginTop: -2 }}>
         <MoreIcon />
@@ -67,13 +68,13 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
             </div>
             <div>
               <div className={styles['profile-user-photo']}>
-                <UserPhoto src={anotherUser.mainPhoto} />
+                <UserPhoto abbr={abbr} src={profile.mainPhoto} />
               </div>
               <div className={styles['profile-user-full-name']}>
-                {anotherUser?.fullName}
+                {profile?.fullName}
               </div>
               <div className={styles['profile-user-info']}>
-                {anotherUser?.info}
+                {profile?.info}
               </div>
             </div>
             <div
@@ -88,7 +89,7 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
           </div>
 
           <Switch>
-            <Route exact path={`/${anotherUser.username}`}>
+            <Route exact path={`/${profile.username}`}>
               <div className={styles['profile-posts']}>
                 <div className={styles['profile-tabs']}>
                   <div
@@ -98,9 +99,9 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
                       styles['active']
                     )}
                   >
-                    <Link to={`/${anotherUser.username}`}>
+                    <Link to={`/${profile.username}`}>
                       <span>
-                        {anotherUser?.quantityPosts} {text['post']}
+                        {profile?.quantityPosts} {text['post']}
                       </span>
                     </Link>
                   </div>
@@ -110,9 +111,9 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
                       styles['tab-link']
                     )}
                   >
-                    {/* <Link to={`/${anotherUser.username}/r`}> */}
+                    {/* <Link to={`/${profile.username}/r`}> */}
                     <span style={{ color: '#CACFD4' }}>
-                      {anotherUser?.rank || ''} {text['rank']}
+                      {profile?.rank || ''} {text['rank']}
                     </span>
                     {/* </Link> */}
                   </div>
@@ -121,21 +122,24 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
                   <PostFeedPreview>
                     {posts.map(
                       (
-                        post: { id: number; img: string; url: string | number },
-                        index: number
+                        post: any,
+                        index: number,
                       ): ReactChild => {
+                        console.log(post)
                         return (
                           <Link
                             key={index}
                             to={{
-                              pathname: `/${anotherUser.username}/p/${post.id}`,
+                              pathname: `/p/${post.id}`,
                               state: {
-                                user: anotherUser,
-                                post,
+                                profile: JSON.parse(JSON.stringify(profile)),
+                                post: JSON.parse(JSON.stringify(post)),
                               },
                             }}
                           >
-                            <PostImage id={post.id} src={post.img} />
+                            {post.resources.map((resource: IPostResource, index: number) => (
+                              <PostImage key={index} id={post.id} src={resource.origin} />
+                            ))}
                           </Link>
                         );
                       }
@@ -148,7 +152,7 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
                   )}
               </div>
             </Route>
-            <Route exact path={`/${anotherUser.username}/r`}>
+            <Route exact path={`/${profile.username}/r`}>
               <div className={styles['profile-tabs']}>
                 <div
                   className={joinClass(
@@ -156,7 +160,7 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
                     styles['tab-link']
                   )}
                 >
-                  <Link to={`/${anotherUser.username}`}>
+                  <Link to={`/${profile.username}`}>
                     <span>
                       {posts?.length || 0} {text['post']}
                     </span>
@@ -169,9 +173,9 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
                     styles['active']
                   )}
                 >
-                  <Link to={`/${anotherUser.username}/r`}>
+                  <Link to={`/${profile.username}/r`}>
                     <span>
-                      {anotherUser?.rank} {text['rank']}
+                      {profile?.rank} {text['rank']}
                     </span>
                   </Link>
                 </div>

@@ -21,6 +21,9 @@ export class Session {
 
   @observable user: SessionUser = null;
   @observable profile: IProfile | null = null;
+  @observable loading = {
+    profile: false,
+  };
 
   constructor() {
     this.auth = firebase.auth();
@@ -96,7 +99,9 @@ export class Session {
   }
 
   async getProfile() {
+    this.loading.profile = true;
     this.profile = (await this.request.get('/user/profile')).data;
+    this.loading.profile = false;
   }
 
   profileUpdate(form: IUserProfile) {

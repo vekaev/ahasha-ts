@@ -55,7 +55,19 @@ export class Post {
     this.loading.one = true;
 
     try {
-      this.current = (await this.request.get(`/post/${id}`)).data;
+      const current: IPost = (await this.request.get(`/post/${id}`)).data[0];
+
+      if (current) {
+        current.resources = await Promise.all(
+          current.resources.map(async (resource) => {
+            const storageRef = storage.ref(resource.origin);
+            resource.origin = await storageRef.getDownloadURL();
+            return resource;
+          })
+        );
+      }
+
+      this.current = current;
     } catch (exception) {
       console.error(exception);
     } finally {

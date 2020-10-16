@@ -30,8 +30,8 @@ const SignIn = (props: { session: Session }) => {
 }
 
 function App(props: AppProps) {
-  const [post, setPost] = useState<Post | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [post, setPost] = useState<Post>(new Post(props.session.getInstance()));
+  const [profile, setProfile] = useState<Profile>(new Profile(props.session.getInstance()));
   const profileContext: any = useContext(ProfileContext);
 
   useEffect(() => {
@@ -81,13 +81,14 @@ function App(props: AppProps) {
   }, [props.session.profile]);
 
   console.log(post?.list);
+  console.log(post?.current);
 
   // useEffect(() => {
   //   console.log(post?.list);
   // }, [post?.list]);
 
   // TODO: guest
-  if (!profileContext.profile) {
+  if (!profileContext.profile && props.session.loading.profile) {
     return <Loading />;
   }
 
@@ -103,11 +104,11 @@ function App(props: AppProps) {
           <Route path='/auth/verify' render={(routeProps) => <Verify {...routeProps} session={props.session} />} />
           <Route path='/auth/sign-in' render={(routeProps) => <SignIn {...routeProps} session={props.session} />} />
           <Route path='/account/edit' component={Settings} />
-          {post && (
+          {profileContext?.profile && (
             <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} session={props.session} post={post} />} />
           )}
           <Route path='/404' component={PageNotFound} />
-          <Route path='/:username' render={(userProps) => <User {...userProps} post={post} session={props.session} />} />
+          <Route path='/:username' render={(userProps) => <User {...userProps} profile={profile} post={post} session={props.session} />} />
           {/* <Redirect from='*' to='/404' /> */}
         </Switch>
       </UserDataProvider>
