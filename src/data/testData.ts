@@ -84,7 +84,7 @@ export class Session {
 
 export class TestData {
   @observable user: any = {
-    mainPhoto: 'http://www.ahasha.com/img/auth-model-13.jpg',
+    avatar: 'http://www.ahasha.com/img/auth-model-13.jpg',
     quantityPosts: 16,
     firstName: 'Anna',
     lastName: 'Hanney',

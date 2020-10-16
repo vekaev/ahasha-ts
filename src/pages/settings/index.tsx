@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./index.scss";
 import { observer } from "mobx-react";
-import { TestData } from "../../data";
+import { TestData, Session } from "../../data";
 import {
   Route,
   RouteChildrenProps,
@@ -11,11 +11,11 @@ import {
 import Layout from "../../containers/Layout/Layout";
 import SettingsList from "./List/SettingsList/SettingsList";
 import { BackIcon } from "../../components/Icons/Icons";
-import EditProfileContainer from "../../containers/EditProfileContainer/EditProfileContainer";
+import {EditProfileContainer} from "../../containers/EditProfileContainer/EditProfileContainer";
 import { LangContext } from '../../components/LangContext/LangContext';
 
 export interface testDataProps extends RouteChildrenProps {
-  test: TestData;
+  session: Session;
 }
 
 const Page = (props: testDataProps) => {
@@ -37,7 +37,7 @@ const Page = (props: testDataProps) => {
   return (
     <Switch>
       <Route exact path="/account/edit/profile">
-        <EditProfileContainer />
+        <EditProfileContainer session={props.session} />
       </Route>
       <Route exact path="/account/edit">
         <Layout header={header}>

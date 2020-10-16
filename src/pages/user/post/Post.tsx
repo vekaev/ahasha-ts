@@ -27,7 +27,7 @@ const MyPost: React.FC<any> = ({ profile, post }) => {
         <div className={styles["post-user"]}>
           <div className={styles["post-user-photo"]}>
             <Link to={`/${profile?.username}`}>
-              <UserPhoto abbr={abbr(profile.firstName, profile.lastName)} src={profile?.mainPhoto} />
+              <UserPhoto abbr={abbr(profile.firstName, profile.lastName)} src={profile?.avatar} />
             </Link>
           </div>
           <div className={styles["post-user-info"]}>

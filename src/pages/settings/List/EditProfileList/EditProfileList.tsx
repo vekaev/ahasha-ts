@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ArrowNext } from "../../../../components/Icons/Icons";
-import { IUserData } from "../../Interfaces";
+import { IUserData } from "../../../../Interfaces";
 import styles from "../List.module.scss";
 import { LangContext } from '../../../../components/LangContext/LangContext';
 

@@ -6,12 +6,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import { Session } from './data';
 import { ProfileProvider } from './components/ProfileContext/ProfileContext';
+import * as firebase from "firebase";
 
+const storage = firebase.storage();
 ReactDOM.render(
   // <React.StrictMode>
   <Router>
     <ProfileProvider>
-      <App session={new Session()} />
+      <App session={new Session(storage)} storage={storage} />
     </ProfileProvider>
   </Router>,
   // </React.StrictMode>,

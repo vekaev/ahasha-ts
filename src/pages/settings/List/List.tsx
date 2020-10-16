@@ -2,7 +2,7 @@ import React, { Dispatch, useState } from "react";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { BackIcon, ArrowNext } from "../../../components/Icons/Icons";
 import Layout from "../../../containers/Layout/Layout";
-import { IUserData } from "../Interfaces";
+import { IUserData } from "../../../Interfaces";
 import styles from "./List.module.scss";
 
 export const SettingsListItem = (props: any) => {

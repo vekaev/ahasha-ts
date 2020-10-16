@@ -23,7 +23,7 @@ export interface IProfile {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  mainPhoto?: string;
+  avatar?: string;
   quantityPosts: number;
   rank?: number;
   firstName: string;

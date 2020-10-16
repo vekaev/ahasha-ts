@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext } from "react";
-import { IModalDataProps } from "../../Interfaces";
+import { IModalDataProps } from "../../../../Interfaces";
 import styles from "./GenderModal.module.scss";
 import { LangContext } from "../../../../components/LangContext/LangContext";
 
@@ -49,9 +49,8 @@ const GenderModal: React.FC<IModalDataProps> = ({
               <button
                 key={index}
                 onClick={handleClick}
-                className={`${
-                  userData.gender === gender ? styles["active"] : ""
-                }`}
+                className={`${userData.gender === gender ? styles["active"] : ""
+                  }`}
               >
                 {gender}
               </button>

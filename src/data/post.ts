@@ -4,10 +4,9 @@ import { CONFIG } from '../constants';
 import { IPost, IPostAdd, IPostResourceType } from './dto';
 import * as firebase from 'firebase/app';
 
-const storage = firebase.storage();
-
 export class Post {
   private readonly request: AxiosInstance;
+  private readonly storage: any;
 
   @observable current: IPost | null = null;
   @observable list: IPost[] = [];
@@ -17,8 +16,9 @@ export class Post {
     upload: false,
   };
 
-  constructor(request: AxiosInstance) {
+  constructor(request: AxiosInstance, storage: any) {
     this.request = request;
+    this.storage = storage;
   }
 
   async fetch(username?: string) {
@@ -35,7 +35,7 @@ export class Post {
         list.map(async (post: IPost) => {
           post.resources = await Promise.all(
             post.resources.map(async (resource) => {
-              const storageRef = storage.ref(resource.origin);
+              const storageRef = this.storage.ref(resource.origin);
               resource.origin = await storageRef.getDownloadURL();
               return resource;
             })
@@ -60,7 +60,7 @@ export class Post {
       if (current) {
         current.resources = await Promise.all(
           current.resources.map(async (resource) => {
-            const storageRef = storage.ref(resource.origin);
+            const storageRef = this.storage.ref(resource.origin);
             resource.origin = await storageRef.getDownloadURL();
             return resource;
           })
@@ -96,8 +96,6 @@ export class Post {
       } as IPost)
     } catch (exception) {
       console.error(exception);
-    } finally {
-      this.loading.upload = false;
     }
   }
 

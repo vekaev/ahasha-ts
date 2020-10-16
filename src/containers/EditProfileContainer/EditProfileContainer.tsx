@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import {RouteChildrenProps, useHistory} from 'react-router-dom';
 import { BackIcon } from '../../components/Icons/Icons';
 import EditProfile from '../../pages/settings/EditProfile/EditProfile';
 import { IUserData } from '../../Interfaces';
@@ -11,31 +11,39 @@ import UserNameModal from '../../pages/settings/ModalForm/UserNameModal/UserName
 import Layout from '../Layout/Layout';
 import { LangContext } from './../../components/LangContext/LangContext';
 import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
+import {observer} from "mobx-react";
+import {Session} from "../../data";
 
-const EditProfileContainer: React.FC<any> = (props) => {
+interface EditProps {
+  session: Session;
+}
+
+const Edit: React.FC<any> = (props: EditProps) => {
   const history = useHistory();
   const profileContext: any = useContext(ProfileContext);
   const profile = profileContext?.profile;
 
   const [userData, setUserData] = useState<IUserData>({
-    avatar: 'https://modnaya.org/uploads/posts/2013-08/1376555614_emo-stil.jpg',
-    firstName: 'Andrei',
-    lastName: 'Lukashenko',
-    userName: 'AndreiLukashenko',
+    avatar: '',
+    firstName: '',
+    lastName: '',
+    userName: '',
     birthDay: {
-      day: 18,
-      month: 10,
-      year: 1997,
+      day: 0,
+      month: 0,
+      year: 0,
     },
-    gender: 'Male',
+    gender: '',
   });
 
   useEffect(() => {
     if (profile) {
+
       const [year, day, mounth] = profile.birthday.split('-');
 
+      console.log({profile});
       setUserData({
-        avatar: profile.mainPhoto,
+        avatar: profile.avatar,
         firstName: profile.firstName,
         lastName: profile.lastName,
         userName: profile.username,
@@ -49,12 +57,11 @@ const EditProfileContainer: React.FC<any> = (props) => {
     }
   }, [profile])
 
+
   const changeAvatar = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files.length > 0) {
-      setUserData({
-        ...userData,
-        avatar: URL.createObjectURL(event.target.files[0]),
-      });
+      props.session.profileUpdate(userData, event.target.files[0]);
+      setUserData({...userData, avatar: URL.createObjectURL(event.target.files[0])})
     }
   };
 
@@ -118,13 +125,18 @@ const EditProfileContainer: React.FC<any> = (props) => {
     },
   };
 
+  const handleFormSet = (data:any) => {
+    setUserData(data)
+    props.session.profileUpdate(data);
+  }
+
   return (
     <Layout header={header}>
       {isOpenModal.flag && (
         <ModalWindow
           showModal={showModal}
           userData={userData}
-          setUserData={setUserData}
+          setUserData={handleFormSet}
         />
       )}
       <EditProfile
@@ -136,4 +148,4 @@ const EditProfileContainer: React.FC<any> = (props) => {
   );
 };
 
-export default EditProfileContainer;
+export const EditProfileContainer = observer(Edit);

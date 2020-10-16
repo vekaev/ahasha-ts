@@ -68,7 +68,7 @@ const Profile: React.FC<any> = ({ history, profile, posts, data, abbr }) => {
             </div>
             <div>
               <div className={styles['profile-user-photo']}>
-                <UserPhoto abbr={abbr} src={profile.mainPhoto} />
+                <UserPhoto abbr={abbr} src={profile.avatar} />
               </div>
               <div className={styles['profile-user-full-name']}>
                 {profile?.fullName}

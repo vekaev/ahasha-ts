@@ -1,5 +1,5 @@
 export interface IUserData {
-  avatar: string;
+  avatar: any;
   firstName: string;
   lastName: string;
   userName: string;
@@ -19,7 +19,7 @@ export interface IModalDataProps {
 }
 
 export interface IUser {
-  mainPhoto: string;
+  avatar: string;
   quantityPosts: number;
   rank?: number;
   firstName: string;

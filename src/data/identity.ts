@@ -1,11 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
 import { observable } from 'mobx';
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-storage';
-import { IUserProfile, SessionUser } from './dto';
+import {IPost, IPostAdd, IPostResourceType, IUserProfile, SessionUser} from './dto';
 import { CONFIG } from '../constants';
-import { IProfile } from '../Interfaces';
+import { IUserData } from '../pages/settings/Interfaces';
+import * as firebase from 'firebase/app';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
@@ -18,16 +18,16 @@ export class Session {
 
   readonly auth: firebase.auth.Auth;
   private request: AxiosInstance;
+  private readonly storage: any;
 
   @observable user: SessionUser = null;
-  @observable profile: IProfile | null = null;
-  @observable loading = {
-    profile: false,
-  };
+  @observable profile: any | null = null;
+  @observable avatarLoading : boolean = false;
 
-  constructor() {
+  constructor(storage: any) {
     this.auth = firebase.auth();
     this.request = this.guest();
+    this.storage = storage;
 
     if (this.auth.currentUser) {
       this
@@ -99,18 +99,45 @@ export class Session {
   }
 
   async getProfile() {
-    this.loading.profile = true;
-    this.profile = (await this.request.get('/user/profile')).data;
-    this.loading.profile = false;
+    const profile = (await this.request.get('/user/profile')).data;
+    const storageRef = this.storage.ref(profile.avatar);
+    profile.avatar = await storageRef.getDownloadURL();
+    this.profile = profile;
   }
 
-  profileUpdate(form: IUserProfile) {
-    return this.request.post('/user/profile', form);
+  async profileUpdate(form: IUserData, file?: File) {
+    const correctForm = {
+      username: 'vekaev',
+      firstName: form.firstName,
+      lastName: form.lastName,
+      avatar: form.avatar,
+      // birthday: 12345678
+    }
+
+    if (file) {
+      const formData = new FormData();
+      formData.set('file', file);
+      const uploaded = await this.request.post('/storage/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        baseURL: CONFIG.API_URL,
+      });
+      correctForm.avatar = uploaded?.data?.name;
+    } else {
+      correctForm.avatar = null;
+    }
+
+    console.log(correctForm);
+    return this.request.patch('/user/profile', correctForm);
   }
 
   getInstance() {
     return this.request;
   }
+
+
+
 }
 
 // new Session().sendSignInLink({ email: 'dsent.work@gmail.com' })
@@ -119,7 +146,7 @@ export class Session {
 
 export class TestData {
   @observable user: any = {
-    mainPhoto: 'http://www.ahasha.com/img/auth-model-13.jpg',
+    avatar: 'http://www.ahasha.com/img/auth-model-13.jpg',
     quantityPosts: 16,
     firstName: 'Anna',
     lastName: 'Hanney',

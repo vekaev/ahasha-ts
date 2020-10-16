@@ -43,7 +43,7 @@ const MyProfile: React.FC<any> = ({ history, profile, posts, abbr }) => {
         <div className={'container'}>
           <div className={styles['profile-user']}>
             <div className={styles['profile-user-photo']}>
-              <UserPhoto style={{ fontSize: 32, letterSpacing: '0.025em' }} abbr={abbr} src={profile.mainPhoto} />
+              <UserPhoto style={{ fontSize: 32, letterSpacing: '0.025em' }} abbr={abbr} src={profile.avatar} />
             </div>
             <div className={styles['profile-user-full-name']}>
               {profile?.fullName}

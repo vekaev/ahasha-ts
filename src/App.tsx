@@ -13,9 +13,11 @@ import { ProfileContext } from './components/ProfileContext/ProfileContext';
 import { Loading } from './components/Loading/Loading';
 import moment from 'moment';
 import { IProfile } from './Interfaces';
+import * as firebase from "firebase";
 
 interface AppProps {
   session: Session;
+  storage: any;
 }
 
 // TODO: remove
@@ -35,12 +37,13 @@ function App(props: AppProps) {
   const profileContext: any = useContext(ProfileContext);
 
   useEffect(() => {
+
     props.session.subscribe((identity) => {
       if (identity) {
         props.session.user = identity;
         props.session.getProfile();
 
-        const post = new Post(props.session.getInstance());
+        const post = new Post(props.session.getInstance(), props.storage);
         setPost(post);
       }
     });
@@ -53,7 +56,7 @@ function App(props: AppProps) {
       const profileData = props.session.profile;
 
       profile = {
-        mainPhoto: profileData.mainPhoto || null,
+        avatar: profileData.avatar || null,
         size: profileData.size || null,
         firstName: profileData.firstName,
         lastName: profileData.lastName,
@@ -99,11 +102,12 @@ function App(props: AppProps) {
           <Route exact path='/' render={(routeProps) => <p>Home</p>} />
           <Route path='/auth/verify' render={(routeProps) => <Verify {...routeProps} session={props.session} />} />
           <Route path='/auth/sign-in' render={(routeProps) => <SignIn {...routeProps} session={props.session} />} />
-          <Route path='/account/edit' component={Settings} />
+          <Route path='/account/edit' render={(routeProps) => <Settings {...routeProps} session={props.session} />}/>
           {post && (
             <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} session={props.session} post={post} />} />
           )}
           <Route path='/404' component={PageNotFound} />
+          // @ts-ignore
           <Route path='/:username' render={(userProps) => <User {...userProps} post={post} session={props.session} />} />
           {/* <Redirect from='*' to='/404' /> */}
         </Switch>

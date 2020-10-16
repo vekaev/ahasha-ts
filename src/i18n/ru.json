@@ -49,7 +49,7 @@
       "formGender": {
         "male": "Male",
         "female": "Female",
-        "third": "Third",
+        "third": "Custom",
         "buttonCancel": "Cancel"
       }
     },

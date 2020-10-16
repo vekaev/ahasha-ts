@@ -1,13 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import React, {useState, useContext, useEffect} from 'react';
+import {RouteChildrenProps} from 'react-router-dom';
 import Layout from '../../containers/Layout/Layout';
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import styles from './AddPhoto.module.scss'
-import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
-import { Button } from '../../components/Button';
-import { LangContext } from './../../components/LangContext/LangContext';
-import { Session, Post } from '../../data';
-import { observer } from 'mobx-react';
+import {BackIcon, MoreIcon} from '../../components/Icons/Icons';
+import {Button} from '../../components/Button';
+import {LangContext} from './../../components/LangContext/LangContext';
+import {Session, Post} from '../../data';
+import {observer} from 'mobx-react';
 
 interface AddPhotoProps extends RouteChildrenProps {
   session: Session;
@@ -17,7 +17,7 @@ interface AddPhotoProps extends RouteChildrenProps {
 const Component = (props: AddPhotoProps) => {
   const [img, setImg] = useState<string | null>(null);
   const user: any = {
-    mainPhoto: 'https://images.unsplash.com/photo-1591473696086-11d2478006f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60',
+    avatar: 'https://images.unsplash.com/photo-1591473696086-11d2478006f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60',
     quantityPosts: 16,
     rank: 195,
     firstName: 'Anna',
@@ -43,12 +43,12 @@ const Component = (props: AddPhotoProps) => {
   let text = langContext?.useLocale()['addPhoto'];
 
   const header = {
-    left: <BackIcon />,
+    left: <BackIcon/>,
     onClickLeft: () => {
       props.history.goBack();
     },
     middle: text['headerTitle'],
-    right: <span style={{ opacity: .4, lineHeight: 0, marginTop: -2 }}><MoreIcon /></span>,
+    right: <span style={{opacity: .4, lineHeight: 0, marginTop: -2}}><MoreIcon/></span>,
     // onClickRight: (  ) => {
     //   history.push('/settings')
     // }
@@ -69,6 +69,8 @@ const Component = (props: AddPhotoProps) => {
       props.history.replace(`/${props.session.profile?.username}`)
     } catch (exception) {
       console.error(exception);
+    } finally {
+      props.post.loading.upload = false
     }
   };
 
@@ -79,11 +81,11 @@ const Component = (props: AddPhotoProps) => {
     >
       <div className={styles['add-photo__page']}>
         <div className={styles['user-image']}>
-          {img && <img src={img} alt='Red dot' style={{ width: '100%' }} />}
+          {img && <img src={img} alt='Red dot' style={{width: '100%'}}/>}
         </div>
-        <div className={styles['content']} >
-          <div style={{ marginTop: "auto" }}>
-            <Button onClick={onSubmit} disabled={props.post.loading.upload} >{text['buttonTitle']}</Button>
+        <div className={styles['content']}>
+          <div style={{marginTop: "auto"}}>
+            <Button onClick={onSubmit} loading={props.post.loading.upload}>{text['buttonTitle']}</Button>
           </div>
         </div>
       </div>
