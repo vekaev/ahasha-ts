@@ -1,26 +1,28 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { TestData } from "../../data";
+import { Post, Profile, Session } from "../../data";
 import { Route, RouteChildrenProps, Switch } from 'react-router-dom';
 import ProfileContainer from '../../containers/ProfileContainer.tsx/ProfileContainer';
 import PostContainer from '../../containers/PostContainer/PostContainer';
-export interface testDataProps extends RouteChildrenProps {
-    test: TestData;
+export interface UserProps extends RouteChildrenProps {
+  session: Session;
+  post: Post;
+  profile: Profile;
 }
 
-const Page = (props: any) => {
-    return (
-        <>
-            <Switch>
-                <Route exact path={'/:username/p/:postId'}>
-                    <PostContainer />
-                </Route>
-                <Route path={'/:username'}>
-                    <ProfileContainer post={props.post} session={props.session} />
-                </Route>
-            </Switch>
-        </>
-    )
+const Page = (props: UserProps) => {
+  return (
+    <>
+      <Switch>
+        <Route exact path={'/p/:postId'}>
+          <PostContainer profile={props.profile} post={props.post} />
+        </Route>
+        <Route path={'/:username'}>
+          <ProfileContainer post={props.post} profile={props.profile} session={props.session} />
+        </Route>
+      </Switch>
+    </>
+  )
 
 }
 

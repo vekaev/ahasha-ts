@@ -19,6 +19,10 @@ export interface IModalDataProps {
 }
 
 export interface IProfile {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
   mainPhoto?: string;
   quantityPosts: number;
   rank?: number;
@@ -28,6 +32,7 @@ export interface IProfile {
   birthday: string;
   age: number | string;
   size: string;
+  gender?: string;
   readonly fullName: string;
   readonly info: string;
 }

@@ -1,11 +1,11 @@
 import React, { createContext, useState } from 'react';
-import { TestData } from '../../data';
+import { IProfile } from '../../Interfaces';
 
 // interface ProfileContextProps {
 //   user: IUser;
 // };
 
-export const ProfileContext = createContext<any>({});
+export const ProfileContext = createContext<IProfile | {}>({});
 
 export const ProfileProvider: React.FC<any> = ({ children }) => {
   const [profile, setProfile] = useState(null);

@@ -4,7 +4,6 @@ import { Saved } from "../../../components/Icons/Icons";
 import Like from "../../../components/Like/Like";
 import UserPhoto from "../../../components/UserPhoto/UserPhoto";
 import styles from "./Post.module.scss";
-import { LangContext } from "./../../../components/LangContext/LangContext";
 import { abbr } from "../../../utils/abbr";
 
 // interface IMyPostProps extends RouteComponentProps<{}, StaticContext, Location> {
@@ -12,29 +11,14 @@ import { abbr } from "../../../utils/abbr";
 //   // location: Location;
 // }
 
-const MyPost: React.FC<any> = ({ history, profile, post }) => {
+const MyPost: React.FC<any> = ({ profile, post }) => {
   const [like, setLike] = useState({
     icon: post?.myLike,
     // counter: post?.likes,
   });
 
-  const langContext = useContext(LangContext);
-  let text = langContext?.useLocale()["user"]["post"];
-
   if (!post) {
-    return (
-      <div className="container">
-        <p
-          style={{
-            display: "block",
-            textAlign: "center",
-            marginTop: "150px",
-          }}
-        >
-          {text["notFound"]}
-        </p>
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -56,7 +40,8 @@ const MyPost: React.FC<any> = ({ history, profile, post }) => {
           </div>
         </div>
         <div className={styles["post-image"]}>
-          <img src={post?.img} alt="ahasha models" />
+          {console.log(post.resources[0].origin, "POST")}
+          <img src={post.resources[0].origin} alt="ahasha models" />
         </div>
         <div className={styles["post-actions"]}>
           <div className={styles["post-actions-like"]}>

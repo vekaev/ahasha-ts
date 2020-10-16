@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserDataContext } from '../components/UserDataContext/UserDataContext';
 import Layout from '../containers/Layout/Layout';
-import { IUser } from './settings/Interfaces';
 
 export const PageNotFound: React.FC = () => {
-  const user: IUser = useContext(UserDataContext);
+  const user: any = useContext(UserDataContext);
 
   const header = {
     middle: 'Ooops!',

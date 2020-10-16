@@ -9,9 +9,11 @@ const storage = firebase.storage();
 export class Post {
   private readonly request: AxiosInstance;
 
+  @observable current: IPost | null = null;
   @observable list: IPost[] = [];
   @observable loading = {
     list: false,
+    one: false,
     upload: false,
   };
 
@@ -19,11 +21,15 @@ export class Post {
     this.request = request;
   }
 
-  async fetch() {
+  async fetch(username?: string) {
+    if (!username) {
+      return;
+    }
+
     this.loading.list = true;
 
     try {
-      const list = (await this.request.get('/post')).data;
+      const list = (await this.request.get(`/post/list/${username}`)).data;
 
       this.list = await Promise.all(
         list.map(async (post: IPost) => {
@@ -42,6 +48,30 @@ export class Post {
       console.error(exception);
     } finally {
       this.loading.list = false;
+    }
+  }
+
+  async one(id: string) {
+    this.loading.one = true;
+
+    try {
+      const current: IPost = (await this.request.get(`/post/${id}`)).data[0];
+
+      if (current) {
+        current.resources = await Promise.all(
+          current.resources.map(async (resource) => {
+            const storageRef = storage.ref(resource.origin);
+            resource.origin = await storageRef.getDownloadURL();
+            return resource;
+          })
+        );
+      }
+
+      this.current = current;
+    } catch (exception) {
+      console.error(exception);
+    } finally {
+      this.loading.one = false;
     }
   }
 

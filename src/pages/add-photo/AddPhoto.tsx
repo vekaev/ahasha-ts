@@ -65,8 +65,8 @@ const Component = (props: AddPhotoProps) => {
       await props.post.add({
         resources: locationState.files,
       });
-      await props.post.fetch();
-      props.history.replace(`/${props.session.profile.username}`)
+      await props.post.fetch(props.session.profile?.username);
+      props.history.replace(`/${props.session.profile?.username}`)
     } catch (exception) {
       console.error(exception);
     }

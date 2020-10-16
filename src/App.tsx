@@ -22,7 +22,7 @@ interface AppProps {
 const SignIn = (props: { session: Session }) => {
   useEffect(() => {
     props.session.sendSignInLink({
-      email: 'vekaevb@gmail.com',
+      email: 'dsent.work@gmail.com',
     });
   }, []);
 
@@ -33,8 +33,6 @@ const SignIn = (props: { session: Session }) => {
 function App(props: AppProps) {
   const [post, setPost] = useState<Post | null>(null);
   const profileContext: any = useContext(ProfileContext);
-
-  console.log(profileContext)
 
   useEffect(() => {
     props.session.subscribe((identity) => {
@@ -86,11 +84,9 @@ function App(props: AppProps) {
   // }, [post?.list]);
 
   // TODO: guest
-  // if (!profileContext.profile) {
-  //   return <Loading />;
-  // }
-
-  console.log(profileContext.profile)
+  if (!profileContext.profile) {
+    return <Loading />;
+  }
 
   return (
     <LangProvider>

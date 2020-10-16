@@ -92,7 +92,7 @@ const MyProfile: React.FC<any> = ({ history, profile, posts, abbr }) => {
                           <Link
                             key={index}
                             to={{
-                              pathname: `/${profile.username}/p/${post.id}`,
+                              pathname: `/p/${post.id}`,
                               state: {
                                 profile: JSON.parse(JSON.stringify(profile)),
                                 post: JSON.parse(JSON.stringify(post)),

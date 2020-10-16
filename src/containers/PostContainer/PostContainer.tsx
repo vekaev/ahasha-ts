@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
 import Post from '../../pages/user/post/Post';
 import Layout from '../Layout/Layout';
+import moment from 'moment';
 
 // TODO: universal hoc
 // const userContainer = (Component) => (props) => {
@@ -16,26 +17,51 @@ import Layout from '../Layout/Layout';
 //   )
 // );
 
-const PostContainer: React.FC<any> = ({ history, location }) => {
-  const [post, setPost] = useState(location?.state?.post);
+const PostContainer: React.FC<any> = ({ history, location, match, post }) => {
+  const [userPost, setUserPost] = useState(location?.state?.post);
   const myUsername = location?.state?.myUsername;
-  const profile = location?.state?.profile;
+  const profile = location?.state?.profile || userPost?.profile;
+  const params: any = match.params;
 
-  console.log(post);
+  useEffect(() => {
+    if (!userPost) {
+      post.one(params.postId);
+    }
 
-  if (!post) {
-    console.log('!post')
+    if (!profile) {
 
-    // useEffect(() => {
-    //   setPost();
-    // }, []);
-  }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!userPost && post?.current) {
+      setUserPost({
+        createdAt: post?.current.createdAt,
+        deletedAt: post?.current.deletedAt,
+        description: post?.current.description,
+        id: post?.current.id,
+        resources: post?.current.resources,
+        updatedAt: post?.current.updatedAt,
+        profile: {
+          ...(post?.current.profile || {}), get fullName() {
+            return `${this.firstName} ${this.lastName}`;
+          },
+          get age() {
+            return `${moment().diff(this.birthday, 'years')} years`;
+          },
+          get info() {
+            return this.age;
+          }
+        },
+      });
+    }
+  }, [post.current]);
+
+  console.log({ userPost })
+
 
   if (!profile) {
-    console.log('!profile');
-    // useEffect(() => { 
-    //   setPost();
-    // }, []);
+    return null;
   }
 
   const header = {
@@ -55,7 +81,7 @@ const PostContainer: React.FC<any> = ({ history, location }) => {
       header={header}
     >
       <Post
-        post={post}
+        post={userPost}
         profile={profile}
       />
     </Layout>
