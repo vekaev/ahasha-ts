@@ -9,6 +9,8 @@
   height: 60px;
   border-bottom: 1px solid #EFF2F5;
   background-color: #fff;
+  position: relative;
+  z-index: 99;
 
   @media (min-width: 950px) {
     display: none;

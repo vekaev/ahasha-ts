@@ -101,3 +101,31 @@ export function User({ activeStatus }: iconProps) {
     <svg fill="none" height="20" viewBox="0 0 17 20" width="17" xmlns="http://www.w3.org/2000/svg"><g clipRule="evenodd" fillRule="evenodd" stroke="#000" strokeLinecap="square"><path d="m12.7 5.28571c0 2.36714-1.8802 4.28571-4.2 4.28571s-4.2-1.91857-4.2-4.28571 1.8802-4.28571 4.2-4.28571 4.2 1.91857 4.2 4.28571z" /><path d="m16.4 19.5h-15.4c0-1.015 0-1.9806 0-2.8551 0-2.3685 1.8804-4.2878 4.2-4.2878h7c2.3196 0 4.2 1.9193 4.2 4.2878z" /></g></svg>
   )
 }
+
+export function LoadingIcon() {
+  return (
+    <svg
+      viewBox='0 0 100 100'
+      preserveAspectRatio='xMidYMid'
+    >
+      <circle
+        cx={50}
+        cy={50}
+        fill='none'
+        stroke={'#FF441B'}
+        strokeWidth={8}
+        r={46}
+        strokeDasharray='216.76989309769573 74.25663103256524'
+      >
+        <animateTransform
+          attributeName='transform'
+          type='rotate'
+          repeatCount='indefinite'
+          dur='1s'
+          values='0 50 50;360 50 50'
+          keyTimes='0;1'
+        />
+      </circle>
+    </svg>
+  );
+}

@@ -3,7 +3,7 @@ import { IUserData } from '../Interfaces';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import styles from './EditProfile.module.scss';
 import { EditProfileList } from '../List/EditProfileList/EditProfileList';
-import { LangContext } from './../../../components/LangContext/LangContext';
+import { LangContext } from '../../../components/LangContext/LangContext';
 
 interface IEditProfileProps {
   userData: IUserData;
@@ -17,7 +17,7 @@ const EditProfile: React.FC<IEditProfileProps> = ({
   showModal,
 }) => {
 
-  
+
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale();
 

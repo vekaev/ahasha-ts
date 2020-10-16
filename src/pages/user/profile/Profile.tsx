@@ -3,13 +3,12 @@ import styles from './Profile.module.scss';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import PostImage from '../../../components/PostImage/PostImage';
 import PostFeedPreview from '../../../components/PostFeedPreview/PostFeedPreview';
-import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import { Link, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import Layout from '../../../containers/Layout/Layout';
 import { Add, BackIcon, Chat, MoreIcon } from '../../../components/Icons/Icons';
 import joinClass from '../../../utils/join';
-import { IUser } from '../../settings/Interfaces';
-import { UserDataContext } from '../../../components/UserDataContext/UserDataContext';
 import { LangContext } from './../../../components/LangContext/LangContext';
+import { Loading } from '../../../components/Loading/Loading';
 
 // interface IMyProfileProps {
 //   history: RouteComponentProps;
@@ -51,6 +50,7 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
   // const chatClickHandler = (): void => {
   //   console.log('chat');
   // }
+
   return (
     <Layout header={header} user={user}>
       <div className={styles['profile']}>
@@ -148,7 +148,7 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
                   )}
               </div>
             </Route>
-            <Route path={`/${anotherUser.username}/r`}>
+            <Route exact path={`/${anotherUser.username}/r`}>
               <div className={styles['profile-tabs']}>
                 <div
                   className={joinClass(
@@ -182,6 +182,7 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
                 {text['rankProcess']}
               </span>
             </Route>
+            <Redirect from='*' to='/404' />
           </Switch>
         </div>
       </div>

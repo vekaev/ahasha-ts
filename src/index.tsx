@@ -5,11 +5,14 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import { Session } from './data';
+import { ProfileProvider } from './components/ProfileContext/ProfileContext';
 
 ReactDOM.render(
   // <React.StrictMode>
   <Router>
-    <App session={new Session()} />
+    <ProfileProvider>
+      <App session={new Session()} />
+    </ProfileProvider>
   </Router>,
   // </React.StrictMode>,
   document.getElementById('root')

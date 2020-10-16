@@ -1,23 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { UserDataContext } from '../../components/UserDataContext/UserDataContext';
 import { IUser } from '../../pages/settings/Interfaces';
 import MyProfile from '../../pages/user/my-profile/MyProfile';
 import Profile from '../../pages/user/profile/Profile';
+import { Post } from '../../data';
+import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
 
-const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
-  const pathUsername: string = history.location.pathname.substr(1);
+const ProfileContainer: React.FC<RouteComponentProps> = ({ history, match }) => {
+  const pathUsername: string = match.url.substr(1);
   const user: IUser = useContext(UserDataContext);
-
+  const profileContext: any = useContext(ProfileContext);
+  const profile = profileContext?.profile;
+  const [post, setPost] = useState<Post | null>(null);
   let posts: any[];
 
+  // const abbr 
+
   // TODO: /username/r dont get username
-  console.log(user.username);
 
   // 
   // MYPROFILE
   // 
-  if (user?.username === pathUsername) {
+  if (profile?.username === pathUsername || `${profile?.username}/` === pathUsername) {
     posts = [
       {
         id: 1,
@@ -96,7 +101,7 @@ const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
     return (
       <MyProfile
         posts={posts}
-        user={user}
+        user={profile}
       />
     );
   }
@@ -125,8 +130,10 @@ const ProfileContainer: React.FC<RouteComponentProps> = ({ history }) => {
     },
   }
 
-  // if (pathUsername !== anotherUser.username) {
-  //   history.push('/');
+  // Redirect
+  // if (pathUsername !== anotherUser.username && pathUsername !== `${anotherUser.username}/`) {
+  //   history.replace(`/404`);
+  //   return null;
   // }
 
   posts = [

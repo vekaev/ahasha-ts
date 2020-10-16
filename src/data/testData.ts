@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import { observable } from 'mobx';
 import * as firebase from 'firebase/app';
 import { IUser } from '../pages/settings/Interfaces';
+import { IUserProfile } from './dto';
 
 export class Session {
 
@@ -13,6 +14,7 @@ export class Session {
   // @observable loading: boolean = true;
   // @observable authLoading: boolean = false;
   @observable user: firebase.User | null = null;
+  @observable profile: IUserProfile | null = null;
   // @observable roles: string | null = null;
   // @observable decodedToken: firebase.auth.IdTokenResult | null = null;
   // @observable request: AxiosInstance;

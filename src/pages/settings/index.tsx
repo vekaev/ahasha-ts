@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import "./index.scss";
 import { observer } from "mobx-react";
 import { TestData } from "../../data";
@@ -12,7 +12,7 @@ import Layout from "../../containers/Layout/Layout";
 import SettingsList from "./List/SettingsList/SettingsList";
 import { BackIcon } from "../../components/Icons/Icons";
 import EditProfileContainer from "../../containers/EditProfileContainer/EditProfileContainer";
-import { LangContext } from './../../components/LangContext/LangContext';
+import { LangContext } from '../../components/LangContext/LangContext';
 
 export interface testDataProps extends RouteChildrenProps {
   test: TestData;

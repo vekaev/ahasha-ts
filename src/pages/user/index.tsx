@@ -8,14 +8,14 @@ export interface testDataProps extends RouteChildrenProps {
     test: TestData;
 }
 
-const Page = (props: testDataProps) => {
+const Page = (props: any) => {
     return (
         <>
             <Switch>
-                <Route exact path={`/:id/p/:id`}>
+                <Route exact path={'/:username/p/:postId'}>
                     <PostContainer />
                 </Route>
-                <Route path={`/:id`}>
+                <Route path={'/:username'}>
                     <ProfileContainer />
                 </Route>
             </Switch>

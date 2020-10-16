@@ -2,6 +2,9 @@ import { AxiosInstance } from 'axios';
 import { observable } from 'mobx';
 import { CONFIG } from '../constants';
 import { IPost, IPostAdd, IPostResourceType } from './dto';
+import * as firebase from 'firebase/app';
+
+const storage = firebase.storage();
 
 export class Post {
   private readonly request: AxiosInstance;
@@ -20,7 +23,21 @@ export class Post {
     this.loading.list = true;
 
     try {
-      this.list = await this.request.get('/post');
+      const list = (await this.request.get('/post')).data;
+
+      this.list = await Promise.all(
+        list.map(async (post: IPost) => {
+          post.resources = await Promise.all(
+            post.resources.map(async (resource) => {
+              const storageRef = storage.ref(resource.origin);
+              resource.origin = await storageRef.getDownloadURL();
+              return resource;
+            })
+          );
+
+          return post;
+        }),
+      );
     } catch (exception) {
       console.error(exception);
     } finally {

@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import { observable } from 'mobx';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firebase-storage';
 import { IUser } from '../pages/settings/Interfaces';
 import { IUserProfile, SessionUser } from './dto';
 import { CONFIG } from '../constants';
@@ -10,8 +11,8 @@ firebase.initializeApp({
   apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
   authDomain: 'umbrella01-dev.firebaseapp.com',
   projectId: 'umbrella01-dev',
+  storageBucket: 'gs://umbrella01-dev.appspot.com',
 });
-
 
 export class Session {
 
@@ -19,11 +20,12 @@ export class Session {
   private request: AxiosInstance;
 
   @observable user: SessionUser = null;
+  @observable profile: any | null = null;
 
   constructor() {
     this.auth = firebase.auth();
     this.request = this.guest();
-    
+
     if (this.auth.currentUser) {
       this
         .authorized()
@@ -93,8 +95,8 @@ export class Session {
     return this.auth.signOut();
   }
 
-  profile() {
-    return this.request.get('/user/profile');
+  async getProfile() {
+    this.profile = (await this.request.get('/user/profile')).data;
   }
 
   profileUpdate(form: IUserProfile) {

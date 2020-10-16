@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { RouteChildrenProps } from 'react-router-dom';
 import Layout from '../../containers/Layout/Layout';
+import { withRouter } from "react-router-dom";
 import styles from './AddPhoto.module.scss'
 import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
 import { Button } from '../../components/Button';
@@ -34,7 +35,7 @@ const Component = (props: AddPhotoProps) => {
 
   const locationState: any = props.location.state;
 
-  console.log(props.post.list);
+  console.log({ locationState });
   if (locationState?.files === undefined) {
     props.history.push('/')
   }
@@ -68,7 +69,8 @@ const Component = (props: AddPhotoProps) => {
 
   return (
     <Layout
-      NavBarDisabled={true} header={header}
+      NavBarDisabled={true}
+      header={header}
       user={user}
     >
       <div className={styles['add-photo__page']}>
@@ -76,8 +78,8 @@ const Component = (props: AddPhotoProps) => {
           {img && <img src={img} alt='Red dot' style={{ width: '100%' }} />}
         </div>
         <div className={styles['content']} >
-          <div style={{ marginTop: 'auto' }}>
-            <Button onClick={onSubmit} title={text['buttonTitle']} disabled={props.post.loading.upload} />
+          <div style={{ marginTop: "auto" }}>
+            <Button title={text['buttonTitle']} onClick={onSubmit} disabled={props.post.loading.upload} />
           </div>
         </div>
       </div>

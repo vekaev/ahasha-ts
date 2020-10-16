@@ -49,7 +49,8 @@ const UploadPhoto: React.FC<any> = ({ history, children, className }) => {
             justifyContent: "center",
             alignItems: "center",
             height: "100%",
-            cursor: "pointer"
+            cursor: "pointer",
+            userSelect: 'none',
           }
         } htmlFor="upload__image">
           {children ? children : <Add />}

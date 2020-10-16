@@ -1,8 +1,8 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { ArrowNext } from "../../../../components/Icons/Icons";
 import { IUserData } from "../../Interfaces";
 import styles from "../List.module.scss";
-import { LangContext } from './../../../../components/LangContext/LangContext';
+import { LangContext } from '../../../../components/LangContext/LangContext';
 
 interface EditProfileListProps {
   userData: IUserData;

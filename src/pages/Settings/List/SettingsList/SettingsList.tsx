@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import styles from "../List.module.scss";
-import { LangContext } from './../../../../components/LangContext/LangContext';
+import { LangContext } from '../../../../components/LangContext/LangContext';
 
 interface SettingsListProps {
   signOut(): void;

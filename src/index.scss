@@ -80,6 +80,11 @@ a {
 
 a, button {
   cursor: pointer;
+  user-select: none;
+
+  span {
+    user-select: none;
+  }
 }
 
 img {

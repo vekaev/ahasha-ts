@@ -1,11 +1,9 @@
 import React, { useState, useContext } from "react";
-import { withRouter, RouteComponentProps, Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Saved } from "../../../components/Icons/Icons";
 import Like from "../../../components/Like/Like";
 import UserPhoto from "../../../components/UserPhoto/UserPhoto";
 import styles from "./Post.module.scss";
-import { Location } from "history";
-import { StaticContext } from "react-router";
 import { LangContext } from "./../../../components/LangContext/LangContext";
 
 // interface IMyPostProps extends RouteComponentProps<{}, StaticContext, Location> {

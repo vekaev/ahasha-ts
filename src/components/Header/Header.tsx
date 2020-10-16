@@ -81,10 +81,10 @@ const Header: React.FC<IHeaderProps> = ({
         <div className={styles['header-desktop']}>
           <div className={styles['header-desktop-left']}>
             <ul className={styles['header-desktop-left-nav']}>
-              <li className={joinClass(styles['header-desktop-left-nav-link'], styles['disabled'])}>
-                {/* <Link to='/'> */}
-                <span className={styles['header-desktop-left-nav-link-item']}>{text['main']}</span>
-                {/* </Link> */}
+              <li className={joinClass(styles['header-desktop-left-nav-link'])}>
+                <a href='https://www.ahasha.com'>
+                  <span className={styles['header-desktop-left-nav-link-item']}>{text['main']}</span>
+                </a>
               </li>
               <li className={joinClass(styles['header-desktop-left-nav-link'], styles['disabled'])}>
                 {/* <Link to='/'> */}
