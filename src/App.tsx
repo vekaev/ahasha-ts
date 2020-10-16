@@ -12,6 +12,7 @@ import { PageNotFound } from './pages/PageNotFound';
 import { ProfileContext } from './components/ProfileContext/ProfileContext';
 import { Loading } from './components/Loading/Loading';
 import moment from 'moment';
+import { SessionUser } from './data/dto';
 
 interface AppProps {
   session: Session;
@@ -35,7 +36,7 @@ function App(props: AppProps) {
   const profileContext: any = useContext(ProfileContext);
 
   useEffect(() => {
-    props.session.subscribe((identity) => {
+    props.session.subscribe((identity: SessionUser) => {
       if (identity) {
         props.session.user = identity;
         props.session.getProfile();
