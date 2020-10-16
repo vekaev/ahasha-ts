@@ -6,8 +6,8 @@
   margin-bottom: 20px;
 
   @media (min-width: 950px) {
-    grid-template-columns: repeat(3, calc(33.3333333333% - 14px));
-    grid-auto-rows: 289.33px;
+    grid-template-columns: repeat(4, calc(25% - 14px));
+    grid-auto-rows: 213.5px;
     grid-gap: 20px;
     max-width: 910px;
     margin: 0 auto 20px;

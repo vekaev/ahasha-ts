@@ -128,7 +128,7 @@ const Header: React.FC<IHeaderProps> = ({
                 </Link>
               </div>) : (
                 <div className={styles['header-desktop-right-profile-none']}>
-                  <a href='https://www.ahasha.com/sign-in'>
+                  <a href='https://www.ahasha.com/'>
                     {text['signIn']}
                   </a>
                 </div>

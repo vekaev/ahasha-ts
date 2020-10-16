@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useState, useContext, useEffect } from 'react';
 import {RouteChildrenProps, useHistory} from 'react-router-dom';
 import { BackIcon } from '../../components/Icons/Icons';
-import EditProfile from '../../pages/settings/EditProfile/EditProfile';
+import EditProfile from '../../pages/settings2/EditProfile/EditProfile';
 import { IUserData } from '../../Interfaces';
-import BirthDayModal from '../../pages/settings/ModalForm/BirthDayModal/BirthDayModal';
-import FullNameModal from '../../pages/settings/ModalForm/FullNameModal/FullNameModal';
-import GenderModal from '../../pages/settings/ModalForm/GenderModal/GenderModal';
+import BirthDayModal from '../../pages/settings2/ModalForm/BirthDayModal/BirthDayModal';
+import FullNameModal from '../../pages/settings2/ModalForm/FullNameModal/FullNameModal';
+import GenderModal from '../../pages/settings2/ModalForm/GenderModal/GenderModal';
 import withModal from '../../components/Modal/Modal';
-import UserNameModal from '../../pages/settings/ModalForm/UserNameModal/UserNameModal';
+import UserNameModal from '../../pages/settings2/ModalForm/UserNameModal/UserNameModal';
 import Layout from '../Layout/Layout';
 import { LangContext } from './../../components/LangContext/LangContext';
 import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
