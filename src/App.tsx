@@ -56,7 +56,7 @@ function App(props: AppProps) {
       const profileData = props.session.profile;
 
       profile = {
-        mainPhoto: profileData.mainPhoto || null,
+        mainPhoto: profileData.avatar || null,
         size: profileData.size || null,
         firstName: profileData.firstName,
         lastName: profileData.lastName,
@@ -82,10 +82,7 @@ function App(props: AppProps) {
 
   console.log(post?.list);
   console.log(post?.current);
-
-  // useEffect(() => {
-  //   console.log(post?.list);
-  // }, [post?.list]);
+  console.log(props.session.user);
 
   // TODO: guest
   if (!profileContext.profile && props.session.loading.profile) {
@@ -96,14 +93,14 @@ function App(props: AppProps) {
     <LangProvider>
       <UserDataProvider>
         <Switch>
-          {/* <Route exact path='/' render={() => {
+          <Route exact path='/' render={() => {
             window.location.replace('https://www.ahasha.com')
             return null;
-          }} /> */}
-          <Route exact path='/' render={(routeProps) => <p>Home</p>} />
+          }} />
+          {/* <Route exact path='/' render={(routeProps) => <p>Home</p>} /> */}
           <Route path='/auth/verify' render={(routeProps) => <Verify {...routeProps} session={props.session} />} />
           <Route path='/auth/sign-in' render={(routeProps) => <SignIn {...routeProps} session={props.session} />} />
-          <Route path='/account/edit' component={Settings} />
+          <Route path='/account/edit' render={(routeProps) => <Settings {...routeProps} session={props.session} />} />
           {profileContext?.profile && (
             <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} session={props.session} post={post} />} />
           )}

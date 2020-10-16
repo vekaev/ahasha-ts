@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./index.scss";
 import { observer } from "mobx-react";
-import { TestData } from "../../data";
+import { Session, TestData } from "../../data";
 import {
   Route,
   RouteChildrenProps,
@@ -15,7 +15,7 @@ import EditProfileContainer from "../../containers/EditProfileContainer/EditProf
 import { LangContext } from '../../components/LangContext/LangContext';
 
 export interface testDataProps extends RouteChildrenProps {
-  test: TestData;
+  session: Session;
 }
 
 const Page = (props: testDataProps) => {
@@ -41,7 +41,7 @@ const Page = (props: testDataProps) => {
       </Route>
       <Route exact path="/account/edit">
         <Layout header={header}>
-          <SettingsList signOut={() => console.log("SIGN OUT")} />
+          <SettingsList session={props.session} />
         </Layout>
       </Route>
     </Switch>
