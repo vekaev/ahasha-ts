@@ -7,12 +7,11 @@ import { Settings } from './pages/settings';
 import { UserDataContext, UserDataProvider } from './components/UserDataContext/UserDataContext';
 import { Verify } from './pages/auth/Verify';
 import { LangProvider } from './components/LangContext/LangContext';
-import { Session, Post } from './data';
+import { Session, Post, Profile } from './data';
 import { PageNotFound } from './pages/PageNotFound';
 import { ProfileContext } from './components/ProfileContext/ProfileContext';
 import { Loading } from './components/Loading/Loading';
 import moment from 'moment';
-import { IProfile } from './Interfaces';
 
 interface AppProps {
   session: Session;
@@ -32,6 +31,7 @@ const SignIn = (props: { session: Session }) => {
 
 function App(props: AppProps) {
   const [post, setPost] = useState<Post | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const profileContext: any = useContext(ProfileContext);
 
   useEffect(() => {
@@ -41,7 +41,10 @@ function App(props: AppProps) {
         props.session.getProfile();
 
         const post = new Post(props.session.getInstance());
+        const profile = new Profile(props.session.getInstance());
+
         setPost(post);
+        setProfile(profile);
       }
     });
   }, []);

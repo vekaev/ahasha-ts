@@ -5,6 +5,7 @@ import 'firebase/auth';
 import 'firebase/firebase-storage';
 import { IUserProfile, SessionUser } from './dto';
 import { CONFIG } from '../constants';
+import { IProfile } from '../Interfaces';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
@@ -19,7 +20,7 @@ export class Session {
   private request: AxiosInstance;
 
   @observable user: SessionUser = null;
-  @observable profile: any | null = null;
+  @observable profile: IProfile | null = null;
 
   constructor() {
     this.auth = firebase.auth();

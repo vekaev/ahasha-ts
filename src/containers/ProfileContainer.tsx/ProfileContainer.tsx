@@ -25,7 +25,7 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({ history, match, se
   // 
 
   useEffect(() => {
-    post?.fetch();
+    post?.fetch(profile.username);
   }, [])
 
   useEffect(() => {
