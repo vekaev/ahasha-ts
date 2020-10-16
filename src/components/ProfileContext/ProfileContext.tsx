@@ -1,10 +1,9 @@
 import React, { createContext, useState } from 'react';
 import { TestData } from '../../data';
-import { IUser } from '../../pages/settings/Interfaces';
 
-interface ProfileContextProps {
-  user: IUser;
-};
+// interface ProfileContextProps {
+//   user: IUser;
+// };
 
 export const ProfileContext = createContext<any>({});
 

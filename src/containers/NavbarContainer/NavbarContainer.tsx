@@ -1,14 +1,11 @@
-import React, { useContext } from 'react';
+import React, { ReactPropTypes, useContext } from 'react';
 import { NavBar } from '../../components/Navbar/NavBar';
-import { UserDataContext } from '../../components/UserDataContext/UserDataContext';
-import { IUser } from '../../pages/settings/Interfaces';
+import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
 
-const NavbarContainer: React.FC = () => {
-  const user: IUser = useContext(UserDataContext);
-
+const NavbarContainer: React.FC<any> = ({ profile }) => {
   return (
     <NavBar
-      user={user}
+      profile={profile}
     />
   );
 }

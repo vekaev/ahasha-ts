@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState, useContext } from 'react';
+import React, { ChangeEvent, useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BackIcon } from '../../components/Icons/Icons';
 import EditProfile from '../../pages/settings/EditProfile/EditProfile';
-import { IUserData } from '../../pages/settings/Interfaces';
+import { IUserData } from '../../Interfaces';
 import BirthDayModal from '../../pages/settings/ModalForm/BirthDayModal/BirthDayModal';
 import FullNameModal from '../../pages/settings/ModalForm/FullNameModal/FullNameModal';
 import GenderModal from '../../pages/settings/ModalForm/GenderModal/GenderModal';
@@ -10,9 +10,12 @@ import withModal from '../../components/Modal/Modal';
 import UserNameModal from '../../pages/settings/ModalForm/UserNameModal/UserNameModal';
 import Layout from '../Layout/Layout';
 import { LangContext } from './../../components/LangContext/LangContext';
+import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
 
 const EditProfileContainer: React.FC<any> = (props) => {
   const history = useHistory();
+  const profileContext: any = useContext(ProfileContext);
+  const profile = profileContext?.profile;
 
   const [userData, setUserData] = useState<IUserData>({
     avatar: 'https://modnaya.org/uploads/posts/2013-08/1376555614_emo-stil.jpg',
@@ -26,6 +29,25 @@ const EditProfileContainer: React.FC<any> = (props) => {
     },
     gender: 'Male',
   });
+
+  useEffect(() => {
+    if (profile) {
+      const [year, day, mounth] = profile.birthday.split('-');
+
+      setUserData({
+        avatar: profile.mainPhoto,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        userName: profile.username,
+        birthDay: {
+          day: day,
+          month: mounth.slice(0, 2),
+          year: year,
+        },
+        gender: profile.gender,
+      })
+    }
+  }, [profile])
 
   const changeAvatar = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files.length > 0) {

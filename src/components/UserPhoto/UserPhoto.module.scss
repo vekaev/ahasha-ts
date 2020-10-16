@@ -14,5 +14,15 @@
     object-fit: cover;
   }
 
-  
+  &-none {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 0;
+    color: #aaa;
+  }
 }

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
-import { IModalDataProps } from "../../Interfaces";
+import { IModalDataProps } from "../../../../Interfaces";
 import styles from "../ModalForm.module.scss";
 import { LangContext } from "../../../../components/LangContext/LangContext";
 

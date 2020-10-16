@@ -1,6 +1,6 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 import { IHeaderProps } from '../../components/Header/Header';
-import { IUser } from '../../pages/settings/Interfaces';
+import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import NavbarContainer from '../NavbarContainer/NavbarContainer';
 
@@ -8,11 +8,12 @@ interface ILayoutProps {
   header: IHeaderProps;
   children: ReactNode;
   NavBarDisabled?: boolean;
-  user?: IUser;
-  myUsername?: string;
 }
 
-const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, user, myUsername }) => {
+const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled }) => {
+  const profileContext: any = useContext(ProfileContext);
+  const profile = profileContext?.profile;
+
   useEffect(() => {
     // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
     let vh = window.innerHeight * 0.01;
@@ -36,9 +37,10 @@ const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, user
         onClickMiddle={header.onClickMiddle}
         right={header.right}
         onClickRight={header.onClickRight}
+        profile={profile}
       />
       <main>{children}</main>
-      {!NavBarDisabled && <NavbarContainer />}
+      {!NavBarDisabled && <NavbarContainer profile={profile} />}
     </>
   );
 }

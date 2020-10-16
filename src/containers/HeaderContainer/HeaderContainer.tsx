@@ -1,10 +1,7 @@
 import React, { useContext } from 'react';
 import Header, { IHeaderProps } from '../../components/Header/Header';
-import { UserDataContext } from '../../components/UserDataContext/UserDataContext';
-import { IUser } from '../../pages/settings/Interfaces';
 
-const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, onClickMiddle, right, onClickRight }) => {
-  const user: IUser = useContext(UserDataContext);
+const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, onClickMiddle, right, onClickRight, profile }) => {
 
   return (
     <Header
@@ -14,7 +11,7 @@ const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, on
       onClickMiddle={onClickMiddle}
       right={right}
       onClickRight={onClickRight}
-      user={user}
+      profile={profile}
     />
   );
 }

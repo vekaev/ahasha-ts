@@ -18,13 +18,14 @@ export interface IModalDataProps {
   showModal(command: string): void;
 }
 
-export interface IUser {
-  mainPhoto: string;
+export interface IProfile {
+  mainPhoto?: string;
   quantityPosts: number;
   rank?: number;
   firstName: string;
   lastName: string;
   username: string;
+  birthday: string;
   age: number | string;
   size: string;
   readonly fullName: string;

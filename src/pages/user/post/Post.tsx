@@ -5,13 +5,14 @@ import Like from "../../../components/Like/Like";
 import UserPhoto from "../../../components/UserPhoto/UserPhoto";
 import styles from "./Post.module.scss";
 import { LangContext } from "./../../../components/LangContext/LangContext";
+import { abbr } from "../../../utils/abbr";
 
 // interface IMyPostProps extends RouteComponentProps<{}, StaticContext, Location> {
 //   // history: RouteComponentProps;
 //   // location: Location;
 // }
 
-const MyPost: React.FC<any> = ({ history, user, post }) => {
+const MyPost: React.FC<any> = ({ history, profile, post }) => {
   const [like, setLike] = useState({
     icon: post?.myLike,
     // counter: post?.likes,
@@ -41,16 +42,16 @@ const MyPost: React.FC<any> = ({ history, user, post }) => {
       <div className="container">
         <div className={styles["post-user"]}>
           <div className={styles["post-user-photo"]}>
-            <Link to={`/${user?.username}`}>
-              <UserPhoto src={user?.mainPhoto} />
+            <Link to={`/${profile?.username}`}>
+              <UserPhoto abbr={abbr(profile.firstName, profile.lastName)} src={profile?.mainPhoto} />
             </Link>
           </div>
           <div className={styles["post-user-info"]}>
             <div className={styles["post-user-info-full-name"]}>
-              <Link to={`/${user?.username}`}>{user?.fullName}</Link>
+              <Link to={`/${profile?.username}`}>{profile?.fullName}</Link>
             </div>
             <div className={styles["post-user-info-descripiton"]}>
-              {user?.info}
+              {profile?.info}
             </div>
           </div>
         </div>

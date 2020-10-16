@@ -12,6 +12,7 @@ import { PageNotFound } from './pages/PageNotFound';
 import { ProfileContext } from './components/ProfileContext/ProfileContext';
 import { Loading } from './components/Loading/Loading';
 import moment from 'moment';
+import { IProfile } from './Interfaces';
 
 interface AppProps {
   session: Session;
@@ -41,7 +42,6 @@ function App(props: AppProps) {
 
         const post = new Post(props.session.getInstance());
         setPost(post);
-        post.fetch();
       }
     });
   }, []);
@@ -53,6 +53,8 @@ function App(props: AppProps) {
       const profileData = props.session.profile;
 
       profile = {
+        mainPhoto: profileData.mainPhoto || null,
+        size: profileData.size || null,
         firstName: profileData.firstName,
         lastName: profileData.lastName,
         username: profileData.username,
@@ -64,17 +66,22 @@ function App(props: AppProps) {
         get fullName() {
           return `${this.firstName} ${this.lastName}`;
         },
-        get info() {
+        get age() {
           return `${moment().diff(this.birthday, 'years')} years`;
+        },
+        get info() {
+          return this.age;
         }
       };
     }
     profileContext.setProfile(profile);
   }, [props.session.profile]);
 
-  useEffect(() => {
-    console.log(post?.list);
-  }, [post?.list]);
+  console.log(post?.list);
+
+  // useEffect(() => {
+  //   console.log(post?.list);
+  // }, [post?.list]);
 
   // TODO: guest
   if (!profileContext.profile) {
@@ -94,10 +101,10 @@ function App(props: AppProps) {
           <Route path='/auth/sign-in' render={(routeProps) => <SignIn {...routeProps} session={props.session} />} />
           <Route path='/account/edit' component={Settings} />
           {post && (
-            <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} post={post} />} />
+            <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} session={props.session} post={post} />} />
           )}
           <Route path='/404' component={PageNotFound} />
-          <Route path='/:username' render={(userProps) => <User {...userProps} session={props.session} />} />
+          <Route path='/:username' render={(userProps) => <User {...userProps} post={post} session={props.session} />} />
           {/* <Redirect from='*' to='/404' /> */}
         </Switch>
       </UserDataProvider>

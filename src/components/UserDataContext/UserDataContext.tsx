@@ -1,10 +1,9 @@
 import React, { createContext } from 'react';
 import { TestData } from '../../data';
-import { IUser } from '../../pages/settings/Interfaces';
 
-interface UserDataContextProps {
-  user: IUser;
-};
+// interface UserDataContextProps {
+//   user: IUser;
+// };
 
 export const UserDataContext = createContext<any>({});
 

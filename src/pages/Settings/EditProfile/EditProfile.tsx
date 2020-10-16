@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useContext } from 'react';
-import { IUserData } from '../Interfaces';
+import { IUserData } from '../../../Interfaces';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import styles from './EditProfile.module.scss';
 import { EditProfileList } from '../List/EditProfileList/EditProfileList';

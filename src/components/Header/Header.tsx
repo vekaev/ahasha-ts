@@ -6,7 +6,7 @@ import { Chat, FiltersIcon, BasketIcon } from '../Icons/Icons';
 import { Logotype } from '../SvgImages/SvgImages';
 import { Upload } from '../../components/Navbar/NavBar';
 import UserPhoto from '../UserPhoto/UserPhoto';
-import { IUser } from '../../pages/settings/Interfaces';
+import { abbr } from '../../utils/abbr';
 import { LangContext } from './../LangContext/LangContext';
 
 export interface IHeaderProps {
@@ -20,7 +20,7 @@ export interface IHeaderProps {
   onClickLeft?: () => void;
   onClickRight?: () => void;
   onClickMiddle?: () => void;
-  user?: IUser;
+  profile?: any;
 }
 
 const Header: React.FC<IHeaderProps> = ({
@@ -34,9 +34,8 @@ const Header: React.FC<IHeaderProps> = ({
   onClickLeft,
   onClickRight,
   onClickMiddle,
-  user,
+  profile,
 }) => {
-
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale()['header'];
 
@@ -93,7 +92,7 @@ const Header: React.FC<IHeaderProps> = ({
               </li>
             </ul>
             <div className={styles['header-desktop-left-new-post']}>
-              {user ? (
+              {profile ? (
                 <Upload className={styles['header-desktop-left-new-post-button']}>
                   <span>+ {text['newPost']}</span>
                 </Upload>
@@ -120,11 +119,11 @@ const Header: React.FC<IHeaderProps> = ({
                 {/* </Link> */}
               </div>
             </div>
-            {user ? (
+            {profile ? (
               <div className={styles['header-desktop-right-profile']}>
-                <Link to={`/${user?.username}`}>
+                <Link to={`/${profile?.username}`}>
                   <UserPhoto
-                    src={user?.mainPhoto}
+                    abbr={abbr(profile.firstName, profile.lastName)} src={profile?.mainPhoto}
                   />
                 </Link>
               </div>) : (

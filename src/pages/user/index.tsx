@@ -16,7 +16,7 @@ const Page = (props: any) => {
                     <PostContainer />
                 </Route>
                 <Route path={'/:username'}>
-                    <ProfileContainer />
+                    <ProfileContainer post={props.post} session={props.session} />
                 </Route>
             </Switch>
         </>

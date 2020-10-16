@@ -3,7 +3,6 @@ import { observable } from 'mobx';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-storage';
-import { IUser } from '../pages/settings/Interfaces';
 import { IUserProfile, SessionUser } from './dto';
 import { CONFIG } from '../constants';
 
@@ -113,7 +112,7 @@ export class Session {
 //     .catch((err: any) => console.log(err));
 
 export class TestData {
-  @observable user: IUser = {
+  @observable user: any = {
     mainPhoto: 'http://www.ahasha.com/img/auth-model-13.jpg',
     quantityPosts: 16,
     firstName: 'Anna',

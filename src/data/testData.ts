@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { observable } from 'mobx';
 import * as firebase from 'firebase/app';
-import { IUser } from '../pages/settings/Interfaces';
 import { IUserProfile } from './dto';
 
 export class Session {
@@ -84,7 +83,7 @@ export class Session {
 //     .catch((err: any) => console.log(err));
 
 export class TestData {
-  @observable user: IUser = {
+  @observable user: any = {
     mainPhoto: 'http://www.ahasha.com/img/auth-model-13.jpg',
     quantityPosts: 16,
     firstName: 'Anna',

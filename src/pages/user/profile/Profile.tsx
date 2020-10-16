@@ -52,7 +52,7 @@ const Profile: React.FC<any> = ({ history, anotherUser, posts, user }) => {
   // }
 
   return (
-    <Layout header={header} user={user}>
+    <Layout header={header}>
       <div className={styles['profile']}>
         <div className={joinClass(styles['profile-user-wrapper'], 'container')}>
           <div className={styles['profile-user']}>

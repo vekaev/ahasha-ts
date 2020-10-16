@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
-import { IUser } from '../../pages/settings/Interfaces';
 import Post from '../../pages/user/post/Post';
 import Layout from '../Layout/Layout';
 
@@ -18,20 +17,22 @@ import Layout from '../Layout/Layout';
 // );
 
 const PostContainer: React.FC<any> = ({ history, location }) => {
-  const [post] = useState(location?.state?.post);
-  let user: IUser = location?.state?.user;
+  const [post, setPost] = useState(location?.state?.post);
   const myUsername = location?.state?.myUsername;
+  const profile = location?.state?.profile;
+
+  console.log(post);
 
   if (!post) {
     console.log('!post')
 
-    // useEffect(() => { 
+    // useEffect(() => {
     //   setPost();
     // }, []);
   }
 
-  if (!user) {
-    console.log('!user');
+  if (!profile) {
+    console.log('!profile');
     // useEffect(() => { 
     //   setPost();
     // }, []);
@@ -52,12 +53,10 @@ const PostContainer: React.FC<any> = ({ history, location }) => {
   return (
     <Layout
       header={header}
-      user={user}
-      myUsername={myUsername}
     >
       <Post
         post={post}
-        user={user}
+        profile={profile}
       />
     </Layout>
   );
