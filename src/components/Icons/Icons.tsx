@@ -102,7 +102,7 @@ export function User({ activeStatus }: iconProps) {
   )
 }
 
-export function LoadingIcon() {
+export function LoadingIcon({color = '#FF441B'}: iconProps) {
   return (
     <svg
       viewBox='0 0 100 100'
@@ -112,7 +112,7 @@ export function LoadingIcon() {
         cx={50}
         cy={50}
         fill='none'
-        stroke={'#FF441B'}
+        stroke={color}
         strokeWidth={8}
         r={46}
         strokeDasharray='216.76989309769573 74.25663103256524'

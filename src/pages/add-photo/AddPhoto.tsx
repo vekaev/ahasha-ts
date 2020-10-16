@@ -83,7 +83,7 @@ const Component = (props: AddPhotoProps) => {
         </div>
         <div className={styles['content']} >
           <div style={{ marginTop: "auto" }}>
-            <Button title={text['buttonTitle']} onClick={onSubmit} disabled={props.post.loading.upload} />
+            <Button onClick={onSubmit} disabled={props.post.loading.upload} >{text['buttonTitle']}</Button>
           </div>
         </div>
       </div>

@@ -1,0 +1,40 @@
+.edit-profile {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid #EFF2F5;
+
+  @media (min-width: 950px) {
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+  
+  &-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  &-change-avatar {
+    position: relative;
+    display: block;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    color: #ff441b;
+    margin-top: 16px;
+    border: none;
+    background: transparent;
+
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      width: 100%;
+    }
+  }
+}
