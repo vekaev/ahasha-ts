@@ -23,7 +23,7 @@ import { IPostResource } from '../../../data/dto';
 //   ];
 // };
 
-const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abbr }) => {
+const Profile: React.FC<any> = ({ history, myUsername, userProfile, posts, data, abbr, session }) => {
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale()['user']['profile'];
 
@@ -32,7 +32,7 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
     onClickLeft: () => {
       history.goBack();
     },
-    middle: profile?.username || text['header'],
+    middle: userProfile?.username || text['header'],
     right: (
       <span style={{ opacity: 0.4, lineHeight: 0, marginTop: -2 }}>
         <MoreIcon />
@@ -54,8 +54,9 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
   return (
     <Layout
       header={header}
-      profile={profile}
+      userProfile={userProfile}
       myUsername={myUsername}
+      session={session}
     >
       <div className={styles['profile']}>
         <div className={joinClass(styles['profile-user-wrapper'], 'container')}>
@@ -71,13 +72,13 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
             </div>
             <div>
               <div className={styles['profile-user-photo']}>
-                <UserPhoto abbr={abbr} src={profile.avatar} />
+                <UserPhoto abbr={abbr} src={userProfile.avatar} />
               </div>
               <div className={styles['profile-user-full-name']}>
-                {profile?.fullName}
+                {userProfile?.fullName}
               </div>
               <div className={styles['profile-user-info']}>
-                {profile?.info}
+                {userProfile?.info}
               </div>
             </div>
             <div
@@ -92,7 +93,7 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
           </div>
 
           <Switch>
-            <Route exact path={`/${profile.username}`}>
+            <Route exact path={`/${userProfile.username}`}>
               <div className={styles['profile-posts']}>
                 <div className={styles['profile-tabs']}>
                   <div
@@ -102,9 +103,9 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
                       styles['active']
                     )}
                   >
-                    <Link to={`/${profile.username}`}>
+                    <Link to={`/${userProfile.username}`}>
                       <span>
-                        {profile?.quantityPosts} {text['post']}
+                        {posts?.length || null} {text['post']}
                       </span>
                     </Link>
                   </div>
@@ -116,7 +117,7 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
                   >
                     {/* <Link to={`/${profile.username}/r`}> */}
                     <span style={{ color: '#CACFD4' }}>
-                      {profile?.rank || ''} {text['rank']}
+                      {userProfile?.rank || ''} {text['rank']}
                     </span>
                     {/* </Link> */}
                   </div>
@@ -128,14 +129,13 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
                         post: any,
                         index: number,
                       ): ReactChild => {
-                        console.log(post)
                         return (
                           <Link
                             key={index}
                             to={{
                               pathname: `/p/${post.id}`,
                               state: {
-                                profile: JSON.parse(JSON.stringify(profile)),
+                                profile: JSON.parse(JSON.stringify(userProfile)),
                                 post: JSON.parse(JSON.stringify(post)),
                               },
                             }}
@@ -155,7 +155,7 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
                   )}
               </div>
             </Route>
-            <Route exact path={`/${profile.username}/r`}>
+            <Route exact path={`/${userProfile.username}/r`}>
               <div className={styles['profile-tabs']}>
                 <div
                   className={joinClass(
@@ -163,7 +163,7 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
                     styles['tab-link']
                   )}
                 >
-                  <Link to={`/${profile.username}`}>
+                  <Link to={`/${userProfile.username}`}>
                     <span>
                       {posts?.length || 0} {text['post']}
                     </span>
@@ -176,9 +176,9 @@ const Profile: React.FC<any> = ({ history, myUsername, profile, posts, data, abb
                     styles['active']
                   )}
                 >
-                  <Link to={`/${profile.username}/r`}>
+                  <Link to={`/${userProfile.username}/r`}>
                     <span>
-                      {profile?.rank} {text['rank']}
+                      {userProfile?.rank} {text['rank']}
                     </span>
                   </Link>
                 </div>

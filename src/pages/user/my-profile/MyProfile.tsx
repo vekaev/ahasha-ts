@@ -24,7 +24,7 @@ import { IPostResource } from '../../../data/dto';
 //   ];
 // }
 
-const MyProfile: React.FC<any> = ({ history, profile, posts, abbr }) => {
+const MyProfile: React.FC<any> = ({ history, profile, posts, abbr, session }) => {
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale()['user']['profile'];
 
@@ -39,7 +39,8 @@ const MyProfile: React.FC<any> = ({ history, profile, posts, abbr }) => {
   return (
     <Layout
       header={header}
-      profile={profile}
+      userProfile={profile}
+      session={session}
     >
       <div className={styles['profile']}>
         <div className={'container'}>
@@ -66,7 +67,7 @@ const MyProfile: React.FC<any> = ({ history, profile, posts, abbr }) => {
                   >
                     <Link to={`/${profile.username}`}>
                       <span>
-                        {posts?.length || 0} {text['post']}
+                        {posts?.length || null} {text['post']}
                       </span>
                     </Link>
                   </div>

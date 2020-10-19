@@ -102,8 +102,8 @@ export class Session {
   async getProfile() {
     const profile = (await this.request.get('/user/profile')).data;
 
-    if(profile.avatar){
-      const storageRef = this.storage?.ref(profile.avatar);
+    if (profile.avatar) {
+      const storageRef = this.storage.ref(profile.avatar);
       profile.avatar = await storageRef.getDownloadURL();
     }
 
@@ -112,7 +112,7 @@ export class Session {
 
   async profileUpdate(form: IUserData, file?: File) {
     const correctForm = {
-      username: 'vekaev',
+      username: form.userName,
       firstName: form.firstName,
       lastName: form.lastName,
       avatar: form.avatar,

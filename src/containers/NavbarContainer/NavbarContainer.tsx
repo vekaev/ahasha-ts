@@ -1,17 +1,19 @@
 import React from 'react';
 import { NavBar } from '../../components/Navbar/NavBar';
-import { Profile } from '../../data';
+import { Profile, Session } from '../../data';
 
 interface INavbarContainerProps {
-  profile?: Profile;
+  userProfile?: Profile;
   myUsername?: string;
+  session?: Session;
 }
 
-const NavbarContainer: React.FC<INavbarContainerProps> = ({ profile, myUsername }) => {
+const NavbarContainer: React.FC<INavbarContainerProps> = ({ userProfile, myUsername, session }) => {
   return (
     <NavBar
-      profile={profile}
+      userProfile={userProfile}
       myUsername={myUsername}
+      session={session}
     />
   );
 }

@@ -10,7 +10,7 @@ import { Loading } from '../../components/Loading/Loading';
 export interface UserProps extends RouteChildrenProps {
   session: Session;
   post: Post;
-  profile?: Profile;
+  profile: Profile;
 }
 
 const Page = (props: UserProps) => {
@@ -18,9 +18,9 @@ const Page = (props: UserProps) => {
   const profile: any = profileContext.profile;
 
   // TODO: guest
-  if (!profile) {
-    return <Loading />;
-  }
+  // if (!profile) {
+  //   return <Loading />;
+  // }
 
   return (
     <>

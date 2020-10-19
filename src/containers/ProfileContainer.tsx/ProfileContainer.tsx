@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import MyProfile from '../../pages/user/my-profile/MyProfile';
-import Profile from '../../pages/user/profile/Profile';
 import { Profile as IProfile, Session } from '../../data';
 import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
 import { abbr } from '../../utils/abbr';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 import { Loading } from '../../components/Loading/Loading';
+import Profile from '../../pages/user/profile/Profile';
 
 interface IProfileContainerProps extends RouteComponentProps {
-  profile?: IProfile;
+  profile: IProfile;
   session: Session;
   post: any;
 }
@@ -23,7 +23,7 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({ history, match, se
   if (profile?.username === params.username || `${profile?.username}/` === params.username) {
     return <MyProfileWrapper history={history} profile={profile} post={post} />
   } else {
-    return <ProfileWrapper history={history} myUsername={profile.username} profile={profileStore} username={params.username} post={post} />
+    return <ProfileWrapper history={history} myUsername={profile?.username} session={session} profile={profileStore} username={params.username} post={post} />
   }
 }
 
@@ -71,11 +71,40 @@ const MyProfileWrapper: React.FC<any> = (props) => {
 
 const ProfileWrapper: React.FC<any> = (props) => {
   const [posts, setPosts] = useState([]);
+  const [userProfile, setUserProfile] = useState<any>(null);
 
   useEffect(() => {
     props.profile?.get(props.username);
     props.post.fetch(props.username);
-  }, [])
+  }, [props.profile, props.post, props.username])
+
+  useEffect(() => {
+    if (props?.profile?.current) {
+      const profileData = props.profile.current;
+
+      setUserProfile({
+        avatar: profileData.avatar || null,
+        size: profileData.size || null,
+        firstName: profileData.firstName,
+        lastName: profileData.lastName,
+        username: profileData.username,
+        birthday: profileData.birthday,
+        gender: profileData.gender,
+        id: profileData.id,
+        createdAt: profileData.createdAt,
+        updatedAt: profileData.updatedAt,
+        get fullName() {
+          return `${this.firstName} ${this.lastName}`;
+        },
+        get age() {
+          return `${moment().diff(this.birthday, 'years')} years`;
+        },
+        get info() {
+          return this.age;
+        }
+      });
+    }
+  }, [props?.profile?.current])
 
   useEffect(() => {
     const posts: any = [];
@@ -110,33 +139,21 @@ const ProfileWrapper: React.FC<any> = (props) => {
       props.username !== props?.profile?.current?.username &&
       props.username !== `${props?.profile?.current?.username}/`
     ) {
-      props.history.replace(`/404`);
+      // props.history.replace(`/404`);
     }
   }, [props?.profile?.current, props?.profile?.loading.get, props?.username]);
 
-  console.log(props?.profile?.current, 'props?.profile?.current')
-
-  if (!props?.profile?.current) {
+  if (!userProfile) {
     return <Loading />;
   }
 
   return (
     <Profile
       posts={posts}
-      profile={{
-        ...props.profile.current,
-        get fullName() {
-          return `${this.firstName} ${this.lastName}`;
-        },
-        get age() {
-          return `${moment().diff(this.birthday, 'years')} years`;
-        },
-        get info() {
-          return this.age;
-        }
-      }}
+      userProfile={userProfile}
       myUsername={props.myUsername}
-      abbr={abbr(props.profile.current.firstName, props.profile.current.lastName)}
+      session={props.session}
+      abbr={abbr(userProfile.firstName, userProfile.lastName)}
     />
   );
 }
