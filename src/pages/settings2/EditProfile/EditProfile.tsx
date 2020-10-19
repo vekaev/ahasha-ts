@@ -21,7 +21,6 @@ const EditProfile: React.FC<IEditProfileProps> = ({
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale();
 
-  console.log(userData.avatar);
 
   return (
     <div className={'settings-container'}>

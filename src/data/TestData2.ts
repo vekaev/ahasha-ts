@@ -6,7 +6,7 @@ import { IUserProfile } from './dto';
 export class Session {
 
   private readonly auth: firebase.auth.Auth;
-  private readonly api = 'http://192.168.0.104:5000/app/auth';
+  private readonly api = 'https://ahasha-dev-api.herokuapp.com/app/auth';
   // private readonly api = 'https://api.ahasha.com/app/auth';
 
 
@@ -64,8 +64,8 @@ export class Session {
     } catch (exception) {
       console.error(exception);
     } finally {
-      localStorage.removeItem('emailForSignIn');
-      localStorage.removeItem('formForSignUp');
+      // localStorage.removeItem('emailForSignIn');
+      // localStorage.removeItem('formForSignUp');
     }
   }
 

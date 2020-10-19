@@ -8,13 +8,11 @@ import { TestData } from '../../data';
 export const UserDataContext = createContext<any>({});
 
 export const UserDataProvider: React.FC<any> = ({ children }) => {
-  const user = new TestData().user;
-  // const user = null;
+  // const user = new TestData().user;
+  const user = null;
 
   return (
-    <UserDataContext.Provider
-      value={user}
-    >
+    <UserDataContext.Provider value={user}>
       {children}
     </UserDataContext.Provider>
   );

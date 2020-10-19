@@ -37,7 +37,7 @@ const Page = (props: testDataProps) => {
   return (
     <Switch>
       <Route exact path="/account/edit/profile">
-        <EditProfileContainer />
+        <EditProfileContainer session={props.session}/>
       </Route>
       <Route exact path="/account/edit">
         <Layout header={header}>
