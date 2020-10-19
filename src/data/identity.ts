@@ -2,9 +2,9 @@ import axios, { AxiosInstance } from 'axios';
 import { observable } from 'mobx';
 import 'firebase/auth';
 import 'firebase/firebase-storage';
-import {IPost, IPostAdd, IPostResourceType, IUserProfile, SessionUser} from './dto';
+import { SessionUser} from './dto';
 import { CONFIG } from '../constants';
-import { IUserData } from '../pages/settings/Interfaces';
+import { IUserData } from '../pages/settings2/Interfaces';
 import * as firebase from 'firebase/app';
 
 firebase.initializeApp({

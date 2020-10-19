@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./index.scss";
 import { observer } from "mobx-react";
-import { TestData, Session } from "../../data";
+import { Session, TestData } from "../../data";
 import {
   Route,
   RouteChildrenProps,
@@ -37,11 +37,11 @@ const Page = (props: testDataProps) => {
   return (
     <Switch>
       <Route exact path="/account/edit/profile">
-        <EditProfileContainer session={props.session} />
+        <EditProfileContainer />
       </Route>
       <Route exact path="/account/edit">
         <Layout header={header}>
-          <SettingsList signOut={() => console.log("SIGN OUT")} />
+          <SettingsList session={props.session} />
         </Layout>
       </Route>
     </Switch>

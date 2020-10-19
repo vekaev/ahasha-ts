@@ -20,11 +20,7 @@ export const SettingsListItem = (props: any) => {
   ];
 
   return (
-<<<<<<< HEAD
-    <>
-=======
     <List>
->>>>>>> origin/dev
       {listData.map((item, index) => {
         return (
           <li key={index} className={styles["list-item"]}>
@@ -37,11 +33,7 @@ export const SettingsListItem = (props: any) => {
           </li>
         );
       })}
-<<<<<<< HEAD
-    </>
-=======
     </List>
->>>>>>> origin/dev
   );
 };
 
@@ -60,7 +52,7 @@ export const EditProfileListItem: React.FC<EditProfileListItemProps> = ({ userDa
           className={styles["list-item-link"]}
         >
           Full name
-          </label>
+        </label>
         <button
           className={styles["list-item-btn"]}
         >
@@ -117,13 +109,9 @@ export const EditProfileListItem: React.FC<EditProfileListItemProps> = ({ userDa
 const List: React.FC = ({ children }) => {
   return (
     <div className={styles["list-container"]}>
-<<<<<<< HEAD
-      <ul className={styles["list-items"]}>
-=======
       <ul className={styles["list-items"]} onClick={(e) => {
         console.log(e.target)
       }}>
->>>>>>> origin/dev
         {children}
       </ul>
     </div>

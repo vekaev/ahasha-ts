@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { User } from './pages/user';
 import { AddPhoto } from './pages/add-photo/AddPhoto';
-import { Settings } from './pages/settings';
+import { Settings } from './pages/settings2';
 import { UserDataContext, UserDataProvider } from './components/UserDataContext/UserDataContext';
 import { Verify } from './pages/auth/Verify';
 import { LangProvider } from './components/LangContext/LangContext';
@@ -87,9 +87,9 @@ function App(props: AppProps) {
   // }, [post?.list]);
 
   // TODO: guest
-  if (!profileContext.profile) {
-    return <Loading />;
-  }
+  // if (!profileContext.profile) {
+  //   return <Loading />;
+  // }
 
   return (
     <LangProvider>

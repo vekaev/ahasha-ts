@@ -1,4 +1,4 @@
 export const CONFIG = {
-  API_URL: 'http://192.168.0.104:5000',
-  API_APP_URL: 'http://192.168.0.104:5000/app',
+  API_URL: 'https://api.ahasha.com/',
+  API_APP_URL: 'https://api.ahasha.com/app',
 };

@@ -2,14 +2,6 @@ import React, { useContext } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import styles from "../List.module.scss";
 import { LangContext } from '../../../../components/LangContext/LangContext';
-<<<<<<< HEAD
-
-interface SettingsListProps {
-  signOut(): void;
-}
-
-const SettingsList: React.FC<SettingsListProps> = ({ signOut }) => {
-=======
 import { Session } from "../../../../data";
 
 interface SettingsListProps {
@@ -17,7 +9,6 @@ interface SettingsListProps {
 }
 
 const SettingsList: React.FC<SettingsListProps> = ({ session }) => {
->>>>>>> origin/dev
   const match = useRouteMatch();
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale()['account']['acoountList'];
@@ -40,16 +31,6 @@ const SettingsList: React.FC<SettingsListProps> = ({ session }) => {
         <Link className={styles["list-item"]} to={`${match.path}/profile`}>
           {text['information']}
         </Link>
-<<<<<<< HEAD
-        <Link
-          className={`${styles["list-item"]} ${styles["list-item-signout"]}`}
-          to={`${match.path}/edit-profile`}
-        >
-          {text['signOut']}
-        </Link>
-      </div>
-    </div>
-=======
         <span
           className={`${styles["list-item"]} ${styles["list-item-signout"]}`}
           onClick={() => {
@@ -61,7 +42,6 @@ const SettingsList: React.FC<SettingsListProps> = ({ session }) => {
         </span>
       </div>
     </div >
->>>>>>> origin/dev
   );
 };
 
