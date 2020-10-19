@@ -4,10 +4,11 @@ import { Post, Profile, Session } from "../../data";
 import { Route, RouteChildrenProps, Switch } from 'react-router-dom';
 import ProfileContainer from '../../containers/ProfileContainer.tsx/ProfileContainer';
 import PostContainer from '../../containers/PostContainer/PostContainer';
+
 export interface UserProps extends RouteChildrenProps {
   session: Session;
   post: Post;
-  profile: Profile;
+  profile?: Profile;
 }
 
 const Page = (props: UserProps) => {

@@ -7,13 +7,12 @@ import { Settings } from './pages/settings2';
 import { UserDataContext, UserDataProvider } from './components/UserDataContext/UserDataContext';
 import { Verify } from './pages/auth/Verify';
 import { LangProvider } from './components/LangContext/LangContext';
-import { Session, Post } from './data';
+import { Session, Post, Profile } from './data';
 import { PageNotFound } from './pages/PageNotFound';
 import { ProfileContext } from './components/ProfileContext/ProfileContext';
 import { Loading } from './components/Loading/Loading';
 import moment from 'moment';
-import { IProfile } from './Interfaces';
-import * as firebase from "firebase";
+import { SessionUser } from './data/dto';
 
 interface AppProps {
   session: Session;
@@ -33,18 +32,21 @@ const SignIn = (props: { session: Session }) => {
 }
 
 function App(props: AppProps) {
-  const [post, setPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<Post>(new Post(props.session.getInstance(), props.storage));
+  const [profile, setProfile] = useState<Profile | undefined>();
   const profileContext: any = useContext(ProfileContext);
 
   useEffect(() => {
-
-    props.session.subscribe((identity) => {
+    props.session.subscribe((identity: SessionUser) => {
       if (identity) {
         props.session.user = identity;
         props.session.getProfile();
 
         const post = new Post(props.session.getInstance(), props.storage);
+        const profile = new Profile(props.session.getInstance());
+
         setPost(post);
+        setProfile(profile);
       }
     });
   }, []);
@@ -108,7 +110,7 @@ function App(props: AppProps) {
           )}
           <Route path='/404' component={PageNotFound} />
           // @ts-ignore
-          <Route path='/:username' render={(userProps) => <User {...userProps} post={post} session={props.session} />} />
+          <Route path='/:username' render={(userProps) => <User {...userProps} profile={profile} post={post} session={props.session} />} />
           {/* <Redirect from='*' to='/404' /> */}
         </Switch>
       </UserDataProvider>

@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 import moment from 'moment';
 
 interface IProfileContainerProps extends RouteComponentProps {
-  profile: IProfile;
+  profile?: IProfile;
   session: Session;
   post: any;
 }
