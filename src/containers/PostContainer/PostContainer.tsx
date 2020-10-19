@@ -19,7 +19,6 @@ import moment from 'moment';
 
 const PostContainer: React.FC<any> = ({ history, location, match, post }) => {
   const [userPost, setUserPost] = useState(location?.state?.post);
-  const myUsername = location?.state?.myUsername;
   const profile = location?.state?.profile || userPost?.profile;
   const params: any = match.params;
 

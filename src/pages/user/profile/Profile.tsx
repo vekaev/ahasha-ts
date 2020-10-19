@@ -8,7 +8,6 @@ import Layout from '../../../containers/Layout/Layout';
 import { Add, BackIcon, Chat, MoreIcon } from '../../../components/Icons/Icons';
 import joinClass from '../../../utils/join';
 import { LangContext } from './../../../components/LangContext/LangContext';
-import { Loading } from '../../../components/Loading/Loading';
 import { IPostResource } from '../../../data/dto';
 
 // interface IMyProfileProps {

@@ -1,10 +1,10 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { User } from './pages/user';
 import { AddPhoto } from './pages/add-photo/AddPhoto';
 import { Settings } from './pages/settings2';
-import { UserDataContext, UserDataProvider } from './components/UserDataContext/UserDataContext';
+import { UserDataProvider } from './components/UserDataContext/UserDataContext';
 import { Verify } from './pages/auth/Verify';
 import { LangProvider } from './components/LangContext/LangContext';
 import { Session, Post, Profile } from './data';
@@ -20,16 +20,16 @@ interface AppProps {
 }
 
 // TODO: remove
-const SignIn = (props: { session: Session }) => {
-  useEffect(() => {
-    props.session.sendSignInLink({
-      email: 'dsent.work@gmail.com',
-    });
-  }, []);
+// const SignIn = (props: { session: Session }) => {
+//   useEffect(() => {
+//     props.session.sendSignInLink({
+//       email: 'dsent.work@gmail.com',
+//     });
+//   }, []);
 
-  // return <Redirect to='/' />;
-  return <p>sign in</p>;
-}
+//   // return <Redirect to='/' />;
+//   return <p>sign in</p>;
+// }
 
 function App(props: AppProps) {
   const [post, setPost] = useState<Post>(new Post(props.session.getInstance(), props.storage));
@@ -82,11 +82,10 @@ function App(props: AppProps) {
     profileContext.setProfile(profile);
   }, [props.session.profile]);
 
-  console.log(post?.list);
-
-  // useEffect(() => {
-  //   console.log(post?.list);
-  // }, [post?.list]);
+  console.log("post.list".toUpperCase(), post?.list);
+  console.log("post.current".toUpperCase(), post?.current);
+  console.log("props.session.user".toUpperCase(), props.session.user);
+  console.log("props.session.profile".toUpperCase(), props.session.profile);
 
   // TODO: guest
   // if (!profileContext.profile) {
@@ -103,9 +102,9 @@ function App(props: AppProps) {
           }} /> */}
           <Route exact path='/' render={(routeProps) => <p>Home</p>} />
           <Route path='/auth/verify' render={(routeProps) => <Verify {...routeProps} session={props.session} />} />
-          <Route path='/auth/sign-in' render={(routeProps) => <SignIn {...routeProps} session={props.session} />} />
-          <Route path='/account/edit' render={(routeProps) => <Settings {...routeProps} session={props.session} />}/>
-          {post && (
+          {/* <Route path='/auth/sign-in' render={(routeProps) => <SignIn {...routeProps} session={props.session} />} /> */}
+          <Route path='/account/edit' render={(routeProps) => <Settings {...routeProps} session={props.session} />} />
+          {profileContext?.profile && (
             <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} session={props.session} post={post} />} />
           )}
           <Route path='/404' component={PageNotFound} />

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./index.scss";
 import { observer } from "mobx-react";
-import { Session, TestData } from "../../data";
+import { Session } from "../../data";
 import {
   Route,
   RouteChildrenProps,

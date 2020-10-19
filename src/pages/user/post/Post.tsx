@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { Saved } from "../../../components/Icons/Icons";
 import Like from "../../../components/Like/Like";

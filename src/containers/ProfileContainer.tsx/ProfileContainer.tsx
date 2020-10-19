@@ -7,6 +7,7 @@ import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
 import { abbr } from '../../utils/abbr';
 import { observer } from 'mobx-react';
 import moment from 'moment';
+import { Loading } from '../../components/Loading/Loading';
 
 interface IProfileContainerProps extends RouteComponentProps {
   profile?: IProfile;
@@ -115,10 +116,12 @@ const ProfileWrapper: React.FC<any> = (props) => {
     }
   }, [props.profile.current, props.profile.loading.get, props.username]);
 
-  console.log(posts);
+  useEffect(() => {
+    console.log(props.profile.current, 'props.profile.current');
+  }, [props.profile.current])
 
   if (!props.profile.current) {
-    return null;
+    return <Loading />;
   }
 
   return (

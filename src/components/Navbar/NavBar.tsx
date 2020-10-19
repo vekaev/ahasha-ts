@@ -1,5 +1,6 @@
 import React, { ReactChild, useEffect, useState } from 'react';
 import { NavLink, withRouter } from "react-router-dom";
+import { Profile } from '../../data';
 import { Chat, Home, Saved, User, Add } from '../Icons/Icons';
 import styles from './NavBar.module.scss'
 
@@ -8,6 +9,7 @@ interface LinkProps {
   disabled?: boolean;
   exact?: boolean;
   children: ReactChild;
+  profile?: Profile;
 }
 
 const LinkComponent = ({ link, disabled, children, exact }: LinkProps) => {
@@ -80,7 +82,7 @@ export const NavBar: React.FC<INavBarProps> = ({ profile }) => {
       <ul className={styles['navigation__list']}>
         <LinkComponent disabled exact link='/'><Home /></LinkComponent>
         <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
-        <Upload />
+        {profile ? <Upload /> : null}
         <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
         <LinkComponent exact disabled={profileVisible ? false : true} link={`/${profile?.username}`}><User /></LinkComponent>
       </ul>

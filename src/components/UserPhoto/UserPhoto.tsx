@@ -1,4 +1,3 @@
-import { divide } from 'lodash';
 import React, { CSSProperties } from 'react';
 import styles from './UserPhoto.module.scss';
 

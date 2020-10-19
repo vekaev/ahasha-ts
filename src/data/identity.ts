@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import { observable } from 'mobx';
 import 'firebase/auth';
 import 'firebase/firebase-storage';
-import { SessionUser} from './dto';
+import { SessionUser } from './dto';
 import { CONFIG } from '../constants';
 import { IUserData } from '../pages/settings2/Interfaces';
 import * as firebase from 'firebase/app';
@@ -22,7 +22,7 @@ export class Session {
 
   @observable user: SessionUser = null;
   @observable profile: any | null = null;
-  @observable avatarLoading : boolean = false;
+  @observable avatarLoading: boolean = false;
 
   constructor(storage: any) {
     this.auth = firebase.auth();
@@ -74,6 +74,7 @@ export class Session {
     }
 
     try {
+      console.log(storedEmail, 'storedEmail');
       await this.auth.signInWithEmailLink(storedEmail, window.location.href);
       this.request = await this.authorized();
     } catch (exception) {
@@ -100,8 +101,8 @@ export class Session {
 
   async getProfile() {
     const profile = (await this.request.get('/user/profile')).data;
-    const storageRef = this.storage.ref(profile.avatar);
-    profile.avatar = await storageRef.getDownloadURL();
+    // const storageRef = this.storage.ref(profile.avatar);
+    // profile.avatar = await storageRef.getDownloadURL();
     this.profile = profile;
   }
 

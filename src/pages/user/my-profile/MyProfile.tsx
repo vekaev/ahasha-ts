@@ -9,7 +9,6 @@ import { MoreIcon } from '../../../components/Icons/Icons';
 import joinClass from '../../../utils/join';
 import { Upload } from '../../../components/Navbar/NavBar';
 import { LangContext } from './../../../components/LangContext/LangContext';
-import cloneObject from '../../../utils/cloneObject';
 import { IPostResource } from '../../../data/dto';
 
 // interface IMyProfileProps {

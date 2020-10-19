@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { UserDataContext } from '../components/UserDataContext/UserDataContext';
+import { ProfileContext } from '../components/ProfileContext/ProfileContext';
 import Layout from '../containers/Layout/Layout';
 
 export const PageNotFound: React.FC = () => {
-  const user: any = useContext(UserDataContext);
+  const profileContext: any = useContext(ProfileContext);
+  const profile = profileContext?.profile;
 
   const header = {
     middle: 'Ooops!',
   };
 
-  const link = (user) ? (
-    <Link to={`/${user.username}`}>Go to profile</Link>
+  const link = (profile) ? (
+    <Link to={`/${profile.username}`}>Go to profile</Link>
   ) : (
       <a href='https://www.ahasha.com/'>Go to home</a>
     );

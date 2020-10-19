@@ -12,6 +12,14 @@ export const Verify = (props: VerifyProps) => {
   const timeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    const email = props.location.search.match(/[a-zA-Z\.-]+@[\w\.-]+/);
+
+    if (email) {
+      localStorage.setItem('emailForSignIn', email[0]);
+    }
+  })
+
+  useEffect(() => {
     props.session.waitLinkFromEmail();
     const unsubscribe = props.session.subscribe((identity: SessionUser | null) => {
       setIdentity(identity);
@@ -21,13 +29,13 @@ export const Verify = (props: VerifyProps) => {
           clearTimeout(timeout.current);
         }
 
-        props.history.replace('/');
+        // props.history.replace('/');
       }
     });
 
-    timeout.current = setTimeout(() => {
-      props.history.replace('/');
-    }, 5000);
+    // timeout.current = setTimeout(() => {
+    //   props.history.replace('/');
+    // }, 5000);
 
     return unsubscribe;
   }, []);
