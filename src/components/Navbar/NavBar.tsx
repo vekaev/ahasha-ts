@@ -9,7 +9,7 @@ interface LinkProps {
   disabled?: boolean;
   exact?: boolean;
   children: ReactChild;
-  profile?: Profile;
+  profile?: any;
 }
 
 const LinkComponent = ({ link, disabled, children, exact }: LinkProps) => {
@@ -65,10 +65,11 @@ const UploadPhoto: React.FC<any> = ({ history, children, className }) => {
 export const Upload = withRouter(UploadPhoto);
 
 interface INavBarProps {
-  profile: any;
+  profile?: any;
+  myUsername?: string;
 }
 
-export const NavBar: React.FC<INavBarProps> = ({ profile }) => {
+export const NavBar: React.FC<INavBarProps> = ({ profile, myUsername }) => {
   const [profileVisible, setProfileVisible] = useState(true);
 
   useEffect(() => {
@@ -84,7 +85,7 @@ export const NavBar: React.FC<INavBarProps> = ({ profile }) => {
         <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
         {profile ? <Upload /> : null}
         <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
-        <LinkComponent exact disabled={profileVisible ? false : true} link={`/${profile?.username}`}><User /></LinkComponent>
+        <LinkComponent exact disabled={profileVisible ? false : true} link={myUsername ? `/${myUsername}` : `/${profile?.username}`}><User /></LinkComponent>
       </ul>
     </nav>
   )

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useContext, useEffect } from 'react';
-import {RouteChildrenProps, useHistory} from 'react-router-dom';
+import { RouteChildrenProps, useHistory } from 'react-router-dom';
 import { BackIcon } from '../../components/Icons/Icons';
 import EditProfile from '../../pages/settings2/EditProfile/EditProfile';
 import { IUserData } from '../../Interfaces';
@@ -11,8 +11,8 @@ import UserNameModal from '../../pages/settings2/ModalForm/UserNameModal/UserNam
 import Layout from '../Layout/Layout';
 import { LangContext } from './../../components/LangContext/LangContext';
 import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
-import {observer} from "mobx-react";
-import {Session} from "../../data";
+import { observer } from "mobx-react";
+import { Session } from "../../data";
 
 interface EditProps {
   session: Session;
@@ -22,7 +22,6 @@ const Edit: React.FC<any> = (props: EditProps) => {
   const history = useHistory();
   const profileContext: any = useContext(ProfileContext);
   const profile = profileContext?.profile;
-
   const [userData, setUserData] = useState<IUserData>({
     avatar: '',
     firstName: '',
@@ -41,7 +40,7 @@ const Edit: React.FC<any> = (props: EditProps) => {
 
       const [year, day, mounth] = profile.birthday.split('-');
 
-      console.log({profile});
+      console.log({ profile });
       setUserData({
         avatar: profile.avatar,
         firstName: profile.firstName,
@@ -61,7 +60,7 @@ const Edit: React.FC<any> = (props: EditProps) => {
   const changeAvatar = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files.length > 0) {
       props.session.profileUpdate(userData, event.target.files[0]);
-      setUserData({...userData, avatar: URL.createObjectURL(event.target.files[0])})
+      setUserData({ ...userData, avatar: URL.createObjectURL(event.target.files[0]) })
     }
   };
 
@@ -125,7 +124,7 @@ const Edit: React.FC<any> = (props: EditProps) => {
     },
   };
 
-  const handleFormSet = (data:any) => {
+  const handleFormSet = (data: any) => {
     setUserData(data)
     props.session.profileUpdate(data);
   }

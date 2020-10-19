@@ -37,7 +37,10 @@ const MyProfile: React.FC<any> = ({ history, profile, posts, abbr }) => {
   };
 
   return (
-    <Layout header={header}>
+    <Layout
+      header={header}
+      profile={profile}
+    >
       <div className={styles['profile']}>
         <div className={'container'}>
           <div className={styles['profile-user']}>

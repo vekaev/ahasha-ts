@@ -101,8 +101,8 @@ export class Session {
 
   async getProfile() {
     const profile = (await this.request.get('/user/profile')).data;
-    // const storageRef = this.storage.ref(profile.avatar);
-    // profile.avatar = await storageRef.getDownloadURL();
+    const storageRef = this.storage.ref(profile.avatar);
+    profile.avatar = await storageRef.getDownloadURL();
     this.profile = profile;
   }
 
@@ -136,9 +136,6 @@ export class Session {
   getInstance() {
     return this.request;
   }
-
-
-
 }
 
 // new Session().sendSignInLink({ email: 'dsent.work@gmail.com' })

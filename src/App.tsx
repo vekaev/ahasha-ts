@@ -19,18 +19,6 @@ interface AppProps {
   storage: any;
 }
 
-// TODO: remove
-// const SignIn = (props: { session: Session }) => {
-//   useEffect(() => {
-//     props.session.sendSignInLink({
-//       email: 'dsent.work@gmail.com',
-//     });
-//   }, []);
-
-//   // return <Redirect to='/' />;
-//   return <p>sign in</p>;
-// }
-
 function App(props: AppProps) {
   const [post, setPost] = useState<Post>(new Post(props.session.getInstance(), props.storage));
   const [profile, setProfile] = useState<Profile | undefined>();
@@ -86,11 +74,7 @@ function App(props: AppProps) {
   console.log("post.current".toUpperCase(), post?.current);
   console.log("props.session.user".toUpperCase(), props.session.user);
   console.log("props.session.profile".toUpperCase(), props.session.profile);
-
-  // TODO: guest
-  // if (!profileContext.profile) {
-  //   return <Loading />;
-  // }
+  console.log(profile);
 
   return (
     <LangProvider>
@@ -102,7 +86,6 @@ function App(props: AppProps) {
           }} /> */}
           <Route exact path='/' render={(routeProps) => <p>Home</p>} />
           <Route path='/auth/verify' render={(routeProps) => <Verify {...routeProps} session={props.session} />} />
-          {/* <Route path='/auth/sign-in' render={(routeProps) => <SignIn {...routeProps} session={props.session} />} /> */}
           <Route path='/account/edit' render={(routeProps) => <Settings {...routeProps} session={props.session} />} />
           {profileContext?.profile && (
             <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} session={props.session} post={post} />} />

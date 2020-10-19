@@ -1,4 +1,7 @@
 {
+  "verify": {
+    "loadingText": "Authorization in progress"
+  },
   "header": {
     "main": "Main",
     "moonBoard": "Moon board",

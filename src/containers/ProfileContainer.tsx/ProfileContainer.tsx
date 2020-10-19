@@ -15,7 +15,6 @@ interface IProfileContainerProps extends RouteComponentProps {
   post: any;
 }
 
-
 const ProfileContainer: React.FC<IProfileContainerProps> = ({ history, match, session, post, profile: profileStore }) => {
   const profileContext: any = useContext(ProfileContext);
   const profile = profileContext?.profile;
@@ -24,10 +23,9 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({ history, match, se
   if (profile?.username === params.username || `${profile?.username}/` === params.username) {
     return <MyProfileWrapper history={history} profile={profile} post={post} />
   } else {
-    return <ProfileWrapper history={history} profile={profileStore} username={params.username} post={post} />
+    return <ProfileWrapper history={history} myUsername={profile.username} profile={profileStore} username={params.username} post={post} />
   }
 }
-
 
 const MyProfileWrapper: React.FC<any> = (props) => {
   const [posts, setPosts] = useState([]);
@@ -107,20 +105,18 @@ const ProfileWrapper: React.FC<any> = (props) => {
 
   useEffect(() => {
     if (
-      !props.profile.current &&
-      !props.profile.loading.get &&
-      props.username !== props.profile.current?.username &&
-      props.username !== `${props.profile.current?.username}/`
+      !props?.profile?.current &&
+      !props?.profile?.loading.get &&
+      props.username !== props?.profile?.current?.username &&
+      props.username !== `${props?.profile?.current?.username}/`
     ) {
       props.history.replace(`/404`);
     }
-  }, [props.profile.current, props.profile.loading.get, props.username]);
+  }, [props?.profile?.current, props?.profile?.loading.get, props?.username]);
 
-  useEffect(() => {
-    console.log(props.profile.current, 'props.profile.current');
-  }, [props.profile.current])
+  console.log(props?.profile?.current, 'props?.profile?.current')
 
-  if (!props.profile.current) {
+  if (!props?.profile?.current) {
     return <Loading />;
   }
 
@@ -139,6 +135,7 @@ const ProfileWrapper: React.FC<any> = (props) => {
           return this.age;
         }
       }}
+      myUsername={props.myUsername}
       abbr={abbr(props.profile.current.firstName, props.profile.current.lastName)}
     />
   );

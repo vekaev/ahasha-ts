@@ -2,10 +2,17 @@ import React from 'react';
 import styles from './Loading.module.scss';
 import { LoadingIcon } from '../Icons/Icons';
 
-export const Loading: React.FC = () => {
+interface ILoadingProps {
+  text?: string;
+}
+
+export const Loading: React.FC<ILoadingProps> = (props) => {
   return (
     <div className={styles['loading']}>
-      <span className={styles['loading-icon']}><LoadingIcon /></span>
+      <div className={styles['loading-content']}>
+        <span className={styles['loading-content-text']}>{props.text}</span>
+        <span className={styles['loading-content-icon']}><LoadingIcon /></span>
+      </div>
     </div>
   );
 }

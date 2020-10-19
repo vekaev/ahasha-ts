@@ -8,6 +8,7 @@ import { Upload } from '../../components/Navbar/NavBar';
 import UserPhoto from '../UserPhoto/UserPhoto';
 import { abbr } from '../../utils/abbr';
 import { LangContext } from './../LangContext/LangContext';
+import { Profile } from '../../data';
 
 export interface IHeaderProps {
   left?: ReactChild;

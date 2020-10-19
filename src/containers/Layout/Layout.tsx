@@ -4,6 +4,7 @@ import { IHeaderProps } from '../../components/Header/Header';
 import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import NavbarContainer from '../NavbarContainer/NavbarContainer';
 import { IUser } from '../../pages/settings2/Interfaces';
+import { Profile } from '../../data';
 
 interface ILayoutProps {
   header: IHeaderProps;
@@ -11,9 +12,10 @@ interface ILayoutProps {
   NavBarDisabled?: boolean;
   user?: IUser;
   myUsername?: string;
+  profile?: Profile;
 }
 
-const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, user, myUsername }) => {
+const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, myUsername, profile }) => {
   useEffect(() => {
     // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
     let vh = window.innerHeight * 0.01;
@@ -37,9 +39,13 @@ const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, user
         onClickMiddle={header.onClickMiddle}
         right={header.right}
         onClickRight={header.onClickRight}
+        profile={profile}
       />
       <main>{children}</main>
-      {!NavBarDisabled && <NavbarContainer />}
+      {!NavBarDisabled && <NavbarContainer
+        profile={profile}
+        myUsername={myUsername}
+      />}
     </>
   );
 }
