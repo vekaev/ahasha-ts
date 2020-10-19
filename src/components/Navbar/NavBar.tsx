@@ -79,7 +79,7 @@ export const NavBar: React.FC<INavBarProps> = ({ userProfile, myUsername, sessio
     }
   }, [myUsername])
 
-  console.log(session)
+  // console.log(session)
 
   if (!session?.profile) {
     return null;

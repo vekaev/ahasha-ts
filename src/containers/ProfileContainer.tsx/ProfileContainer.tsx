@@ -21,7 +21,7 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({ history, match, se
   const params: any = match.params;
 
   if (profile?.username === params.username || `${profile?.username}/` === params.username) {
-    return <MyProfileWrapper history={history} profile={profile} post={post} />
+    return <MyProfileWrapper session={session} history={history} profile={profile} post={post} />
   } else {
     return <ProfileWrapper history={history} myUsername={profile?.username} session={session} profile={profileStore} username={params.username} post={post} />
   }
@@ -60,8 +60,11 @@ const MyProfileWrapper: React.FC<any> = (props) => {
     })
   }, [props.post?.list]);
 
+
+
   return (
     <MyProfile
+      avatar={props.session?.profile?.avatar}
       posts={posts}
       profile={props.profile}
       abbr={abbr(props.profile.firstName, props.profile.lastName)}

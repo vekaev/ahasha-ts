@@ -126,7 +126,6 @@ const Edit: React.FC<any> = (props: EditProps) => {
   const handleFormSet = (data: any) => {
     setUserData(data)
     props.session.profileUpdate(data);
-
   }
 
   return (

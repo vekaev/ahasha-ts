@@ -123,15 +123,18 @@ export class Session {
     this.profile = profile;
   }
 
+
   async profileUpdate(form: IUserData, file?: File) {
+    console.log(form.birthDay.year);
     const birthday = moment([form.birthDay.year, form.birthDay.month - 1, form.birthDay.day]);
+    console.log(birthday.unix())
     const correctForm = {
       username: form.userName,
       firstName: form.firstName,
       lastName: form.lastName,
       avatar: form.avatar,
       gender:form.gender,
-      birthday: birthday.unix(),
+      // birthday: birthday,
     }
 
     if (file) {
@@ -143,17 +146,23 @@ export class Session {
         },
         baseURL: CONFIG.API_URL,
       });
+      if (uploaded?.data?.name) {
+        const storageRef = this.storage.ref(uploaded?.data?.name);
+        this.profile.avatar = await storageRef.getDownloadURL();
+      }
+
       correctForm.avatar = uploaded?.data?.name;
     } else {
       correctForm.avatar = null;
     }
 
+    console.log(correctForm);
 
     try {
       this.loading.editProfile = true;
       const newData = await this.request.patch('/user/profile', correctForm);
       console.log(newData);
-      this.profile = newData;
+      // this.profile = newData.data;
     } catch (e) {
       this.error.visibility =  true;
       switch (e.message){
