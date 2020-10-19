@@ -21,7 +21,8 @@ export interface IHeaderProps {
   onClickLeft?: () => void;
   onClickRight?: () => void;
   onClickMiddle?: () => void;
-  profile?: any;
+  userProfile?: any;
+  session?: Session;
 }
 
 const Header: React.FC<IHeaderProps> = ({
@@ -35,7 +36,8 @@ const Header: React.FC<IHeaderProps> = ({
   onClickLeft,
   onClickRight,
   onClickMiddle,
-  profile,
+  userProfile,
+  session
 }) => {
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale()['header'];
@@ -93,7 +95,7 @@ const Header: React.FC<IHeaderProps> = ({
               </li>
             </ul>
             <div className={styles['header-desktop-left-new-post']}>
-              {profile ? (
+              {userProfile ? (
                 <Upload className={styles['header-desktop-left-new-post-button']}>
                   <span>+ {text['newPost']}</span>
                 </Upload>
@@ -120,11 +122,11 @@ const Header: React.FC<IHeaderProps> = ({
                 {/* </Link> */}
               </div>
             </div>
-            {profile ? (
+            {userProfile ? (
               <div className={styles['header-desktop-right-profile']}>
-                <Link to={`/${profile?.username}`}>
+                <Link to={`/${userProfile?.username}`}>
                   <UserPhoto
-                    abbr={abbr(profile.firstName, profile.lastName)} src={profile?.avatar}
+                    abbr={abbr(userProfile.firstName, userProfile.lastName)} src={userProfile?.avatar}
                   />
                 </Link>
               </div>) : (

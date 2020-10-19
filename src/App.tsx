@@ -13,6 +13,7 @@ import { ProfileContext } from './components/ProfileContext/ProfileContext';
 import { Loading } from './components/Loading/Loading';
 import moment from 'moment';
 import { SessionUser } from './data/dto';
+import { SessionContext } from './components/SessionContext/SessionContext';
 
 interface AppProps {
   session: Session;
@@ -21,8 +22,9 @@ interface AppProps {
 
 function App(props: AppProps) {
   const [post, setPost] = useState<Post>(new Post(props.session.getInstance(), props.storage));
-  const [profile, setProfile] = useState<Profile | undefined>();
+  const [profile, setProfile] = useState<Profile>(new Profile(props.session.getInstance(), props.storage));
   const profileContext: any = useContext(ProfileContext);
+  const sessionContext: any = useContext(SessionContext);
 
   useEffect(() => {
     props.session.subscribe((identity: SessionUser) => {
@@ -31,7 +33,7 @@ function App(props: AppProps) {
         props.session.getProfile();
 
         const post = new Post(props.session.getInstance(), props.storage);
-        const profile = new Profile(props.session.getInstance());
+        const profile = new Profile(props.session.getInstance(), props.storage);
 
         setPost(post);
         setProfile(profile);

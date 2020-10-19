@@ -1,6 +1,6 @@
 import React, { ReactChild, useEffect, useState } from 'react';
 import { NavLink, withRouter } from "react-router-dom";
-import { Profile } from '../../data';
+import { Profile, Session } from '../../data';
 import { Chat, Home, Saved, User, Add } from '../Icons/Icons';
 import styles from './NavBar.module.scss'
 
@@ -65,27 +65,34 @@ const UploadPhoto: React.FC<any> = ({ history, children, className }) => {
 export const Upload = withRouter(UploadPhoto);
 
 interface INavBarProps {
-  profile?: any;
+  userProfile?: any;
   myUsername?: string;
+  session?: Session;
 }
 
-export const NavBar: React.FC<INavBarProps> = ({ profile, myUsername }) => {
+export const NavBar: React.FC<INavBarProps> = ({ userProfile, myUsername, session }) => {
   const [profileVisible, setProfileVisible] = useState(true);
 
   useEffect(() => {
-    if (!profile) {
+    if (!myUsername) {
       setProfileVisible(false);
     }
-  }, [profile])
+  }, [myUsername])
+
+  console.log(session)
+
+  if (!session?.profile) {
+    return null;
+  }
 
   return (
     <nav className={styles['navigation']}>
       <ul className={styles['navigation__list']}>
         <LinkComponent disabled exact link='/'><Home /></LinkComponent>
         <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
-        {profile ? <Upload /> : null}
+        {userProfile ? <Upload /> : null}
         <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
-        <LinkComponent exact disabled={profileVisible ? false : true} link={myUsername ? `/${myUsername}` : `/${profile?.username}`}><User /></LinkComponent>
+        <LinkComponent exact disabled={profileVisible ? false : true} link={myUsername ? `/${myUsername}` : `/${userProfile?.username}`}><User /></LinkComponent>
       </ul>
     </nav>
   )

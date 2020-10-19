@@ -1,7 +1,7 @@
 import React from 'react';
 import Header, { IHeaderProps } from '../../components/Header/Header';
 
-const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, onClickMiddle, right, onClickRight, profile }) => {
+const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, onClickMiddle, right, onClickRight, userProfile, session }) => {
 
   return (
     <Header
@@ -11,7 +11,8 @@ const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, on
       onClickMiddle={onClickMiddle}
       right={right}
       onClickRight={onClickRight}
-      profile={profile}
+      userProfile={userProfile}
+      session={session}
     />
   );
 }

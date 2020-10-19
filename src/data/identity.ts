@@ -115,8 +115,8 @@ export class Session {
   async getProfile() {
     const profile = (await this.request.get('/user/profile')).data;
 
-    if(profile.avatar){
-      const storageRef = this.storage?.ref(profile.avatar);
+    if (profile.avatar) {
+      const storageRef = this.storage.ref(profile.avatar);
       profile.avatar = await storageRef.getDownloadURL();
     }
 

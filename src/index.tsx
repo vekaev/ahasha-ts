@@ -7,14 +7,19 @@ import * as serviceWorker from './serviceWorker';
 import { Session } from './data';
 import { ProfileProvider } from './components/ProfileContext/ProfileContext';
 import * as firebase from "firebase";
+import { SessionProvider } from './components/SessionContext/SessionContext';
 
 const storage = firebase.storage();
+const session = new Session(storage);
+
 ReactDOM.render(
   // <React.StrictMode>
   <Router>
-    <ProfileProvider>
-      <App session={new Session(storage)} storage={storage} />
-    </ProfileProvider>
+    <SessionProvider>
+      <ProfileProvider session={session}>
+        <App session={session} storage={storage} />
+      </ProfileProvider>
+    </SessionProvider>
   </Router>,
   // </React.StrictMode>,
   document.getElementById('root')
