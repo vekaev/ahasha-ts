@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
 import Post from '../../pages/user/post/Post';
 import Layout from '../Layout/Layout';
 import moment from 'moment';
+import { observer } from 'mobx-react';
+import { SessionContext } from '../../components/SessionContext/SessionContext';
+import { Session } from '../../data/TestData2';
 
 // TODO: universal hoc
 // const userContainer = (Component) => (props) => {
@@ -18,8 +21,9 @@ import moment from 'moment';
 // );
 
 const PostContainer: React.FC<any> = ({ history, location, match, post }) => {
-  const [userPost, setUserPost] = useState(location?.state?.post);
-  const profile = location?.state?.profile || userPost?.profile;
+  const userPost = location?.state?.post || post?.current;
+  const { session } = useContext(SessionContext);
+  const profile = location?.state?.profile || session?.profile;
   const params: any = match.params;
 
   useEffect(() => {
@@ -27,39 +31,12 @@ const PostContainer: React.FC<any> = ({ history, location, match, post }) => {
       post.one(params.postId);
     }
 
-    if (!profile) {
-
+    if (!session?.profile) {
+      console.log("!session?.profile")
     }
-  }, []);
+  }, [post, session]);
 
-  useEffect(() => {
-    if (!userPost && post?.current) {
-      setUserPost({
-        createdAt: post?.current.createdAt,
-        deletedAt: post?.current.deletedAt,
-        description: post?.current.description,
-        id: post?.current.id,
-        resources: post?.current.resources,
-        updatedAt: post?.current.updatedAt,
-        profile: {
-          ...(post?.current.profile || {}), get fullName() {
-            return `${this.firstName} ${this.lastName}`;
-          },
-          get age() {
-            return `${moment().diff(this.birthday, 'years')} years`;
-          },
-          get info() {
-            return this.age;
-          }
-        },
-      });
-    }
-  }, [post.current]);
-
-  console.log({ userPost })
-
-
-  if (!profile) {
+  if (!profile || !session?.profile) {
     return null;
   }
 
@@ -87,4 +64,4 @@ const PostContainer: React.FC<any> = ({ history, location, match, post }) => {
   );
 }
 
-export default withRouter(PostContainer);
+export default observer(withRouter(PostContainer));

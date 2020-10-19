@@ -15,11 +15,9 @@ const session = new Session(storage);
 ReactDOM.render(
   // <React.StrictMode>
   <Router>
-    <SessionProvider>
-      <ProfileProvider session={session}>
-        <App session={session} storage={storage} />
-      </ProfileProvider>
-    </SessionProvider>
+    <ProfileProvider session={session}>
+      <App session={session} storage={storage} />
+    </ProfileProvider>
   </Router>,
   // </React.StrictMode>,
   document.getElementById('root')

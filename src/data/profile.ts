@@ -10,6 +10,7 @@ export class Profile {
   @observable avatar: string | null = null;
   @observable loading = {
     get: false,
+    avatar: false,
   };
 
   constructor(request: AxiosInstance, storage: any) {
@@ -24,8 +25,10 @@ export class Profile {
       this.current = (await this.request.get(`/user/profile/${username}`)).data;
 
       if (this.current?.avatar) {
+        this.loading.avatar = true;
         const storageRef = this.storage.ref(this.current.avatar);
         this.current.avatar = await storageRef.getDownloadURL();
+        this.loading.avatar = false;
       }
     } catch (exception) {
       console.error(exception);

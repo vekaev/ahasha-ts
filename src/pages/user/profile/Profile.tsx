@@ -9,6 +9,7 @@ import { Add, BackIcon, Chat, MoreIcon } from '../../../components/Icons/Icons';
 import joinClass from '../../../utils/join';
 import { LangContext } from './../../../components/LangContext/LangContext';
 import { IPostResource } from '../../../data/dto';
+import { observer } from 'mobx-react';
 
 // interface IMyProfileProps {
 //   history: RouteComponentProps;
@@ -54,9 +55,6 @@ const Profile: React.FC<any> = ({ history, myUsername, userProfile, posts, data,
   return (
     <Layout
       header={header}
-      userProfile={userProfile}
-      myUsername={myUsername}
-      session={session}
     >
       <div className={styles['profile']}>
         <div className={joinClass(styles['profile-user-wrapper'], 'container')}>
@@ -197,4 +195,4 @@ const Profile: React.FC<any> = ({ history, myUsername, userProfile, posts, data,
   );
 };
 
-export default withRouter(Profile);
+export default withRouter(observer(Profile));

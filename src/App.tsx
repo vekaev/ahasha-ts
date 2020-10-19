@@ -13,7 +13,7 @@ import { ProfileContext } from './components/ProfileContext/ProfileContext';
 import { Loading } from './components/Loading/Loading';
 import moment from 'moment';
 import { SessionUser } from './data/dto';
-import { SessionContext } from './components/SessionContext/SessionContext';
+import { SessionContext, SessionProvider } from './components/SessionContext/SessionContext';
 
 interface AppProps {
   session: Session;
@@ -21,8 +21,8 @@ interface AppProps {
 }
 
 function App(props: AppProps) {
-  const [post, setPost] = useState<Post>(new Post(props.session.getInstance(), props.storage));
-  const [profile, setProfile] = useState<Profile>(new Profile(props.session.getInstance(), props.storage));
+  const post = new Post(props.session.getInstance(), props.storage);
+  const profile = new Profile(props.session.getInstance(), props.storage);
   const profileContext: any = useContext(ProfileContext);
   const sessionContext: any = useContext(SessionContext);
 
@@ -31,12 +31,6 @@ function App(props: AppProps) {
       if (identity) {
         props.session.user = identity;
         props.session.getProfile();
-
-        const post = new Post(props.session.getInstance(), props.storage);
-        const profile = new Profile(props.session.getInstance(), props.storage);
-
-        setPost(post);
-        setProfile(profile);
       }
     });
   }, []);
@@ -72,27 +66,27 @@ function App(props: AppProps) {
     profileContext.setProfile(profile);
   }, [props.session.profile]);
 
-  console.log(props.session.profile);
   return (
     <LangProvider>
-      <UserDataProvider>
-        <Switch>
-          {/* <Route exact path='/' render={() => {
+      <SessionProvider session={props.session}>
+        <UserDataProvider>
+          <Switch>
+            {/* <Route exact path='/' render={() => {
             window.location.replace('https://www.ahasha.com')
             return null;
           }} /> */}
-          <Route exact path='/' render={(routeProps) => <p>Home</p>} />
-          <Route path='/auth/verify' render={(routeProps) => <Verify {...routeProps} session={props.session} />} />
-          <Route path='/account/edit' render={(routeProps) => <Settings {...routeProps} session={props.session} />} />
-          {profileContext?.profile && (
-            <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} session={props.session} post={post} />} />
-          )}
-          <Route path='/404' component={PageNotFound} />
-          // @ts-ignore
-          <Route path='/:username' render={(userProps) => <User {...userProps} profile={profile} post={post} session={props.session} />} />
-          {/* <Redirect from='*' to='/404' /> */}
-        </Switch>
-      </UserDataProvider>
+            <Route exact path='/' render={(routeProps) => <p>Home</p>} />
+            <Route path='/auth/verify' render={(routeProps) => <Verify {...routeProps} session={props.session} />} />
+            <Route path='/account/edit' render={(routeProps) => <Settings {...routeProps} session={props.session} />} />
+            {profileContext?.profile && (
+              <Route path='/add-photo' render={(routeProps) => <AddPhoto {...routeProps} session={props.session} post={post} />} />
+            )}
+            <Route path='/404' component={PageNotFound} />
+            <Route path='/:username' render={(userProps) => <User {...userProps} profile={profile} post={post} session={props.session} />} />
+            {/* <Redirect from='*' to='/404' /> */}
+          </Switch>
+        </UserDataProvider>
+      </SessionProvider>
     </LangProvider>
   )
 }

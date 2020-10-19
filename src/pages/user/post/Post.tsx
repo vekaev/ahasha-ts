@@ -17,10 +17,6 @@ const MyPost: React.FC<any> = ({ profile, post }) => {
     // counter: post?.likes,
   });
 
-  if (!post) {
-    return null;
-  }
-
   return (
     <div className={styles["post"]}>
       <div className="container">
@@ -39,22 +35,26 @@ const MyPost: React.FC<any> = ({ profile, post }) => {
             </div>
           </div>
         </div>
-        <div className={styles["post-image"]}>
-          {console.log(post.resources[0].origin, "POST")}
-          <img src={post.resources[0].origin} alt="ahasha models" />
-        </div>
-        <div className={styles["post-actions"]}>
-          <div className={styles["post-actions-like"]}>
-            <Like
-              icon={like.icon}
-              // counter={like.counter}
-              setLike={setLike}
-            />
-          </div>
-          <div className={styles["post-actions-saved"]}>
-            <Saved />
-          </div>
-        </div>
+        {post && (
+          <>
+            <div className={styles["post-image"]}>
+              {console.log(post.resources[0].origin, "POST")}
+              <img src={post.resources[0].origin} alt="ahasha models" />
+            </div>
+            <div className={styles["post-actions"]}>
+              <div className={styles["post-actions-like"]}>
+                <Like
+                  icon={like.icon}
+                  // counter={like.counter}
+                  setLike={setLike}
+                />
+              </div>
+              <div className={styles["post-actions-saved"]}>
+                <Saved />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

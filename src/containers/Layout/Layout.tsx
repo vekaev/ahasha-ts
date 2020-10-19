@@ -13,10 +13,9 @@ interface ILayoutProps {
   user?: IUser;
   myUsername?: string;
   userProfile?: Profile;
-  session?: Session;
 }
 
-const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, myUsername, userProfile, session }) => {
+const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, myUsername, userProfile }) => {
   useEffect(() => {
     // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
     let vh = window.innerHeight * 0.01;
@@ -41,13 +40,10 @@ const Layout: React.FC<ILayoutProps> = ({ header, children, NavBarDisabled, myUs
         right={header.right}
         onClickRight={header.onClickRight}
         userProfile={userProfile}
-        session={session}
       />
       <main>{children}</main>
       {!NavBarDisabled && <NavbarContainer
         userProfile={userProfile}
-        myUsername={myUsername}
-        session={session}
       />}
     </>
   );

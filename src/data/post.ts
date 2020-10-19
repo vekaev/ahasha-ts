@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { CONFIG } from '../constants';
 import { IPost, IPostAdd, IPostResourceType } from './dto';
 import * as firebase from 'firebase/app';
@@ -21,7 +21,7 @@ export class Post {
     this.storage = storage;
   }
 
-  async fetch(username?: string) {
+  @action async fetch(username?: string) {
     if (!username) {
       return;
     }

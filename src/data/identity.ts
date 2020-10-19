@@ -22,13 +22,12 @@ export class Session {
   private readonly storage: any;
 
   @observable user: SessionUser = null;
+  // TODO: change profile request
   @observable profile: any | null = null;
   @observable avatarLoading: boolean = false;
 
-
-
-
   @observable loading = {
+    get: false,
     editProfile: false,
   };
   @observable error = {
@@ -113,6 +112,7 @@ export class Session {
   }
 
   async getProfile() {
+    this.loading.get = true;
     const profile = (await this.request.get('/user/profile')).data;
 
     if (profile.avatar) {
@@ -120,7 +120,20 @@ export class Session {
       profile.avatar = await storageRef.getDownloadURL();
     }
 
-    this.profile = profile;
+    this.profile = {
+      ...profile,
+      get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+      },
+      get age() {
+        return `${moment().diff(this.birthday, 'years')} years`;
+      },
+      get info() {
+        return this.age;
+      }
+    };
+
+    this.loading.get = false;
   }
 
 
@@ -133,7 +146,7 @@ export class Session {
       firstName: form.firstName,
       lastName: form.lastName,
       avatar: form.avatar,
-      gender:form.gender,
+      gender: form.gender,
       // birthday: birthday,
     }
 
@@ -164,8 +177,8 @@ export class Session {
       console.log(newData);
       // this.profile = newData.data;
     } catch (e) {
-      this.error.visibility =  true;
-      switch (e.message){
+      this.error.visibility = true;
+      switch (e.message) {
         case 'Request failed with status code 500':
           this.error.message = 'No connection. Try again later'
           break;
@@ -176,7 +189,7 @@ export class Session {
     } finally {
       this.loading.editProfile = false;
       setTimeout(() => {
-        this.error.visibility =  false;
+        this.error.visibility = false;
         this.error.message = ''
       }, 2000)
     }

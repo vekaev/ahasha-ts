@@ -1,7 +1,10 @@
-import React from 'react';
+import { observer } from 'mobx-react';
+import React, { useContext } from 'react';
 import Header, { IHeaderProps } from '../../components/Header/Header';
+import { SessionContext } from '../../components/SessionContext/SessionContext';
 
-const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, onClickMiddle, right, onClickRight, userProfile, session }) => {
+const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, onClickMiddle, right, onClickRight, userProfile }) => {
+  const { session } = useContext(SessionContext);
 
   return (
     <Header
@@ -17,4 +20,4 @@ const HeaderContainer: React.FC<IHeaderProps> = ({ left, onClickLeft, middle, on
   );
 }
 
-export default HeaderContainer;
+export default observer(HeaderContainer);

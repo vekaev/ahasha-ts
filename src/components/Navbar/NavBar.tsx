@@ -67,32 +67,18 @@ export const Upload = withRouter(UploadPhoto);
 interface INavBarProps {
   userProfile?: any;
   myUsername?: string;
-  session?: Session;
+  session: Session;
 }
 
 export const NavBar: React.FC<INavBarProps> = ({ userProfile, myUsername, session }) => {
-  const [profileVisible, setProfileVisible] = useState(true);
-
-  useEffect(() => {
-    if (!myUsername) {
-      setProfileVisible(false);
-    }
-  }, [myUsername])
-
-  // console.log(session)
-
-  if (!session?.profile) {
-    return null;
-  }
-
   return (
     <nav className={styles['navigation']}>
       <ul className={styles['navigation__list']}>
         <LinkComponent disabled exact link='/'><Home /></LinkComponent>
         <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
-        {userProfile ? <Upload /> : null}
+        {session?.profile ? <Upload /> : null}
         <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
-        <LinkComponent exact disabled={profileVisible ? false : true} link={myUsername ? `/${myUsername}` : `/${userProfile?.username}`}><User /></LinkComponent>
+        <LinkComponent exact link={`/${session?.profile?.username}`}><User /></LinkComponent>
       </ul>
     </nav>
   )

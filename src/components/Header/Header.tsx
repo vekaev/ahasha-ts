@@ -123,16 +123,16 @@ const Header: React.FC<IHeaderProps> = ({
                 {/* </Link> */}
               </div>
             </div>
-            {userProfile ? (
+            {session?.profile ? (
               <div className={styles['header-desktop-right-profile']}>
-                <Link to={`/${userProfile?.username}`}>
+                <Link to={`/${session?.profile}`}>
                   <UserPhoto
-                    abbr={abbr(userProfile.firstName, userProfile.lastName)} src={userProfile?.avatar}
+                    abbr={abbr(session?.profile?.firstName, session?.profile?.lastName)} src={session?.profile?.avatar}
                   />
                 </Link>
               </div>) : (
                 <div className={styles['header-desktop-right-profile-none']}>
-                  <a href='https://www.ahasha.com/'>
+                  <a href='https://www.ahasha.com/sign-in'>
                     {text['signIn']}
                   </a>
                 </div>
