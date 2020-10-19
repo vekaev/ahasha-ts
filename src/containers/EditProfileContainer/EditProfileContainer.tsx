@@ -40,7 +40,6 @@ const Edit: React.FC<any> = (props: EditProps) => {
 
       const [year, day, mounth] = profile.birthday.split('-');
 
-      console.log({ profile });
       setUserData({
         avatar: profile.avatar,
         firstName: profile.firstName,
@@ -127,6 +126,7 @@ const Edit: React.FC<any> = (props: EditProps) => {
   const handleFormSet = (data: any) => {
     setUserData(data)
     props.session.profileUpdate(data);
+
   }
 
   return (

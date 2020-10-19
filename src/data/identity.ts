@@ -6,6 +6,7 @@ import { SessionUser } from './dto';
 import { CONFIG } from '../constants';
 import { IUserData } from '../pages/settings2/Interfaces';
 import * as firebase from 'firebase/app';
+import moment from 'moment';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
@@ -23,6 +24,18 @@ export class Session {
   @observable user: SessionUser = null;
   @observable profile: any | null = null;
   @observable avatarLoading: boolean = false;
+
+
+
+
+  @observable loading = {
+    editProfile: false,
+  };
+  @observable error = {
+    visibility: false,
+    message: '',
+  };
+
 
   constructor(storage: any) {
     this.auth = firebase.auth();
@@ -111,12 +124,14 @@ export class Session {
   }
 
   async profileUpdate(form: IUserData, file?: File) {
+    const birthday = moment([form.birthDay.year, form.birthDay.month - 1, form.birthDay.day]);
     const correctForm = {
-      username: 'vekaev',
+      username: form.userName,
       firstName: form.firstName,
       lastName: form.lastName,
       avatar: form.avatar,
-      // birthday: 12345678
+      gender:form.gender,
+      birthday: birthday.unix(),
     }
 
     if (file) {
@@ -133,8 +148,29 @@ export class Session {
       correctForm.avatar = null;
     }
 
-    console.log(correctForm);
-    return this.request.patch('/user/profile', correctForm);
+
+    try {
+      this.loading.editProfile = true;
+      const newData = await this.request.patch('/user/profile', correctForm);
+      console.log(newData);
+      this.profile = newData;
+    } catch (e) {
+      this.error.visibility =  true;
+      switch (e.message){
+        case 'Request failed with status code 500':
+          this.error.message = 'No connection. Try again later'
+          break;
+        default:
+          this.error.message = 'Ooops! Something went wrong!'
+          break;
+      }
+    } finally {
+      this.loading.editProfile = false;
+      setTimeout(() => {
+        this.error.visibility =  false;
+        this.error.message = ''
+      }, 2000)
+    }
   }
 
   getInstance() {

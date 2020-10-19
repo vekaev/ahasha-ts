@@ -70,12 +70,7 @@ function App(props: AppProps) {
     profileContext.setProfile(profile);
   }, [props.session.profile]);
 
-  console.log("post.list".toUpperCase(), post?.list);
-  console.log("post.current".toUpperCase(), post?.current);
-  console.log("props.session.user".toUpperCase(), props.session.user);
-  console.log("props.session.profile".toUpperCase(), props.session.profile);
-  console.log(profile);
-
+  console.log(props.session.profile);
   return (
     <LangProvider>
       <UserDataProvider>

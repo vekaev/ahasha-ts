@@ -46,6 +46,7 @@ const FullNameModal: React.FC<IModalDataProps> = ({
           <input
             type="text"
             name="firstName"
+            required
             className={styles["modal-form-input"]}
             value={data.firstName}
             onChange={handleChange}
@@ -57,6 +58,7 @@ const FullNameModal: React.FC<IModalDataProps> = ({
           <input
             type="text"
             name="lastName"
+            required
             className={styles["modal-form-input"]}
             value={data.lastName}
             onChange={handleChange}

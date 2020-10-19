@@ -92,8 +92,9 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
           <label className={styles["modal-form-label"]}>
             {text["day"]}
             <input
-              type="tel"
+              type='number'
               name="day"
+              required
               className={`${styles["modal-form-input"]} ${styles["w52"]}`}
               value={data.day}
               onChange={(e) => handleChange(e, 0)}
@@ -107,8 +108,9 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
           <label className={styles["modal-form-label"]}>
             {text["month"]}
             <input
-              type="tel"
+              type="number"
               name="month"
+              required
               className={`${styles["modal-form-input"]} ${styles["w52"]}`}
               value={data.month}
               onChange={(e) => handleChange(e, 1)}
@@ -124,6 +126,7 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
             <input
               type="tel"
               name="year"
+              required
               className={`${styles["modal-form-input"]} ${styles["w112"]}`}
               value={data.year}
               onChange={(e) => handleChange(e, 2)}
