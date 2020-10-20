@@ -8,11 +8,20 @@ import { IUserData } from '../pages/settings2/Interfaces';
 import * as firebase from 'firebase/app';
 import moment from 'moment';
 
+// TODO: comment for production
+// firebase.initializeApp({
+//   apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
+//   authDomain: 'umbrella01-dev.firebaseapp.com',
+//   projectId: 'umbrella01-dev',
+//   storageBucket: 'gs://umbrella01-dev.appspot.com',
+// });
+
+// TODO: uncomment for production
 firebase.initializeApp({
-  apiKey: 'AIzaSyCNcqMOGKEMZCmIJg0PQeV_IdWFi8DaxzY',
-  authDomain: 'umbrella01-dev.firebaseapp.com',
-  projectId: 'umbrella01-dev',
-  storageBucket: 'gs://umbrella01-dev.appspot.com',
+  apiKey: 'AIzaSyDJxCWJiU5cJlOd_DtOICVexV4DVbFN5UY',
+  authDomain: 'umbrella01.firebaseapp.com',
+  projectId: 'umbrella01',
+  storageBucket: 'gs://umbrella01.appspot.com',
 });
 
 export class Session {
