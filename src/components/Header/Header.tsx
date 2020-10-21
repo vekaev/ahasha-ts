@@ -6,8 +6,10 @@ import { Chat, FiltersIcon, BasketIcon } from '../Icons/Icons';
 import { Logotype } from '../SvgImages/SvgImages';
 import { Upload } from '../../components/Navbar/NavBar';
 import UserPhoto from '../UserPhoto/UserPhoto';
-import { IUser } from '../../pages/Settings/Interfaces';
+import { abbr } from '../../utils/abbr';
 import { LangContext } from './../LangContext/LangContext';
+import { Session } from '../../data/identity';
+
 
 export interface IHeaderProps {
   left?: ReactChild;
@@ -20,7 +22,8 @@ export interface IHeaderProps {
   onClickLeft?: () => void;
   onClickRight?: () => void;
   onClickMiddle?: () => void;
-  user?: IUser;
+  userProfile?: any;
+  session?: Session;
 }
 
 const Header: React.FC<IHeaderProps> = ({
@@ -34,9 +37,9 @@ const Header: React.FC<IHeaderProps> = ({
   onClickLeft,
   onClickRight,
   onClickMiddle,
-  user,
+  userProfile,
+  session
 }) => {
-
   const langContext = useContext(LangContext);
   let text = langContext?.useLocale()['header'];
 
@@ -81,10 +84,10 @@ const Header: React.FC<IHeaderProps> = ({
         <div className={styles['header-desktop']}>
           <div className={styles['header-desktop-left']}>
             <ul className={styles['header-desktop-left-nav']}>
-              <li className={joinClass(styles['header-desktop-left-nav-link'], styles['disabled'])}>
-                {/* <Link to='/'> */}
-                <span className={styles['header-desktop-left-nav-link-item']}>{text['main']}</span>
-                {/* </Link> */}
+              <li className={joinClass(styles['header-desktop-left-nav-link'])}>
+                <a href='https://www.ahasha.com'>
+                  <span className={styles['header-desktop-left-nav-link-item']}>{text['main']}</span>
+                </a>
               </li>
               <li className={joinClass(styles['header-desktop-left-nav-link'], styles['disabled'])}>
                 {/* <Link to='/'> */}
@@ -93,7 +96,7 @@ const Header: React.FC<IHeaderProps> = ({
               </li>
             </ul>
             <div className={styles['header-desktop-left-new-post']}>
-              {user ? (
+              {userProfile ? (
                 <Upload className={styles['header-desktop-left-new-post-button']}>
                   <span>+ {text['newPost']}</span>
                 </Upload>
@@ -120,11 +123,11 @@ const Header: React.FC<IHeaderProps> = ({
                 {/* </Link> */}
               </div>
             </div>
-            {user ? (
+            {session?.profile ? (
               <div className={styles['header-desktop-right-profile']}>
-                <Link to={`/u/${user?.username}`}>
+                <Link to={`/${session?.profile}`}>
                   <UserPhoto
-                    src={user?.mainPhoto}
+                    abbr={abbr(session?.profile?.firstName, session?.profile?.lastName)} src={session?.profile?.avatar}
                   />
                 </Link>
               </div>) : (

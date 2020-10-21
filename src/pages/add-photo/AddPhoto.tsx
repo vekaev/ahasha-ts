@@ -1,31 +1,26 @@
-import React, {useContext} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { RouteChildrenProps } from 'react-router-dom';
+import Layout from '../../containers/Layout/Layout';
 import { withRouter } from "react-router-dom";
-import Layout from "../../containers/Layout/Layout";
 import styles from './AddPhoto.module.scss'
-import { BackIcon, MoreIcon } from "../../components/Icons/Icons";
+import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
 import { Button } from '../../components/Button';
-import { IUser } from '../Settings/Interfaces';
 import { LangContext } from './../../components/LangContext/LangContext';
+import { Session, Post } from '../../data';
+import { observer } from 'mobx-react';
 
-function AddPhoto(props: any) {
-  const user: IUser = {
-    mainPhoto: 'https://images.unsplash.com/photo-1591473696086-11d2478006f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60',
-    quantityPosts: 16,
-    rank: 195,
-    firstName: 'Anna',
-    lastName: 'Hanney',
-    username: 'anna_hanney',
-    age: '25',
-    size: 'S-M',
-    get fullName() {
-      return `${this.firstName} ${this.lastName}`;
-    },
-    get info() {
-      return `${this.age} years, ${this.size}`;
-    },
-  }
+interface AddPhotoProps extends RouteChildrenProps {
+  session: Session;
+  post: Post;
+}
 
-  if (props.location?.state?.img === undefined) {
+const Component = (props: AddPhotoProps) => {
+  const [img, setImg] = useState<string | null>(null);
+
+  const locationState: any = props.location.state;
+  const locationStateFiles: any = locationState?.files;
+
+  if (locationState?.files === undefined) {
     props.history.push('/')
   }
 
@@ -39,31 +34,49 @@ function AddPhoto(props: any) {
     },
     middle: text['headerTitle'],
     right: <span style={{ opacity: .4, lineHeight: 0, marginTop: -2 }}><MoreIcon /></span>,
-    // onClickRight: () => {
+    // onClickRight: (  ) => {
     //   history.push('/settings')
     // }
-  }
+  };
 
+  useEffect(() => {
+    const reader: any = new FileReader();
+    reader.addEventListener("load", () => setImg(reader.result));
+    reader.readAsDataURL(locationState?.files[0]);
+  }, [locationState?.files]);
 
+  const onSubmit = async () => {
+    try {
+      await props.post.add({
+        resources: locationState.files,
+      });
+      await props.post.fetch(props.session.profile?.username);
+      props.history.replace(`/${props.session.profile?.username}`)
+    } catch (exception) {
+      console.error(exception);
+    } finally {
+      props.post.loading.upload = false
+    }
+  };
 
   return (
     <Layout
-      NavBarDisabled={true} header={header}
-      user={user}
+      NavBarDisabled={true}
+      header={header}
     >
-      <div className={styles["add-photo__page"]}>
+      <div className={styles['add-photo__page']}>
         <div className={styles['user-image']}>
-          <img src={props.location?.state?.img} alt="Red dot" style={{ width: "100%" }} />
+          {img && <img src={img} alt='Red dot' style={{ width: '100%' }} />}
         </div>
-        <div className={styles['content']} >
-          <div style={{ marginTop: "auto" }}><Button title={text['buttonTitle']}></Button></div>
-
+        <div className={styles['content']}>
+          <div style={{ marginTop: "auto" }}>
+            <Button onClick={onSubmit} loading={props.post.loading.upload}>{text['buttonTitle']}</Button>
+          </div>
         </div>
       </div>
-
-
     </Layout>
   )
 
 }
-export default withRouter(AddPhoto)
+
+export const AddPhoto = observer(Component);

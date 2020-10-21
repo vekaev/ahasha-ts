@@ -1,14 +1,24 @@
 import React, { useContext } from 'react';
 import { NavBar } from '../../components/Navbar/NavBar';
-import { UserDataContext } from '../../components/UserDataContext/UserDataContext';
-import { IUser } from '../../pages/Settings/Interfaces';
+import { SessionContext } from '../../components/SessionContext/SessionContext';
+import { Profile, Session } from '../../data';
 
-const NavbarContainer: React.FC = () => {
-  const user: IUser = useContext(UserDataContext);
+interface INavbarContainerProps {
+  userProfile?: Profile;
+  myUsername?: string;
+}
+
+const NavbarContainer: React.FC<INavbarContainerProps> = ({ userProfile, myUsername }) => {
+  const { session } = useContext(SessionContext);
+
+  if (!session?.profile) {
+    return null;
+  }
 
   return (
     <NavBar
-      user={user}
+      userProfile={userProfile}
+      session={session}
     />
   );
 }

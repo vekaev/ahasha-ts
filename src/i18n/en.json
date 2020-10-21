@@ -1,4 +1,7 @@
 {
+  "verify": {
+    "loadingText": "Authorization in progress"
+  },
   "header": {
     "main": "Main",
     "moonBoard": "Moon board",
@@ -49,7 +52,7 @@
     "formGender": {
       "male": "Male",
       "female": "Female",
-      "third": "Third",
+      "third": "Custom",
       "buttonCancel": "Cancel"
     }
   },

@@ -4,12 +4,21 @@ import './index.scss';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import { Session } from './data';
+import { ProfileProvider } from './components/ProfileContext/ProfileContext';
+import * as firebase from "firebase";
+import { SessionProvider } from './components/SessionContext/SessionContext';
+
+const storage = firebase.storage();
+const session = new Session(storage);
 
 ReactDOM.render(
   // <React.StrictMode>
-    <Router>
-        <App />
-    </Router>,
+  <Router>
+    <ProfileProvider session={session}>
+      <App session={session} storage={storage} />
+    </ProfileProvider>
+  </Router>,
   // </React.StrictMode>,
   document.getElementById('root')
 );

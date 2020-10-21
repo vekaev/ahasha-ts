@@ -1,81 +1,83 @@
-import React, { ReactChild, useContext } from "react";
-import styles from "./MyProfile.module.scss";
-import UserPhoto from "../../../components/UserPhoto/UserPhoto";
-import PostImage from "../../../components/PostImage/PostImage";
-import PostFeedPreview from "../../../components/PostFeedPreview/PostFeedPreview";
-import { Link, Route, Switch, withRouter } from "react-router-dom";
-import Layout from "../../../containers/Layout/Layout";
-import { MoreIcon } from "../../../components/Icons/Icons";
-import joinClass from "../../../utils/join";
-import { Upload } from "../../../components/Navbar/NavBar";
-import { clone } from "lodash";
-import { LangContext } from "./../../../components/LangContext/LangContext";
+import React, { ReactChild, useContext } from 'react';
+import styles from './MyProfile.module.scss';
+import UserPhoto from '../../../components/UserPhoto/UserPhoto';
+import PostImage from '../../../components/PostImage/PostImage';
+import PostFeedPreview from '../../../components/PostFeedPreview/PostFeedPreview';
+import { Link, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import Layout from '../../../containers/Layout/Layout';
+import { MoreIcon } from '../../../components/Icons/Icons';
+import joinClass from '../../../utils/join';
+import { Upload } from '../../../components/Navbar/NavBar';
+import { LangContext } from './../../../components/LangContext/LangContext';
+import { IPostResource } from '../../../data/dto';
 
 // interface IMyProfileProps {
 //   history: RouteComponentProps;
-//   user: {}
+//   user: {};
 //   posts: [
 //     {
-//       id: number,
-//       likes: number,
-//       myLike: boolean,
-//       img: string,
+//       id: number;
+//       likes: number;
+//       myLike: boolean;
+//       img: string;
 //     }
 //   ];
 // }
 
-const MyProfile: React.FC<any> = ({ history, user, posts }) => {
+const MyProfile: React.FC<any> = ({ history, profile, posts, abbr, session }) => {
   const langContext = useContext(LangContext);
-  let text = langContext?.useLocale()["user"]["profile"];
+  let text = langContext?.useLocale()['user']['profile'];
 
   const header = {
-    middle: user?.username || text["header"],
+    middle: profile?.username || text['header'],
     right: <MoreIcon />,
     onClickRight: () => {
-      history.push("/settings");
+      history.push('/account/edit');
     },
   };
-
   return (
-    <Layout header={header} user={user}>
-      <div className={styles["profile"]}>
-        <div className={"container"}>
-          <div className={styles["profile-user"]}>
-            <div className={styles["profile-user-photo"]}>
-              <UserPhoto src={user.mainPhoto} />
+    <Layout
+      header={header}
+      userProfile={profile}
+    >
+      <div className={styles['profile']}>
+        <div className={'container'}>
+          <div className={styles['profile-user']}>
+            <div className={styles['profile-user-photo']}>
+              <UserPhoto style={{ fontSize: 32, letterSpacing: '0.025em' }} abbr={abbr} src={profile.avatar} />
             </div>
-            <div className={styles["profile-user-full-name"]}>
-              {user?.fullName}
+            <div className={styles['profile-user-full-name']}>
+              {profile?.fullName}
             </div>
-            <div className={styles["profile-user-info"]}>{user?.info}</div>
+            <div className={styles['profile-user-info']}>{profile?.info}</div>
           </div>
 
           <Switch>
-            <Route exact path={`/u/${user.username}`}>
-              <div className={styles["profile-posts"]}>
-                <div className={styles["profile-tabs"]}>
+            <Route exact path={`/${profile.username}`}>
+              <div className={styles['profile-posts']}>
+                <div className={styles['profile-tabs']}>
                   <div
                     className={joinClass(
-                      styles["profile-tabs-links-post"],
-                      styles["tab-link"],
-                      styles["active"]
+                      styles['profile-tabs-links-post'],
+                      styles['tab-link'],
+                      styles['active']
                     )}
                   >
-                    <Link to={`/u/${user.username}`}>
+                    <Link to={`/${profile.username}`}>
                       <span>
-                        {posts?.length || 0} {text["post"]}
+                        {posts?.length || null} {text['post']}
                       </span>
                     </Link>
                   </div>
                   <div
                     className={joinClass(
-                      styles["profile-tabs-links-rank"],
-                      styles["tab-link"]
+                      styles['profile-tabs-links-rank'],
+                      styles['tab-link']
                     )}
                   >
-                    {/* <Link to={`/u/${user.username}/r`}> */}
-                    <span style={{ color: "#CACFD4" }}>
-                      {user?.rank || ""} {text["rank"]}
+                    {/* <Link to={`/${user.username}/r`}> */}
+                    <span style={{ color: '#CACFD4' }}>
+                      {profile?.rank || ''} {text['rank']}
                     </span>
                     {/* </Link> */}
                   </div>
@@ -84,69 +86,71 @@ const MyProfile: React.FC<any> = ({ history, user, posts }) => {
                   <PostFeedPreview>
                     {posts?.map(
                       (
-                        post: { id: number; img: string; url: string | number },
+                        post: any,
                         index: number
                       ): ReactChild => {
-                        console.log("HWR", { user, post });
                         return (
                           <Link
                             key={index}
                             to={{
-                              pathname: `/u/${user.username}/p/${post.id}`,
+                              pathname: `/p/${post.id}`,
                               state: {
-                                user: clone(user),
-                                post: clone(post),
+                                profile: JSON.parse(JSON.stringify(profile)),
+                                post: JSON.parse(JSON.stringify(post)),
                               },
                             }}
                           >
-                            <PostImage id={post.id} src={post.img} />
+                            {post.resources.map((resource: IPostResource, index: number) => (
+                              <PostImage key={index} id={post.id} src={resource.origin} />
+                            ))}
                           </Link>
                         );
                       }
                     )}
                   </PostFeedPreview>
                 ) : (
-                  <div className={styles["profile-posts-empty"]}>
-                    <p>{text["share"]}</p>
-                    <Upload />
-                  </div>
-                )}
+                    <div className={styles['profile-posts-empty']}>
+                      <p>{text['share']}</p>
+                      <Upload />
+                    </div>
+                  )}
               </div>
             </Route>
-            <Route path={`/u/${user.username}/r`}>
-              <div className={styles["profile-tabs"]}>
+            <Route exact path={`/${profile.username}/r`}>
+              <div className={styles['profile-tabs']}>
                 <div
                   className={joinClass(
-                    styles["profile-tabs-links-post"],
-                    styles["tab-link"]
+                    styles['profile-tabs-links-post'],
+                    styles['tab-link']
                   )}
                 >
-                  <Link to={`/u/${user.username}`}>
+                  <Link to={`/${profile.username}`}>
                     <span>
-                      {user?.quantityPosts} {text["post"]}
+                      {posts?.length || 0} {text['post']}
                     </span>
                   </Link>
                 </div>
                 <div
                   className={joinClass(
-                    styles["profile-tabs-links-rank"],
-                    styles["tab-link"],
-                    styles["active"]
+                    styles['profile-tabs-links-rank'],
+                    styles['tab-link'],
+                    styles['active']
                   )}
                 >
-                  <Link to={`/u/${user.username}/r`}>
+                  <Link to={`/${profile.username}/r`}>
                     <span>
-                      {user?.rank} {text["rank"]}
+                      {profile?.rank} {text['rank']}
                     </span>
                   </Link>
                 </div>
               </div>
               <span
-                style={{ textAlign: "center", display: "block", marginTop: 30 }}
+                style={{ textAlign: 'center', display: 'block', marginTop: 30 }}
               >
-                {text["rankProcess"]}
+                {text['rankProcess']}
               </span>
             </Route>
+            <Redirect from='*' to='/404' />
           </Switch>
         </div>
       </div>

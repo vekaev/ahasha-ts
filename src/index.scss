@@ -80,6 +80,11 @@ a {
 
 a, button {
   cursor: pointer;
+  user-select: none;
+
+  span {
+    user-select: none;
+  }
 }
 
 img {
@@ -91,4 +96,15 @@ img {
   min-width: 100%;
   padding: 0 20px;
   margin: 0 auto;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+
+  -webkit-appearance: none;
+
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
 }

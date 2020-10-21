@@ -1,38 +1,65 @@
-import React, { ChangeEvent, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { BackIcon } from "../../components/Icons/Icons";
-import EditProfile from "../../pages/Settings/EditProfile/EditProfile";
-import { IUserData } from "../../pages/Settings/Interfaces";
-import BirthDayModal from "../../pages/Settings/ModalForm/BirthDayModal/BirthDayModal";
-import FullNameModal from "../../pages/Settings/ModalForm/FullNameModal/FullNameModal";
-import GenderModal from "../../pages/Settings/ModalForm/GenderModal/GenderModal";
-import withModal from "../../components/Modal/Modal";
-import UserNameModal from "../../pages/Settings/ModalForm/UserNameModal/UserNameModal";
-import Layout from "../Layout/Layout";
-import { LangContext } from "./../../components/LangContext/LangContext";
+import React, { ChangeEvent, useState, useContext, useEffect } from 'react';
+import { RouteChildrenProps, useHistory } from 'react-router-dom';
+import { BackIcon } from '../../components/Icons/Icons';
+import EditProfile from '../../pages/settings2/EditProfile/EditProfile';
+import { IUserData } from '../../Interfaces';
+import BirthDayModal from '../../pages/settings2/ModalForm/BirthDayModal/BirthDayModal';
+import FullNameModal from '../../pages/settings2/ModalForm/FullNameModal/FullNameModal';
+import GenderModal from '../../pages/settings2/ModalForm/GenderModal/GenderModal';
+import withModal from '../../components/Modal/Modal';
+import UserNameModal from '../../pages/settings2/ModalForm/UserNameModal/UserNameModal';
+import Layout from '../Layout/Layout';
+import { LangContext } from './../../components/LangContext/LangContext';
+import { ProfileContext } from '../../components/ProfileContext/ProfileContext';
+import { observer } from "mobx-react";
+import { Session } from "../../data";
 
-const EditProfileContainer: React.FC<any> = (props) => {
+interface EditProps {
+  session: Session;
+}
+
+const Edit: React.FC<any> = (props: EditProps) => {
   const history = useHistory();
-
+  const profileContext: any = useContext(ProfileContext);
+  const profile = profileContext?.profile;
   const [userData, setUserData] = useState<IUserData>({
-    avatar: "https://modnaya.org/uploads/posts/2013-08/1376555614_emo-stil.jpg",
-    firstName: "Andrei",
-    lastName: "Lukashenko",
-    userName: "AndreiLukashenko",
+    avatar: '',
+    firstName: '',
+    lastName: '',
+    userName: '',
     birthDay: {
-      day: 18,
-      month: 10,
-      year: 1997,
+      day: 0,
+      month: 0,
+      year: 0,
     },
-    gender: "Male",
+    gender: '',
   });
+
+  useEffect(() => {
+    if (profile) {
+
+      const [year, day, mounth] = profile.birthday.split('-');
+
+      setUserData({
+        avatar: profile.avatar,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        userName: profile.username,
+        birthDay: {
+          day: day,
+          month: mounth.slice(0, 2),
+          year: year,
+        },
+        gender: profile.gender,
+      })
+    }
+  }, [profile])
+
 
   const changeAvatar = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files.length > 0) {
-      setUserData({
-        ...userData,
-        avatar: URL.createObjectURL(event.target.files[0]),
-      });
+      props.session.profileUpdate(userData, event.target.files[0]);
+      setUserData({ ...userData, avatar: URL.createObjectURL(event.target.files[0]) })
     }
   };
 
@@ -50,19 +77,19 @@ const EditProfileContainer: React.FC<any> = (props) => {
     let component: React.FC<any> = () => null;
 
     switch (command) {
-      case "fullName":
+      case 'fullName':
         component = withModal(FullNameModal);
         break;
-      case "userName":
+      case 'userName':
         component = withModal(UserNameModal);
         break;
-      case "birthDay":
+      case 'birthDay':
         component = withModal(BirthDayModal);
         break;
-      case "gender":
+      case 'gender':
         component = GenderModal;
         break;
-      case "close":
+      case 'close':
         setIsOpenModal({
           flag: false,
           component: () => null,
@@ -83,12 +110,12 @@ const EditProfileContainer: React.FC<any> = (props) => {
   };
 
   const langContext = useContext(LangContext);
-  let text = langContext?.useLocale()["editProfile"];
+  let text = langContext?.useLocale()['editProfile'];
 
   const header = {
-    middle: text["headerTitle"],
+    middle: text['headerTitle'],
     onClickMiddle: () => {
-      console.log("middle");
+      console.log('middle');
     },
     left: <BackIcon />,
     onClickLeft: () => {
@@ -96,13 +123,18 @@ const EditProfileContainer: React.FC<any> = (props) => {
     },
   };
 
+  const handleFormSet = (data: any) => {
+    setUserData(data)
+    props.session.profileUpdate(data);
+  }
+
   return (
     <Layout header={header}>
       {isOpenModal.flag && (
         <ModalWindow
           showModal={showModal}
           userData={userData}
-          setUserData={setUserData}
+          setUserData={handleFormSet}
         />
       )}
       <EditProfile
@@ -114,4 +146,4 @@ const EditProfileContainer: React.FC<any> = (props) => {
   );
 };
 
-export default EditProfileContainer;
+export const EditProfileContainer = observer(Edit);

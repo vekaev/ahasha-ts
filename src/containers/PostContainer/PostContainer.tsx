@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { BackIcon, MoreIcon } from '../../components/Icons/Icons';
 import Post from '../../pages/user/post/Post';
 import Layout from '../Layout/Layout';
+import moment from 'moment';
+import { observer } from 'mobx-react';
+import { SessionContext } from '../../components/SessionContext/SessionContext';
+import { Session } from '../../data/TestData2';
 
 // TODO: universal hoc
 // const userContainer = (Component) => (props) => {
@@ -16,19 +20,25 @@ import Layout from '../Layout/Layout';
 //   )
 // );
 
-const PostContainer: React.FC<any> = ({ history, location }) => {
-  const [post, setPost] = useState(location?.state?.post);
+const PostContainer: React.FC<any> = ({ history, location, match, post }) => {
+  const userPost = location?.state?.post || post?.current;
+  const { session } = useContext(SessionContext);
+  const profile = location?.state?.profile || session?.profile;
+  const params: any = match.params;
 
-  if (!post) {
-    console.log('!post')
+  useEffect(() => {
+    if (!userPost) {
+      post.one(params.postId);
+    }
 
-    // useEffect(() => { 
-    //   setPost();
-    // }, []);
+    if (!session?.profile) {
+      console.log("!session?.profile")
+    }
+  }, [post, session]);
+
+  if (!profile || !session?.profile) {
+    return null;
   }
-
-  const user = location?.state?.user;
-  const myUsername = location?.state?.myUsername;
 
   const header = {
     left: <BackIcon />,
@@ -45,16 +55,13 @@ const PostContainer: React.FC<any> = ({ history, location }) => {
   return (
     <Layout
       header={header}
-      user={user}
-      myUsername={myUsername}
     >
       <Post
-        post={post}
-        user={user}
-        myUsername={myUsername}
+        post={userPost}
+        profile={profile}
       />
     </Layout>
   );
 }
 
-export default withRouter(PostContainer);
+export default observer(withRouter(PostContainer));

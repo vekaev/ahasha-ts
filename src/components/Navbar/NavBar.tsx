@@ -1,91 +1,85 @@
 import React, { ReactChild, useEffect, useState } from 'react';
 import { NavLink, withRouter } from "react-router-dom";
-import { IUser } from '../../pages/Settings/Interfaces';
+import { Profile, Session } from '../../data';
 import { Chat, Home, Saved, User, Add } from '../Icons/Icons';
 import styles from './NavBar.module.scss'
 
 interface LinkProps {
-    link: string;
-    disabled?: boolean;
-    exact?: boolean;
-    children: ReactChild
+  link: string;
+  disabled?: boolean;
+  exact?: boolean;
+  children: ReactChild;
+  profile?: any;
 }
 
 const LinkComponent = ({ link, disabled, children, exact }: LinkProps) => {
-    return (
-        <li className={`${styles[`navigation__list-item`]} ${disabled && styles['disabled']}`}>
-            <NavLink exact={exact} to={link} activeClassName={styles['active']}>
-                {children}
-            </NavLink>
-        </li>
-    )
+  return (
+    <li className={`${styles[`navigation__list-item`]} ${disabled && styles['disabled']}`}>
+      <NavLink exact={exact} to={link} activeClassName={styles['active']}>
+        {children}
+      </NavLink>
+    </li>
+  )
 }
 
 const UploadPhoto: React.FC<any> = ({ history, children, className }) => {
 
-    const [img, setImg] = useState<string | ArrayBuffer | null>()
+  const [files, setFiles] = useState()
 
-    useEffect(() => {
-        if (img) {
-            history.push({
-                pathname: '/add-photo',
-                state: { img }
-            })
-        }
-    }, [img])
-
-    const onSelectFile = (e: any) => {
-        if (e.target.files && e.target.files.length > 0) {
-            const reader = new FileReader();
-            reader.addEventListener("load", () => setImg(reader.result));
-            reader.readAsDataURL(e.target.files[0]);
-        }
+  useEffect(() => {
+    if (files) {
+      history.push({
+        pathname: '/add-photo',
+        state: { files }
+      })
     }
+  }, [files])
 
-    return (
-        <>
-            <li className={className ? className : styles[`navigation__list-item`]}>
-                <label style={
-                    {
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "100%",
-                        cursor: "pointer"
-                    }
-                } htmlFor="upload__image">
-                    {children ? children : <Add />}
-                </label>
-                <input hidden accept="image/*" id='upload__image' onChange={onSelectFile} type='file' />
-            </li>
-        </>
-    )
+  const onSelectFile = (e: any) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFiles(e.target.files);
+    }
+  }
+
+  return (
+    <>
+      <li className={className ? className : styles[`navigation__list-item`]}>
+        <label style={
+          {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            cursor: "pointer",
+            userSelect: 'none',
+          }
+        } htmlFor="upload__image">
+          {children ? children : <Add />}
+        </label>
+        <input hidden accept="image/*" id='upload__image' onChange={onSelectFile} type='file' />
+      </li>
+    </>
+  )
 }
 
 export const Upload = withRouter(UploadPhoto);
 
 interface INavBarProps {
-    user: IUser;
+  userProfile?: any;
+  myUsername?: string;
+  session: Session;
 }
 
-export const NavBar: React.FC<INavBarProps> = ({ user }) => {
-    const [profileVisible, setProfileVisible] = useState(true);
-
-    useEffect(() => {
-        if (!user) {
-            setProfileVisible(false);
-        }
-    }, [user])
-
-    return (
-        <nav className={styles['navigation']}>
-            <ul className={styles['navigation__list']}>
-                <LinkComponent disabled exact link='/'><Home /></LinkComponent>
-                <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
-                <Upload />
-                <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
-                <LinkComponent exact disabled={profileVisible ? false : true} link={`/u/${user?.username}`}><User /></LinkComponent>
-            </ul>
-        </nav>
-    )
+export const NavBar: React.FC<INavBarProps> = ({ userProfile, myUsername, session }) => {
+  return (
+    <nav className={styles['navigation']}>
+      <ul className={styles['navigation__list']}>
+        <LinkComponent disabled exact link='/'><Home /></LinkComponent>
+        <LinkComponent disabled link='/chat'><Chat /></LinkComponent>
+        {session?.profile ? <Upload /> : null}
+        <LinkComponent disabled link='/saved'><Saved /></LinkComponent>
+        <LinkComponent exact link={`/${session?.profile?.username}`}><User /></LinkComponent>
+      </ul>
+    </nav>
+  )
 }

@@ -1,69 +1,72 @@
 {
-    "header": {
-      "main": "Main",
-      "moonBoard": "Moon board",
-      "newPost": "New Post",
-      "search": "Search",
-      "SignIn": "Sign In"
-    },
-    "addPhoto": {
-      "headerTitle": "New post",
-      "buttonTitle": "Publish"
-    },
-    "acoount": {
-      "headerTitle": "Settings",
-      "acoountList": {
-        "editProfile": "Edit profile",
-        "language": "Language",
-        "parameters": "Parameters",
-        "help": "Help",
-        "information": "Information",
-        "signOut": "Sign out"
-      }
-    },
-    "editProfile": {
-      "headerTitle": "Edit Profile",
-      "changePhoto": "fChange photo",
-      "editProfileList": {
-        "fullName": "Full name",
-        "userName": "Username",
-        "birthDay": "Birthday",
-        "gender": "Gender"
-      },
-      "modalWindow": {
-        "buttonCancel": "Cancel",
-        "buttonSave": "Save"
-      },
-      "formFullName": {
-        "firstName": "First Name",
-        "lastName": "Last Name"
-      },
-      "formUserName": {
-        "userName": "Username"
-      },
-      "formBirthDay": {
-        "day": "Day",
-        "month": "Month",
-        "year": "Year"
-      },
-      "formGender": {
-        "male": "Male",
-        "female": "Female",
-        "third": "Third",
-        "buttonCancel": "Cancel"
-      }
-    },
-    "user": {
-      "profile": {
-        "header": "profile",
-        "post": "post",
-        "rank": "rank",
-        "noPhoto": "This profile has no photo yet.",
-        "share": "Share the first photo with people!",
-        "rankProcess": "Rank is under construction"
-      },
-      "post": {
-        "notFound": "Post not found"
-      }
+  "verify": {
+    "loadingText": "Authorization in progress"
+  },
+  "header": {
+    "main": "Main",
+    "moonBoard": "Moon board",
+    "newPost": "New Post",
+    "search": "Search",
+    "SignIn": "Sign In"
+  },
+  "addPhoto": {
+    "headerTitle": "New post",
+    "buttonTitle": "Publish"
+  },
+  "acoount": {
+    "headerTitle": "Settings",
+    "acoountList": {
+      "editProfile": "Edit profile",
+      "language": "Language",
+      "parameters": "Parameters",
+      "help": "Help",
+      "information": "Information",
+      "signOut": "Sign out"
     }
-  }  
+  },
+  "editProfile": {
+    "headerTitle": "Edit Profile",
+    "changePhoto": "fChange photo",
+    "editProfileList": {
+      "fullName": "Full name",
+      "userName": "Username",
+      "birthDay": "Birthday",
+      "gender": "Gender"
+    },
+    "modalWindow": {
+      "buttonCancel": "Cancel",
+      "buttonSave": "Save"
+    },
+    "formFullName": {
+      "firstName": "First Name",
+      "lastName": "Last Name"
+    },
+    "formUserName": {
+      "userName": "Username"
+    },
+    "formBirthDay": {
+      "day": "Day",
+      "month": "Month",
+      "year": "Year"
+    },
+    "formGender": {
+      "male": "Male",
+      "female": "Female",
+      "third": "Custom",
+      "buttonCancel": "Cancel"
+    }
+  },
+  "user": {
+    "profile": {
+      "header": "profile",
+      "post": "post",
+      "rank": "rank",
+      "noPhoto": "This profile has no photo yet.",
+      "share": "Share the first photo with people!",
+      "rankProcess": "Rank is under construction"
+    },
+    "post": {
+      "notFound": "Post not found"
+    }
+  }
+}
