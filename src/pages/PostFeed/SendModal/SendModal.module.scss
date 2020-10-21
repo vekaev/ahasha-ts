@@ -1,0 +1,156 @@
+.send-modal {
+  max-width: 375px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px 16px 0px 0px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0px);
+
+  @media screen and (min-width: 950px) {
+    bottom: unset;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+  }
+
+  &-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+
+  &-content {
+    padding: 30px 20px;
+
+    &-btn {
+      font-size: 14px;
+      line-height: 16px;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #a2a9b2;
+      margin-bottom: 30px;
+    }
+
+    &-options {
+      // display: flex;
+      // justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      justify-items: center;
+      margin-bottom: 24px;
+
+      @media screen and (max-width: 374.98px) {
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 10px;
+      }
+    }
+
+    &-option {
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(180deg, #2aabee 0%, #229eda 100%);
+        border-radius: 8px;
+        margin-bottom: 9px;
+        border-radius: 8px;
+      }
+
+      &:last-child,
+      &:nth-last-child(2) {
+        .send-modal-content-option-icon {
+          background: #eff2f5;
+        }
+      }
+
+      span {
+        font-size: 10px;
+        line-height: 16px;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #a2a9b2;
+        display: block;
+      }
+    }
+
+    &-search {
+      background: #eff2f5;
+      border-radius: 20px;
+      margin-bottom: 21.3px;
+
+      @media screen and (min-width: 950px) {
+        margin-bottom: 23.75px;
+      }
+
+      span {
+        font-size: 14px;
+        line-height: 18px;
+        display: flex;
+        align-items: center;
+        color: #7d8793;
+        padding: 9px 0px 9px 20.26px;
+      }
+    }
+
+    &-contacts {
+    }
+
+    &-contact {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      &-user {
+        display: flex;
+        align-items: center;
+        &-photo {
+          width: 30px;
+          height: 30px;
+          margin-right: 12px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 58px;
+          }
+        }
+
+        span {
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 18px;
+          color: #171d33;
+        }
+      }
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 37.14px;
+        height: 37.14px;
+        background: #ffeef0;
+        border-radius: 50%;
+
+        svg {
+          width: 12.12px;
+          height: 11.95px;
+
+          path {
+            fill: #ff441b;
+          }
+        }
+      }
+    }
+  }
+}

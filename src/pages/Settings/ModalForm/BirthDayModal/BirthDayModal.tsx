@@ -1,47 +1,109 @@
-import React, { useState, useContext } from "react";
-import { IModalDataProps } from "../../Interfaces";
-import styles from "../ModalForm.module.scss";
-import { LangContext } from "../../../../components/LangContext/LangContext";
+import React, { useState, useContext, useRef } from 'react';
+import { IModalDataProps } from '../../Interfaces';
+import styles from '../ModalForm.module.scss';
+import { LangContext } from '../../../../components/LangContext/LangContext';
 
 const BirthDayModal: React.FC<IModalDataProps> = ({
   userData,
   setUserData,
   showModal,
 }) => {
+  const day = useRef<any>(null);
+  const month = useRef<any>(null);
+  const year = useRef<any>(null);
+
   const [data, setData] = useState({
     day: userData.birthDay.day,
     month: userData.birthDay.month,
     year: userData.birthDay.year,
   });
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ): void => {
+  const validation = (field: string, value: string) => {
+    switch (field) {
+      case 'day':
+        if (+data.month === 2) {
+          return +data.year % 4 === 0
+            ? /^(0[1-9]|[2][0-9])$/.test(value)
+            : /^(0[1-9]|[2][0-8])$/.test(value);
+        }
+        if (+data.month % 2 === 0 && +data.month < 8) {
+          return /([0-2]\d|3[0])/.test(value);
+        } else if (+data.month % 2 !== 0 && +data.month < 8) {
+          return /([0-2]\d|3[0-1])/.test(value);
+        }
+        if (+data.month % 2 === 0 && +data.month >= 8) {
+          return /([0-2]\d|3[0-1])/.test(value);
+        } else if (+data.month % 2 !== 0 && +data.month >= 8) {
+          return /([0-2]\d|3[0])/.test(value);
+        }
+        break;
+      case 'month':
+        return /(0[1-9]|1[0-2])/.test(value);
+      case 'year':
+        if (+data.day === 29 && +data.month === 2) {
+          return +value % 4 === 0 ? true : false;
+        }
+        return /19[0-9][0-9]|20[01][0-9]/.test(value);
+    }
+  };
+
+  const dayChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, maxLength } = event.target;
 
-    if (Object.keys(data).length > index + 1) {
+    if (value.length >= maxLength) {
+      if (!validation(name, value)) return;
       setData({
         ...data,
         [name]: value,
       });
-      if (value.length >= maxLength) {
-        refs[index + 1].focus();
-      }
+
+      month.current.focus();
     } else {
       setData({
         ...data,
         [name]: value,
       });
-      if (value.length >= maxLength) {
-        let test = value;
-        setData((prev) => ({
-          ...prev,
-          [name]: `${test}\r`,
-        }));
-        refs[index].setSelectionRange(0, 0);
-        refs[index].blur();
-      }
+    }
+  };
+
+  const monthChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value, maxLength } = event.target;
+
+    if (value.length >= maxLength) {
+      if (!validation(name, value)) return;
+      if (!validation('day', data.day.toString())) return;
+      setData({
+        ...data,
+        [name]: value,
+      });
+
+      year.current.focus();
+    } else {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    }
+  };
+
+  const yearChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value, maxLength } = event.target;
+
+    if (value.length >= maxLength) {
+      if (!validation(name, value)) return;
+
+      setData({
+        ...data,
+        [name]: value,
+      });
+
+      year.current.setSelectionRange(0, 0);
+      year.current.blur();
+    } else {
+      setData({
+        ...data,
+        [name]: value,
+      });
     }
   };
 
@@ -50,7 +112,7 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
 
     setData((prev) => ({
       ...prev,
-      [name]: "",
+      [name]: '',
     }));
   };
 
@@ -67,68 +129,72 @@ const BirthDayModal: React.FC<IModalDataProps> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
+    for (const [field, value] of Object.entries(data)) {
+      if (!validation(field, value.toString())) {
+        return;
+      }
+    }
+
     setUserData({
       ...userData,
       birthDay: {
         ...data,
       },
     });
-
-    showModal("close");
+    showModal('close');
   };
 
-  const refs: any = {};
-
   const langContext = useContext(LangContext);
-  let text = langContext?.useLocale()["modalWindow"]["formBirthDay"];
+  let text = langContext?.useLocale()['modalWindow']['formBirthDay'];
   return (
     <>
       <form
-        id="modal-form"
-        className={styles["modal-form"]}
+        id='modal-form'
+        className={styles['modal-form']}
         onSubmit={handleSubmit}
       >
-        <div className={styles["modal-form-input-wrapper"]}>
-          <label className={styles["modal-form-label"]}>
-            {text["day"]}
+        <div className={styles['modal-form-input-wrapper']}>
+          <label className={styles['modal-form-label']}>
+            {text['day']}
             <input
-              type="tel"
-              name="day"
-              className={`${styles["modal-form-input"]} ${styles["w52"]}`}
+              type='text'
+              name='day'
+              className={`${styles['modal-form-input']} ${styles['w52']}`}
               value={data.day}
-              onChange={(e) => handleChange(e, 0)}
+              onChange={dayChange}
+              ref={day}
               maxLength={2}
-              ref={(ref) => (refs["0"] = ref)}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
           </label>
 
-          <label className={styles["modal-form-label"]}>
-            {text["month"]}
+          <label className={styles['modal-form-label']}>
+            {text['month']}
             <input
-              type="tel"
-              name="month"
-              className={`${styles["modal-form-input"]} ${styles["w52"]}`}
+              type='text'
+              name='month'
+              className={`${styles['modal-form-input']} ${styles['w52']}`}
               value={data.month}
-              onChange={(e) => handleChange(e, 1)}
+              onChange={monthChange}
+              ref={month}
               maxLength={2}
-              ref={(ref) => (refs["1"] = ref)}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
           </label>
 
-          <label className={styles["modal-form-label"]}>
-            {text["year"]}
+          <label className={styles['modal-form-label']}>
+            {text['year']}
             <input
-              type="tel"
-              name="year"
-              className={`${styles["modal-form-input"]} ${styles["w112"]}`}
+              type='text'
+              name='year'
+              className={`${styles['modal-form-input']} ${styles['w112']}`}
               value={data.year}
-              onChange={(e) => handleChange(e, 2)}
+              onChange={yearChange}
+              ref={year}
               maxLength={4}
-              ref={(ref) => (refs["2"] = ref)}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />

@@ -1,0 +1,104 @@
+.actions-desktop {
+  max-width: 160px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 7px 30px rgba(54, 47, 47, 0.07);
+  border-radius: 8px;
+
+  position: absolute;
+  // bottom: -46px;
+  // right: -160px;
+  padding: 24px 25px;
+  z-index: 999;
+
+  &-action {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+
+    &:hover {
+      svg {
+        path {
+          stroke: #ff1b52;
+        }
+      }
+
+      span {
+        color: #ff1b52;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+
+    svg {
+      margin-right: 12.43px;
+    }
+
+    span {
+      font-size: 14px;
+      line-height: 14px;
+      color: #000000;
+    }
+  }
+}
+
+.actions-mobile {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+
+  &-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+  }
+
+  &-action {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: all ease-in 0.1s;
+
+    &.active {
+      background: #ff1b52;
+
+      &:nth-last-of-type(1) {
+        svg {
+          path {
+            fill: #fff;
+          }
+        }
+      }
+
+      svg {
+        path {
+          stroke: #ffffff;
+        }
+      }
+    }
+  }
+
+  &-name {
+    position: absolute;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+  }
+}

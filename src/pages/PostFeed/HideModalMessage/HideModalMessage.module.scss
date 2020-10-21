@@ -1,0 +1,36 @@
+.hide-modal-message {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 999;
+
+  span {
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    font-weight: 5000;
+    display: block;
+    font-weight: 400;
+
+    &:first-child {
+      font-weight: 500;
+    }
+  }
+
+  button {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    position: absolute;
+    bottom: 10px;
+  }
+}

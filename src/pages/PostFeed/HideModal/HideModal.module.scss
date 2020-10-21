@@ -1,0 +1,175 @@
+.hide-modal {
+  max-width: 335px;
+  width: 100%;
+  background: #fff;
+  border-radius: 16px;
+
+  position: absolute;
+  left: 50%;
+  bottom: 54px;
+  transform: translate(-50%, 0px);
+
+  @media screen and (min-width: 950px) {
+    bottom: unset;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+
+  &-content {
+    padding: 30px 16px 16px;
+
+    &-title {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 16px;
+      text-align: center;
+      color: #000000;
+      margin: 0;
+      margin-bottom: 31px;
+    }
+
+    &-options {
+      display: flex;
+      flex-direction: column;
+
+      &-buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    &-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 28px;
+
+      &:nth-last-child(2) {
+        margin-bottom: 43px;
+      }
+
+      input[type='radio'] {
+        &:not(:checked) {
+          position: absolute;
+          left: -9999px;
+
+          & + label {
+            &::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 16px;
+              height: 16px;
+              border: 1px solid #000000;
+              border-radius: 100%;
+              background: #fff;
+            }
+
+            &::after {
+              content: '';
+              width: 16px;
+              height: 16px;
+              background: #000000;
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              border: 1px solid #000000;
+              border-radius: 100%;
+              -webkit-transition: all 0.2s ease;
+              transition: all 0.2s ease;
+              opacity: 0;
+              -webkit-transform: scale(0);
+              transform: scale(0);
+            }
+          }
+        }
+        &:checked {
+          position: absolute;
+          left: -9999px;
+
+          & + label {
+            &::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 16px;
+              height: 16px;
+              border: 1px solid #000000;
+              border-radius: 100%;
+              background: #fff;
+            }
+
+            &::after {
+              content: '';
+              width: 16px;
+              height: 16px;
+              background: #000000;
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              border: 1px solid #000000;
+              border-radius: 100%;
+              -webkit-transition: all 0.2s ease;
+              transition: all 0.2s ease;
+              opacity: 1;
+              -webkit-transform: scale(1);
+              transform: scale(1);
+            }
+          }
+        }
+      }
+
+      label {
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        color: #000000;
+        padding-left: 7px;
+        position: relative;
+        padding-left: 39px;
+      }
+    }
+  }
+}
+
+.btn-next {
+  background: #000000;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.btn-cancel {
+  display: none;
+  background: #eff2f5;
+  border-radius: 8px;
+
+  @media screen and (min-width: 950px) {
+    display: block;
+  }
+}
+
+.hide-modal-btn {
+  padding: 16px 0px;
+  min-width: 100%;
+
+  @media screen and (min-width: 950px) {
+    min-width: 146px;
+  }
+}

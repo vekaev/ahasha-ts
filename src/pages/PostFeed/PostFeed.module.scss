@@ -1,0 +1,159 @@
+@import '../../media.scss';
+
+.header-title {
+  font-family: 'Didot';
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  color: #000;
+}
+
+.post-feed-container {
+  max-width: 928px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+
+  margin-top: 20px;
+
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
+  // column-gap: 10px;
+  // row-gap: 20px;
+
+  columns: 2;
+  column-gap: 10px;
+
+  @include for-tablet-portrait-up {
+    columns: 3;
+    margin-top: 40px;
+  }
+
+  @media screen and (min-width: 950px) {
+    columns: 4;
+    column-gap: 16px;
+    margin-top: 65px;
+  }
+}
+
+.publication {
+  margin-bottom: 20px;
+  page-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  &-likes {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 3px;
+    }
+
+    span {
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 12px;
+      text-align: right;
+      letter-spacing: 0.5px;
+      color: #000000;
+    }
+  }
+
+  &-content {
+    display: block;
+    position: relative;
+    width: 100%;
+
+    @media screen and (min-width: 950px) {
+      &:hover .publication-options,
+      &.active .publication-options {
+        opacity: 1;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  &-options {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    opacity: 0;
+    z-index: 3;
+    transition: all ease-in 0.3s;
+
+    @media screen and (min-width: 950px) {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-like,
+    &-others {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    &-like {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 15px;
+    }
+
+    &-others {
+      background: #000000;
+      backdrop-filter: blur(4px);
+      border-radius: 15px;
+
+      svg {
+        circle {
+          fill: #fff;
+        }
+      }
+    }
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+
+  &-photo {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 58px;
+    }
+  }
+
+  &-name {
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+    color: #171d33;
+  }
+}
